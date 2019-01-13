@@ -22,19 +22,21 @@ public class Move extends Command {
   private boolean isFinished = false;
   // private double targetDistance;
 
+  private double targetDistance;
+
   public Move(double distance) {
     requires(Robot.driveSubsystem);
     // Use requires() here to declare subsystem dependencies
 
    this.targetDistance = distance;
-   targetDistance = 
+   
 
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveSubsystem.MoveLR();
+    Robot.driveSubsystem.MoveLR(0,0);
 
   }
 
