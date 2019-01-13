@@ -65,5 +65,21 @@ public class RobotMap {
     
     outtakeTalon = new WPI_TalonSRX(outtakeTalonPort);
     outtakeTalon.set(ControlMode.PercentOutput, 0);
+
+    leftMasterTalon.config_kF(0, 0.08497, timeoutMs); // calculated 0.08497, raised to 
+    leftMasterTalon.config_kP(0, 0.005, timeoutMs); // 0.005
+    leftMasterTalon.config_kI(0, 0, timeoutMs); // 0.001
+    leftMasterTalon.config_kD(0, 0, timeoutMs);
+    leftMasterTalon.config_IntegralZone(0, 1000, timeoutMs);
+
+    leftMasterTalon.configClosedloopRamp(0.25, timeoutMs);
+
+    rightMasterTalon.config_kF(0, 0.09, timeoutMs); // calculated was 0.08757 raised to 0.09 for tuning
+    rightMasterTalon.config_kP(0, 0.005, timeoutMs); // 0.005
+    rightMasterTalon.config_kI(0, 0, timeoutMs);
+    rightMasterTalon.config_kD(0, 0, timeoutMs);
+    rightMasterTalon.config_IntegralZone(0, 1000, timeoutMs);
+
+    rightMasterTalon.configClosedloopRamp(0.25, timeoutMs);
   }
 }
