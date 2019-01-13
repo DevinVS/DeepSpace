@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -14,13 +18,21 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-  public static int leftMasterTalon = 1;
-  public static int leftSlaveTalon = 2;
-  public static int rightMasterTalon = 3;
-  public static int rightSlaveTalon = 4;
-  public static int intakeTalon = 5;
-  public static int intakeTalonTwo = 6; 
+  public static int leftMasterTalonPort = 1;
+  public static int leftSlaveTalonPort = 2;
+  public static int rightMasterTalonPort = 3;
+  public static int rightSlaveTalonPort = 4;
+  public static int intakeTalonPort = 5;
+  public static int outtakeTalonPort = 6;
 
+  public static WPI_TalonSRX leftMasterTalon;
+  public static WPI_TalonSRX leftSlaveTalon;
+  public static WPI_TalonSRX rightMasterTalon;
+  public static WPI_TalonSRX rightSlaveTalon;
+  public static WPI_TalonSRX intakeTalon;
+  public static WPI_TalonSRX outtakeTalon;
+
+  private static int timeoutMs = 10;  
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
   // public static int leftMotor = 1;
@@ -30,4 +42,28 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
+
+  public void init(){
+    leftMasterTalon = new WPI_TalonSRX(leftMasterTalonPort);
+    leftMasterTalon.set(ControlMode.PercentOutput, 0);
+    leftMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, timeoutMs);
+
+    leftSlaveTalon = new WPI_TalonSRX(leftSlaveTalonPort);
+    leftSlaveTalon.set(ControlMode.PercentOutput, 0);
+    leftSlaveTalon.follow(leftMasterTalon);
+
+    rightMasterTalon = new WPI_TalonSRX(rightMasterTalonPort);
+    rightMasterTalon.set(ControlMode.PercentOutput, 0);
+    rightMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, timeoutMs);
+
+    rightSlaveTalon = new WPI_TalonSRX(rightSlaveTalonPort);
+    rightSlaveTalon.set(ControlMode.PercentOutput, 0);
+    rightSlaveTalon.follow(rightMasterTalon);
+
+    intakeTalon = new WPI_TalonSRX(intakeTalonPort);
+    intakeTalon.set(ControlMode.PercentOutput, 0);
+    
+    outtakeTalon = new WPI_TalonSRX(outtakeTalonPort);
+    outtakeTalon.set(ControlMode.PercentOutput, 0);
+  }
 }

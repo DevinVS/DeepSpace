@@ -46,10 +46,10 @@ public class DriveSubsystem extends Subsystem {
    encoderPulsePerDistance = (((encoderRevsPerWheelRev) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
     
     
-    leftMasterTalon = new WPI_TalonSRX(RobotMap.leftMasterTalon);
-    leftSlaveTalon = new WPI_TalonSRX(RobotMap.leftSlaveTalon);
-    rightMasterTalon = new WPI_TalonSRX(RobotMap.rightMasterTalon);
-    rightSlaveTalon = new WPI_TalonSRX(RobotMap.rightSlaveTalon);
+    leftMasterTalon = RobotMap.leftMasterTalon;
+    leftSlaveTalon = RobotMap.leftSlaveTalon;
+    rightMasterTalon = RobotMap.rightMasterTalon;
+    rightSlaveTalon = RobotMap.rightSlaveTalon;
   
 
 
