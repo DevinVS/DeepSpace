@@ -20,7 +20,11 @@ import frc.robot.RobotMap;
 public class IntakeSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-public static WPI_TalonSRX intakeTalon;
+public static WPI_TalonSRX leftIntakeTalon;
+public static WPI_TalonSRX rightIntakeTalon;
+
+private static final float INPUT_INTAKE_RATIO = .5f;
+private static final float INPUT_OUTAKE_RATIO = 1;
 
   @Override
   public void initDefaultCommand() {
@@ -29,22 +33,28 @@ public static WPI_TalonSRX intakeTalon;
   }
 
   public IntakeSubsystem(){
-    intakeTalon = new WPI_TalonSRX(RobotMap.intakeTalon);
-    intakeTalon.setNeutralMode(NeutralMode.Brake);
+    leftIntakeTalon = RobotMap.leftIntakeTalon;
+    leftIntakeTalon.setNeutralMode(NeutralMode.Brake);
+
+    rightIntakeTalon = RobotMap.rightIntakeTalon;
+    rightIntakeTalon.setNeutralMode(NeutralMode.Brake);
   }
 
   public void IntakeBall(){
       
-    intakeTalon.set(ControlMode.PercentOutput, -.3);
+    leftIntakeTalon.set(ControlMode.PercentOutput, INPUT_INTAKE_RATIO);
+    rightIntakeTalon.set(ControlMode.PercentOutput, -INPUT_INTAKE_RATIO);
 
   }
 
   public void EndIntake(){
-    intakeTalon.set(ControlMode.PercentOutput, 0);
+    leftIntakeTalon.set(ControlMode.PercentOutput, 0);
+    rightIntakeTalon.set(ControlMode.PercentOutput, 0);
   }
 
   public void OutakeBall(){
-    intakeTalon.set(ControlMode.PercentOutput, 1);
+    leftIntakeTalon.set(ControlMode.PercentOutput, -INPUT_OUTAKE_RATIO);
+    rightIntakeTalon.set(ControlMode.PercentOutput, INPUT_OUTAKE_RATIO);
   }
 
   

@@ -29,8 +29,8 @@ public class RobotMap {
   public static WPI_TalonSRX leftSlaveTalon;
   public static WPI_TalonSRX rightMasterTalon;
   public static WPI_TalonSRX rightSlaveTalon;
-  public static WPI_TalonSRX intakeTalon;
-  public static WPI_TalonSRX outtakeTalon;
+  public static WPI_TalonSRX leftIntakeTalon;
+  public static WPI_TalonSRX rightIntakeTalon;
 
   private static int timeoutMs = 10;  
   // For example to map the left and right motors, you could define the
@@ -60,10 +60,10 @@ public class RobotMap {
     rightSlaveTalon.set(ControlMode.PercentOutput, 0);
     rightSlaveTalon.follow(rightMasterTalon);
 
-    intakeTalon = new WPI_TalonSRX(intakeTalonPort);
-    intakeTalon.set(ControlMode.PercentOutput, 0);
+    leftIntakeTalon = new WPI_TalonSRX(intakeTalonPort);
+    leftIntakeTalon.set(ControlMode.PercentOutput, 0);
     
-    outtakeTalon = new WPI_TalonSRX(outtakeTalonPort);
-    outtakeTalon.set(ControlMode.PercentOutput, 0);
+    rightIntakeTalon = new WPI_TalonSRX(outtakeTalonPort);
+    rightIntakeTalon.set(ControlMode.PercentOutput, 0);
   }
 }

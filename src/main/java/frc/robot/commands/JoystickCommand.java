@@ -18,7 +18,7 @@ import frc.robot.subsystems.DriveSubsystem;
  * An example command.  You can replace me with your own command.
  */
 public class JoystickCommand extends Command {
-  private static final float INPUT_DRIVE_RATIO = 0.75f;
+  private static final float INPUT_DRIVE_RATIO = 1f;
 
   public JoystickCommand() {
     // Use requires() here to declare subsystem dependencies
