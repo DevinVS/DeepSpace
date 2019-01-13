@@ -49,9 +49,6 @@ public class JoystickCommand extends Command {
 
    Robot.driveSubsystem.tankDrive.arcadeDrive(rightStickValueX, rightStickValueY, true);
     System.out.println(DriveSubsystem.leftMasterTalon.getActiveTrajectoryVelocity());
-  
-
-    
 
   }
 
