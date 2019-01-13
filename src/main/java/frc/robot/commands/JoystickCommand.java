@@ -12,6 +12,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 //import frc.robot.OI;
+import frc.robot.subsystems.DriveSubsystem;
 
 /**
  * An example command.  You can replace me with your own command.
@@ -47,7 +48,7 @@ public class JoystickCommand extends Command {
     }*/
 
    Robot.driveSubsystem.tankDrive.arcadeDrive(rightStickValueX, rightStickValueY, true);
-
+    System.out.println(DriveSubsystem.leftMasterTalon.getActiveTrajectoryVelocity());
   
 
     
