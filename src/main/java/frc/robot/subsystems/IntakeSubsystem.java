@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -28,7 +29,7 @@ public static WPI_TalonSRX intakeTalon;
   }
 
   public IntakeSubsystem(){
-    intakeTalon = new WPI_TalonSRX(5);
+    intakeTalon = new WPI_TalonSRX(RobotMap.intakeTalon);
     intakeTalon.setNeutralMode(NeutralMode.Brake);
   }
 

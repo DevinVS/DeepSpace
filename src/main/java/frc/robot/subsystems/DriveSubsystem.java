@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 //import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.RobotMap;
 import frc.robot.commands.JoystickCommand;
 
 /**
@@ -45,10 +46,10 @@ public class DriveSubsystem extends Subsystem {
    encoderPulsePerDistance = (((encoderRevsPerWheelRev) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
     
     
-    leftMasterTalon = new WPI_TalonSRX(1);
-    leftSlaveTalon = new WPI_TalonSRX(2);
-    rightMasterTalon = new WPI_TalonSRX(3);
-    rightSlaveTalon = new WPI_TalonSRX(4);
+    leftMasterTalon = new WPI_TalonSRX(RobotMap.leftMasterTalon);
+    leftSlaveTalon = new WPI_TalonSRX(RobotMap.leftSlaveTalon);
+    rightMasterTalon = new WPI_TalonSRX(RobotMap.rightMasterTalon);
+    rightSlaveTalon = new WPI_TalonSRX(RobotMap.rightSlaveTalon);
   
 
 
