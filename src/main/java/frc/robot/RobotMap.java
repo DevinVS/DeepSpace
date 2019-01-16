@@ -22,8 +22,8 @@ public class RobotMap {
   public static int leftSlaveTalonPort = 2;
   public static int rightMasterTalonPort = 3;
   public static int rightSlaveTalonPort = 4;
-  public static int intakeTalonPort = 5;
-  public static int outtakeTalonPort = 6;
+  public static int leftTalonPort = 5;
+  public static int rightTalonPort = 6;
 
   public static WPI_TalonSRX leftMasterTalon;
   public static WPI_TalonSRX leftSlaveTalon;
@@ -60,14 +60,12 @@ public class RobotMap {
     rightSlaveTalon.set(ControlMode.PercentOutput, 0);
     rightSlaveTalon.follow(rightMasterTalon);
 
-    leftIntakeTalon = new WPI_TalonSRX(intakeTalonPort);
+    leftIntakeTalon = new WPI_TalonSRX(leftTalonPort);
     leftIntakeTalon.set(ControlMode.PercentOutput, 0);
    
-    rightIntakeTalon = new WPI_TalonSRX(outtakeTalonPort);
+    rightIntakeTalon = new WPI_TalonSRX(rightTalonPort);
     rightIntakeTalon.set(ControlMode.PercentOutput, 0);
 
-    outtakeTalon = new WPI_TalonSRX(outtakeTalonPort);
-    outtakeTalon.set(ControlMode.PercentOutput, 0);
 
     leftMasterTalon.config_kF(0, 0.08497, timeoutMs); // calculated 0.08497, raised to 
     leftMasterTalon.config_kP(0, 0.005, timeoutMs); // 0.005

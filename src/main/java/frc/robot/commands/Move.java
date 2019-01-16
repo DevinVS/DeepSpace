@@ -5,61 +5,61 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+// package frc.robot.commands;
 
-// import com.ctre.phoenix.motorcontrol.ControlMode;
+// // import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-// import frc.robot.OI;
+// import edu.wpi.first.wpilibj.command.Command;
+// import frc.robot.Robot;
+// // import frc.robot.OI;
 
 
-/**
- * An example command.  You can replace me with your own command.
- */
-public class Move extends Command {
+// /**
+//  * An example command.  You can replace me with your own command.
+//  */
+// public class Move extends Command {
 
-  private boolean isFinished = false;
-  // private double targetDistance;
+//   private boolean isFinished = false;
+//   // private double targetDistance;
 
-  private double targetDistance;
+//   private double targetDistance;
 
-  public Move(double distance) {
-    requires(Robot.driveSubsystem);
-    // Use requires() here to declare subsystem dependencies
+//   public Move(double distance) {
+//     requires(Robot.driveSubsystem);
+//     // Use requires() here to declare subsystem dependencies
 
-   this.targetDistance = distance;
+//    this.targetDistance = distance;
    
 
-  }
+//   }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    Robot.driveSubsystem.MoveLR(0,0);
+//   // Called just before this Command runs the first time
+//   @Override
+//   protected void initialize() {
+//     Robot.driveSubsystem.MoveLR(0,0);
 
-  }
+//   }
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
+//   // Called repeatedly when this Command is scheduled to run
+//   @Override
+//   protected void execute() {
     
-  }
+//   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return isFinished;
-  }
+//   // Make this return true when this Command no longer needs to run execute()
+//   @Override
+//   protected boolean isFinished() {
+//     return isFinished;
+//   }
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+//   // Called once after isFinished returns true
+//   @Override
+//   protected void end() {
+//   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
-}
+//   // Called when another command which requires one or more of the same
+//   // subsystems is scheduled to run
+//   @Override
+//   protected void interrupted() {
+//   }
+// }
