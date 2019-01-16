@@ -56,11 +56,9 @@ public class DriveSubsystem extends Subsystem {
     leftSlaveTalon.follow(leftMasterTalon);
     rightSlaveTalon.follow(rightMasterTalon);
 
-    rightMasterTalon.setInverted(true);
-    rightSlaveTalon.setInverted(true);
-
-    tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);
     
+
+    tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);   
   }
 
   public void Stop(){

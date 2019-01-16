@@ -23,6 +23,7 @@ import frc.robot.subsystems.IntakeSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static RobotMap robotMap = new RobotMap();
   public static DriveSubsystem driveSubsystem = new DriveSubsystem();
   public static OI m_oi;
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();

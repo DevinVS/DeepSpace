@@ -1,65 +1,62 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-// package frc.robot.commands;
+package frc.robot.commands;
 
-// // import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.command.Command;
 
-// import edu.wpi.first.wpilibj.command.Command;
-// import frc.robot.Robot;
-// // import frc.robot.OI;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.Robot;
 
+public class Move extends Command {
 
-// /**
-//  * An example command.  You can replace me with your own command.
-//  */
-// public class Move extends Command {
+  private WPI_TalonSRX leftMasterTalon;
+  private WPI_TalonSRX rightMasterTalon;
+  private double targetDistance;
 
-//   private boolean isFinished = false;
-//   // private double targetDistance;
-
-//   private double targetDistance;
-
-//   public Move(double distance) {
-//     requires(Robot.driveSubsystem);
-//     // Use requires() here to declare subsystem dependencies
-
-//    this.targetDistance = distance;
-   
-
-//   }
-
-//   // Called just before this Command runs the first time
-//   @Override
-//   protected void initialize() {
-//     Robot.driveSubsystem.MoveLR(0,0);
-
-//   }
-
-//   // Called repeatedly when this Command is scheduled to run
-//   @Override
-//   protected void execute() {
+  public Move(int distance) {
+    // Use requires() here to declare subsystem dependencies
+    requires(Robot.driveSubsystem);
+    this.targetDistance = distance;
+  }
+  
     
-//   }
 
-//   // Make this return true when this Command no longer needs to run execute()
-//   @Override
-//   protected boolean isFinished() {
-//     return isFinished;
-//   }
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
 
-//   // Called once after isFinished returns true
-//   @Override
-//   protected void end() {
-//   }
+    leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
+    rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
 
-//   // Called when another command which requires one or more of the same
-//   // subsystems is scheduled to run
-//   @Override
-//   protected void interrupted() {
-//   }
-// }
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
+    rightMasterTalon.set(ControlMode.MotionMagic, targetDistance);
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return (leftMasterTalon.isMotionProfileFinished() && rightMasterTalon.isMotionProfileFinished());
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+  }
+}

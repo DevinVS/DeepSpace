@@ -23,8 +23,8 @@ public class IntakeSubsystem extends Subsystem {
 public static WPI_TalonSRX leftIntakeTalon;
 public static WPI_TalonSRX rightIntakeTalon;
 
-private static final float INPUT_INTAKE_RATIO = .5f;
-private static final float INPUT_OUTAKE_RATIO = 1;
+private static final float INPUT_INTAKE_RATIO = .3f;
+private static final float INPUT_OUTAKE_RATIO = .5f;
 
   @Override
   public void initDefaultCommand() {

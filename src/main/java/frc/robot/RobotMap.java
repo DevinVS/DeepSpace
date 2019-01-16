@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
@@ -18,10 +19,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  * floating around.
  */
 public class RobotMap {
-  public static int leftMasterTalonPort = 1;
-  public static int leftSlaveTalonPort = 2;
-  public static int rightMasterTalonPort = 3;
-  public static int rightSlaveTalonPort = 4;
+  public static int leftMasterTalonPort = 2;
+  public static int leftSlaveTalonPort = 1;
+  public static int rightMasterTalonPort = 4;
+  public static int rightSlaveTalonPort = 3;
   public static int leftTalonPort = 5;
   public static int rightTalonPort = 6;
 
@@ -42,7 +43,9 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
-
+  public RobotMap(){
+    init();
+  }
   public void init(){
     leftMasterTalon = new WPI_TalonSRX(leftMasterTalonPort);
     leftMasterTalon.set(ControlMode.PercentOutput, 0);
@@ -52,13 +55,16 @@ public class RobotMap {
     leftSlaveTalon.set(ControlMode.PercentOutput, 0);
     leftSlaveTalon.follow(leftMasterTalon);
 
+
     rightMasterTalon = new WPI_TalonSRX(rightMasterTalonPort);
     rightMasterTalon.set(ControlMode.PercentOutput, 0);
     rightMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, timeoutMs);
+    rightMasterTalon.setInverted(true);
 
     rightSlaveTalon = new WPI_TalonSRX(rightSlaveTalonPort);
     rightSlaveTalon.set(ControlMode.PercentOutput, 0);
     rightSlaveTalon.follow(rightMasterTalon);
+    rightSlaveTalon.setInverted(InvertType.FollowMaster);
 
     leftIntakeTalon = new WPI_TalonSRX(leftTalonPort);
     leftIntakeTalon.set(ControlMode.PercentOutput, 0);
