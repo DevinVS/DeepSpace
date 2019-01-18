@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 //import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.RobotMap;
+import frc.robot.Robot;
 import frc.robot.commands.JoystickCommand;
 
 /**
@@ -23,15 +23,8 @@ import frc.robot.commands.JoystickCommand;
  */
 public class DriveSubsystem extends Subsystem {
 
-  //1 = back left
-  //2 = front left
-  //3 = back right
-  //4 =  back left
-
   public static WPI_TalonSRX rightMasterTalon;
-  private static WPI_TalonSRX rightSlaveTalon;
   public static WPI_TalonSRX leftMasterTalon;
-  private static WPI_TalonSRX leftSlaveTalon;
   
 
   private static double encoderRevsPerWheelRev = 7.5;
@@ -43,20 +36,10 @@ public class DriveSubsystem extends Subsystem {
 
     //return (int) (((encoderRevsPerWheelRev * feetPerSec) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
     
-   encoderPulsePerDistance = (((encoderRevsPerWheelRev) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
+    encoderPulsePerDistance = (((encoderRevsPerWheelRev) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
     
-    
-    leftMasterTalon = RobotMap.leftMasterTalon;
-    leftSlaveTalon = RobotMap.leftSlaveTalon;
-    rightMasterTalon = RobotMap.rightMasterTalon;
-    rightSlaveTalon = RobotMap.rightSlaveTalon;
-  
-
-
-    leftSlaveTalon.follow(leftMasterTalon);
-    rightSlaveTalon.follow(rightMasterTalon);
-
-    
+    leftMasterTalon = Robot.robotMap.leftMasterTalon;
+    rightMasterTalon = Robot.robotMap.rightMasterTalon;
 
     tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);   
   }
