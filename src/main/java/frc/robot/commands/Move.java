@@ -10,18 +10,24 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class Move extends Command {
 
-
+  private WPI_TalonSRX leftMasterTalon;
+  private WPI_TalonSRX rightMasterTalon;
   private double targetDistance;
+
+
 
   public Move(int distance) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveSubsystem);
     this.targetDistance = distance;
+    leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
+    rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
   }
   
     
@@ -36,14 +42,14 @@ public class Move extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    RobotMap.leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
-    RobotMap.rightMasterTalon.set(ControlMode.MotionMagic, targetDistance);
+    leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
+    rightMasterTalon.set(ControlMode.MotionMagic, targetDistance);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (RobotMap.leftMasterTalon.isMotionProfileFinished() && RobotMap.rightMasterTalon.isMotionProfileFinished());
+    return (leftMasterTalon.isMotionProfileFinished() && rightMasterTalon.isMotionProfileFinished());
   }
 
   // Called once after isFinished returns true
