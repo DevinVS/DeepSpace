@@ -14,19 +14,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Robot;
 
 
-public class Move extends Command {
+public class Turn extends Command {
 
-  private static final double pulsesPerFoot = 1;
+  private static final double pulsesPerDegree = 1;
   private WPI_TalonSRX leftMasterTalon;
   private WPI_TalonSRX rightMasterTalon;
   private double targetDistance;
 
 
 
-  public Move(int distance) {
+  public Turn(double degrees) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveSubsystem);
-    this.targetDistance = distance;
+    this.targetDistance = pulsesPerDegree * degrees;
     leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
     rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
   }
@@ -43,7 +43,6 @@ public class Move extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    targetDistance *= pulsesPerFoot;
     leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
     rightMasterTalon.set(ControlMode.MotionMagic, targetDistance);
   }
