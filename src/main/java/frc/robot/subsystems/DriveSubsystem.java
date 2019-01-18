@@ -67,6 +67,11 @@ public class DriveSubsystem extends Subsystem {
     
   }
 
+  public static void MoveForward(double motorPower){
+    leftMasterTalon.set(motorPower);
+    rightMasterTalon.set(motorPower);
+  }
+
   public static void MoveLR (double leftValue, double rightValue){
     leftMasterTalon.set(leftValue);
     rightMasterTalon.set(rightValue);

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OutakeCommand;
+import frc.robot.commands.Move;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -47,6 +48,7 @@ public class OI {
 
   public JoystickButton buttonOne;
   public JoystickButton buttonThree;
+  public JoystickButton buttonEleven;
   public Joystick right;
   public Joystick left;
 
@@ -57,10 +59,12 @@ public class OI {
     right = new Joystick(1);
     buttonOne = new JoystickButton(right,1);
     buttonThree = new JoystickButton(right,3);
+    buttonEleven = new JoystickButton(right,11);
+
 
     buttonOne.whileHeld(new IntakeCommand());
     buttonThree.whileHeld(new OutakeCommand());
-
+    buttonEleven.whenPressed(new Move(1000));
   }
 
 }

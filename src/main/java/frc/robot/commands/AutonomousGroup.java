@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-// package frc.robot.commands;
+package frc.robot.commands;
 
-// import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 
-// /**
-//  * An example command.  You can replace me with your own command.
-//  */
-// public class AutonomousGroup extends CommandGroup {
+/**
+ * An example command.  You can replace me with your own command.
+ */
+public class AutonomousGroup extends CommandGroup {
   
-//   public AutonomousGroup() {
-//     addSequential(new Move(10));
+  public AutonomousGroup() {
+    addSequential(new Move(10));
     
-//   }
-// }
+  }
+}
