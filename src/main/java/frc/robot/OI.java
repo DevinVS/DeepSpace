@@ -67,7 +67,7 @@ public class OI {
 
     buttonOne.whileHeld(new IntakeCommand());
     buttonThree.whileHeld(new OutakeCommand());
-    buttonEleven.whenPressed(new Move(1000));
+    buttonEleven.whenPressed(new Move(320000));
 
     gyro = new AHRS(Port.kMXP);
   }

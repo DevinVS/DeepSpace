@@ -80,6 +80,7 @@ public class RobotMap {
     leftMasterTalon.configMotionCruiseVelocity(11000, timeoutMs); 
     leftMasterTalon.configMotionAcceleration(5500, timeoutMs);
     leftMasterTalon.configClosedloopRamp(0.25, timeoutMs);
+    leftMasterTalon.configAllowableClosedloopError(0, 42, timeoutMs);
 
     rightMasterTalon.config_kF(0, 0.09, timeoutMs); // calculated was 0.08757 raised to 0.09 for tuning
     rightMasterTalon.config_kP(0, 0.005, timeoutMs); // 0.005

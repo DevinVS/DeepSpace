@@ -41,7 +41,8 @@ public class DriveSubsystem extends Subsystem {
     leftMasterTalon = Robot.robotMap.leftMasterTalon;
     rightMasterTalon = Robot.robotMap.rightMasterTalon;
 
-    tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);   
+    tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);
+       
   }
 
   public static void Stop(){

@@ -19,16 +19,18 @@ public class Move extends Command {
   private static final double pulsesPerFoot = 1;
   private WPI_TalonSRX leftMasterTalon;
   private WPI_TalonSRX rightMasterTalon;
-  private double targetDistance;
+  private double leftTargetDistance;
+  private double rightTargetDistance;
 
 
 
   public Move(int distance) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveSubsystem);
-    this.targetDistance = distance;
     leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
     rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
+    this.leftTargetDistance = distance + leftMasterTalon.getSelectedSensorPosition();
+    this.rightTargetDistance = distance + rightMasterTalon.getSelectedSensorPosition();
   }
   
     
@@ -43,15 +45,19 @@ public class Move extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    targetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, targetDistance);
+    leftTargetDistance *= pulsesPerFoot;
+    rightTargetDistance *= pulsesPerFoot;
+    leftMasterTalon.set(ControlMode.MotionMagic, leftTargetDistance);
+    rightMasterTalon.set(ControlMode.MotionMagic, rightTargetDistance);
+    Robot.driveSubsystem.tankDrive.feed();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (leftMasterTalon.isMotionProfileFinished() && rightMasterTalon.isMotionProfileFinished());
+    double error = Math.abs(leftTargetDistance-leftMasterTalon.getSelectedSensorPosition());
+    System.out.println(error);
+    return error < 42f;
   }
 
   // Called once after isFinished returns true
