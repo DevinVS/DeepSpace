@@ -7,50 +7,45 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import frc.robot.Robot;
 
+public class PIDTurn extends PIDCommand {
 
-public class Turn extends Command {
+  private PIDController pidController;
 
-  private static final double pulsesPerDegree = 1;
-  private WPI_TalonSRX leftMasterTalon;
-  private WPI_TalonSRX rightMasterTalon;
-  private double targetDistance;
-
-
-
-  public Turn(double degrees) {
+  public PIDTurn(double degrees) {
     // Use requires() here to declare subsystem dependencies
+    super(.05,0,0);
     requires(Robot.driveSubsystem);
-    this.targetDistance = pulsesPerDegree * degrees;
-    leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
-    rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
+
+    pidController = getPIDController();
+    pidController.setInputRange(-180,180);
+    pidController.setAbsoluteTolerance(1);
+    pidController.setSetpoint(degrees);
+
   }
-  
-    
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
 
+    pidController.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, -targetDistance);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (leftMasterTalon.isMotionProfileFinished() && rightMasterTalon.isMotionProfileFinished());
+    return pidController.onTarget();
   }
 
   // Called once after isFinished returns true
@@ -64,5 +59,14 @@ public class Turn extends Command {
   protected void interrupted() {
   }
 
-  
+  @Override
+  protected double returnPIDInput() {
+    return 0;
+  }
+
+  @Override
+  protected void usePIDOutput(double output) {
+    Robot.driveSubsystem.leftMasterTalon.set(ControlMode.PercentOutput, output);
+    Robot.driveSubsystem.rightMasterTalon.set(ControlMode.PercentOutput, -output);
+  }
 }

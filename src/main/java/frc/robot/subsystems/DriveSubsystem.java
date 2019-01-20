@@ -44,7 +44,7 @@ public class DriveSubsystem extends Subsystem {
     tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);   
   }
 
-  public void Stop(){
+  public static void Stop(){
     rightMasterTalon.set(ControlMode.PercentOutput, 0);
     leftMasterTalon.set(ControlMode.PercentOutput, 0);
     
