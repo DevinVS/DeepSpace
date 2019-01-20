@@ -12,6 +12,14 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+
+
+import edu.wpi.first.wpilibj.TimedRobot;
+
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -25,6 +33,15 @@ public class RobotMap {
   public static int rightSlaveTalonPort = 3;
   public static int leftTalonPort = 5;
   public static int rightTalonPort = 6;
+
+  public static CANSparkMax testBrushLess;
+
+  public static CANEncoder liftEncoder;
+
+//Change this id to the port we are going to use
+  private static int liftMotorID = 10;
+
+  public static CANPIDController liftPid;
 
   public static WPI_TalonSRX leftMasterTalon;
   public static WPI_TalonSRX leftSlaveTalon;
@@ -88,6 +105,20 @@ public class RobotMap {
     rightMasterTalon.config_IntegralZone(0, 1000, timeoutMs);
 
     rightMasterTalon.configClosedloopRamp(0.25, timeoutMs);
+
+    //This is the lift motor
+    testBrushLess = new CANSparkMax(liftMotorID, MotorType.kBrushless);
+    //encoder for testBrushLess
+    liftEncoder = testBrushLess.getEncoder();
+
+    liftPid = testBrushLess.getPIDController();
+
+    liftPid.setP(0.1);
+    liftPid.setI(1e-4);
+    liftPid.setD(1);
+    liftPid.setIZone(0);
+    liftPid.setFF(0);
+    liftPid.setOutputRange(-1, 1);
 
   }
 }
