@@ -41,10 +41,11 @@ public class DriveSubsystem extends Subsystem {
     leftMasterTalon = Robot.robotMap.leftMasterTalon;
     rightMasterTalon = Robot.robotMap.rightMasterTalon;
 
-    tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);   
+    tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);
+       
   }
 
-  public void Stop(){
+  public static void Stop(){
     rightMasterTalon.set(ControlMode.PercentOutput, 0);
     leftMasterTalon.set(ControlMode.PercentOutput, 0);
     

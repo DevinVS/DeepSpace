@@ -7,7 +7,10 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OutakeCommand;
@@ -51,7 +54,7 @@ public class OI {
   public JoystickButton buttonEleven;
   public Joystick right;
   public Joystick left;
-
+  public AHRS gyro;
   
 
   public OI(){
@@ -64,7 +67,9 @@ public class OI {
 
     buttonOne.whileHeld(new IntakeCommand());
     buttonThree.whileHeld(new OutakeCommand());
-    buttonEleven.whenPressed(new Move(1000));
+    buttonEleven.whenPressed(new Move(320000));
+
+    gyro = new AHRS(Port.kMXP);
   }
 
 }

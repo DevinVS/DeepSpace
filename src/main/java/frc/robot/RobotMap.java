@@ -72,7 +72,6 @@ public class RobotMap {
     leftSlaveTalon.set(ControlMode.PercentOutput, 0);
     leftSlaveTalon.follow(leftMasterTalon);
 
-
     rightMasterTalon = new WPI_TalonSRX(rightMasterTalonPort);
     rightMasterTalon.set(ControlMode.PercentOutput, 0);
     rightMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, timeoutMs);
@@ -95,14 +94,19 @@ public class RobotMap {
     leftMasterTalon.config_kI(0, 0, timeoutMs); // 0.001
     leftMasterTalon.config_kD(0, 0, timeoutMs);
     leftMasterTalon.config_IntegralZone(0, 1000, timeoutMs);
-
+    leftMasterTalon.configMotionCruiseVelocity(11000, timeoutMs); 
+    leftMasterTalon.configMotionAcceleration(5500, timeoutMs);
     leftMasterTalon.configClosedloopRamp(0.25, timeoutMs);
+    leftMasterTalon.configAllowableClosedloopError(0, 42, timeoutMs);
 
     rightMasterTalon.config_kF(0, 0.09, timeoutMs); // calculated was 0.08757 raised to 0.09 for tuning
     rightMasterTalon.config_kP(0, 0.005, timeoutMs); // 0.005
     rightMasterTalon.config_kI(0, 0, timeoutMs);
     rightMasterTalon.config_kD(0, 0, timeoutMs);
     rightMasterTalon.config_IntegralZone(0, 1000, timeoutMs);
+
+    rightMasterTalon.configMotionCruiseVelocity(11000, timeoutMs); 
+    rightMasterTalon.configMotionAcceleration(5500, timeoutMs);
 
     rightMasterTalon.configClosedloopRamp(0.25, timeoutMs);
 

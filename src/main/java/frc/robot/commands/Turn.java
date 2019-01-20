@@ -44,7 +44,7 @@ public class Turn extends Command {
   @Override
   protected void execute() {
     leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, targetDistance);
+    rightMasterTalon.set(ControlMode.MotionMagic, -targetDistance);
   }
 
   // Make this return true when this Command no longer needs to run execute()
