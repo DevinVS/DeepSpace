@@ -50,7 +50,7 @@ public class RobotMap {
   public static WPI_TalonSRX leftIntakeTalon;
   public static WPI_TalonSRX rightIntakeTalon;
 
-  private static int timeoutMs = 10;  
+  public static int timeoutMs = 10;  
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
   // public static int leftMotor = 1;
@@ -89,26 +89,39 @@ public class RobotMap {
     rightIntakeTalon.set(ControlMode.PercentOutput, 0);
 
 
-    leftMasterTalon.config_kF(0, 0.08497, timeoutMs); // calculated 0.08497, raised to 
-    leftMasterTalon.config_kP(0, 0.005, timeoutMs); // 0.005
+    leftMasterTalon.config_kF(0, 0.085, timeoutMs); // calculated 0.08497, raised to 0.09
+    leftMasterTalon.config_kP(0, 0, timeoutMs); // 0.005
     leftMasterTalon.config_kI(0, 0, timeoutMs); // 0.001
     leftMasterTalon.config_kD(0, 0, timeoutMs);
     leftMasterTalon.config_IntegralZone(0, 1000, timeoutMs);
     leftMasterTalon.configMotionCruiseVelocity(11000, timeoutMs); 
     leftMasterTalon.configMotionAcceleration(5500, timeoutMs);
     leftMasterTalon.configClosedloopRamp(0.25, timeoutMs);
-    leftMasterTalon.configAllowableClosedloopError(0, 42, timeoutMs);
+    leftMasterTalon.configAllowableClosedloopError(0, 475, timeoutMs);
 
-    rightMasterTalon.config_kF(0, 0.09, timeoutMs); // calculated was 0.08757 raised to 0.09 for tuning
-    rightMasterTalon.config_kP(0, 0.005, timeoutMs); // 0.005
+    leftMasterTalon.configNominalOutputForward(0, timeoutMs);
+		leftMasterTalon.configNominalOutputReverse(0, timeoutMs);
+		leftMasterTalon.configPeakOutputForward(1, timeoutMs);
+    leftMasterTalon.configPeakOutputReverse(-1, timeoutMs);
+
+    leftMasterTalon.setSelectedSensorPosition(0, 0, timeoutMs);
+
+    rightMasterTalon.config_kF(0, 0.085, timeoutMs); // calculated was 0.08757 raised to 0.09 for tuning
+    rightMasterTalon.config_kP(0, 0.065, timeoutMs); // 0.005
     rightMasterTalon.config_kI(0, 0, timeoutMs);
     rightMasterTalon.config_kD(0, 0, timeoutMs);
     rightMasterTalon.config_IntegralZone(0, 1000, timeoutMs);
-
     rightMasterTalon.configMotionCruiseVelocity(11000, timeoutMs); 
     rightMasterTalon.configMotionAcceleration(5500, timeoutMs);
-
     rightMasterTalon.configClosedloopRamp(0.25, timeoutMs);
+    rightMasterTalon.configAllowableClosedloopError(0, 475, timeoutMs);
+
+    rightMasterTalon.configNominalOutputForward(0, timeoutMs);
+	  rightMasterTalon.configNominalOutputReverse(0, timeoutMs);
+	  rightMasterTalon.configPeakOutputForward(1, timeoutMs);
+    rightMasterTalon.configPeakOutputReverse(-1, timeoutMs);
+
+    rightMasterTalon.setSelectedSensorPosition(0, 0, timeoutMs);
 
     //This is the lift motor
     testBrushLess = new CANSparkMax(liftMotorID, MotorType.kBrushless);

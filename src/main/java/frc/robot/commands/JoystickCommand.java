@@ -36,6 +36,7 @@ public class JoystickCommand extends Command {
     double rightStickValueY = Robot.m_oi.right.getY() *INPUT_DRIVE_RATIO;
     double rightStickValueX = -Robot.m_oi.right.getX() *INPUT_DRIVE_RATIO;
     
+    
     // If(Robot.m_oi.right.getRawButtonPressed(1) = 1){
 
     // }

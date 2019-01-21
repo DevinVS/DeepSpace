@@ -29,8 +29,9 @@ public class Move extends Command {
     requires(Robot.driveSubsystem);
     leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
     rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
-    this.leftTargetDistance = distance + leftMasterTalon.getSelectedSensorPosition();
-    this.rightTargetDistance = distance + rightMasterTalon.getSelectedSensorPosition();
+
+    this.leftTargetDistance = distance;
+    this.rightTargetDistance = distance;
   }
   
     
@@ -38,26 +39,30 @@ public class Move extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
+    Robot.driveSubsystem.zero();
 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
+
     leftTargetDistance *= pulsesPerFoot;
     rightTargetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, leftTargetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, rightTargetDistance);
+    leftMasterTalon.set(ControlMode.MotionMagic, -leftTargetDistance);
+    rightMasterTalon.set(ControlMode.MotionMagic, -rightTargetDistance);
     Robot.driveSubsystem.tankDrive.feed();
+    
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = Math.abs(leftTargetDistance-leftMasterTalon.getSelectedSensorPosition());
+    double error = leftMasterTalon.getSelectedSensorPosition() + leftTargetDistance;
     System.out.println(error);
-    return error < 42f;
+    return false;
   }
 
   // Called once after isFinished returns true

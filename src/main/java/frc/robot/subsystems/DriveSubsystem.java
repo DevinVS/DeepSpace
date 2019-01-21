@@ -68,4 +68,10 @@ public class DriveSubsystem extends Subsystem {
     setDefaultCommand(new JoystickCommand());
 
   }
+
+  public void zero(){
+    System.out.println("Zeroing");
+    leftMasterTalon.setSelectedSensorPosition(0, 0, Robot.robotMap.timeoutMs);
+    rightMasterTalon.setSelectedSensorPosition(0, 0, Robot.robotMap.timeoutMs);
+  }
 }
