@@ -19,8 +19,7 @@ public class Move extends Command {
   private static final double pulsesPerFoot = 1;
   private WPI_TalonSRX leftMasterTalon;
   private WPI_TalonSRX rightMasterTalon;
-  private double leftTargetDistance;
-  private double rightTargetDistance;
+  private double targetVel;
 
 
 
@@ -30,8 +29,7 @@ public class Move extends Command {
     leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
     rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
 
-    this.leftTargetDistance = distance;
-    this.rightTargetDistance = distance;
+    this.targetVel = distance;
   }
   
     
@@ -48,10 +46,10 @@ public class Move extends Command {
   protected void execute() {
     
 
-    leftTargetDistance *= pulsesPerFoot;
-    rightTargetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, -leftTargetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, -rightTargetDistance);
+    //leftTargetDistance *= pulsesPerFoot;
+    //rightTargetDistance *= pulsesPerFoot;
+    //leftMasterTalon.set(ControlMode.Velocity, targetVel);
+    rightMasterTalon.set(ControlMode.Velocity, targetVel);
     Robot.driveSubsystem.tankDrive.feed();
     
     
@@ -60,7 +58,7 @@ public class Move extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = leftMasterTalon.getSelectedSensorPosition() + leftTargetDistance;
+    double error = rightMasterTalon.getSelectedSensorVelocity() - targetVel;
     System.out.println(error);
     return false;
   }

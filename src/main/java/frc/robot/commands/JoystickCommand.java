@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 //import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -48,8 +50,9 @@ public class JoystickCommand extends Command {
         rightStickValue = 0;
     }*/
 
-   Robot.driveSubsystem.tankDrive.arcadeDrive(rightStickValueX, rightStickValueY, true);
-
+   //Robot.driveSubsystem.tankDrive.arcadeDrive(rightStickValueX, rightStickValueY, true);
+    Robot.driveSubsystem.leftMasterTalon.set(ControlMode.PercentOutput, Robot.m_oi.left.getY());
+    Robot.driveSubsystem.rightMasterTalon.set(ControlMode.PercentOutput, Robot.m_oi.left.getY());
 
   }
 
