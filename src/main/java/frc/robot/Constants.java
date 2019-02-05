@@ -5,99 +5,183 @@ public class Constants{
     private static boolean Weld = true;
     public static int encoderTicksToAxleRevs = 4096;
 
-    public static double kTimeoutMs = 20;
+    public static int kTimeoutMs = 20;
 
-    public static double distance_kP;
-    public static double distance_kI;
-    public static double distance_kD;
-    public static double distance_kF;
-    public static double distance_Iz;
-    public static double distance_PeakOut;
+    public static double lDistance_kP;
+    public static double lDistance_kI;
+    public static double lDistance_kD;
+    public static double lDistance_kF;
+    public static double lDistance_Iz;
+    public static double lDistance_PeakOut;
 
-    public static double turning_kP; 
-    public static double turning_kI;
-    public static double turning_kD;
-    public static double turning_kF;
-    public static double turning_Iz;
-    public static double turning_PeakOut; 
+    public static double lTurning_kP; 
+    public static double lTurning_kI;
+    public static double lTurning_kD;
+    public static double lTurning_kF;
+    public static double lTurning_Iz;
+    public static double lTurning_PeakOut; 
 
-    public static double velocity_kP;
-    public static double velocity_kI;
-    public static double velocity_kD;
-    public static double velocity_kF;
-    public static double velocity_Iz;
-    public static double velocity_PeakOut;
+    public static double lVelocity_kP;
+    public static double lVelocity_kI;
+    public static double lVelocity_kD;
+    public static double lVelocity_kF;
+    public static double lVelocity_Iz;
+    public static double lVelocity_PeakOut;
 
-    public static double motProf_kP;
-    public static double motProf_kI;
-    public static double motProf_kD;
-    public static double motProf_kF;
-    public static double motProf_Iz;
-    public static double motProf_PeakOut;
+    public static double lMotProf_kP;
+    public static double lMotProf_kI;
+    public static double lMotProf_kD;
+    public static double lMotProf_kF;
+    public static double lMotProf_Iz;
+    public static double lMotProf_PeakOut;
 
+    public static double rDistance_kP;
+    public static double rDistance_kI;
+    public static double rDistance_kD;
+    public static double rDistance_kF;
+    public static double rDistance_Iz;
+    public static double rDistance_PeakOut;
+
+    public static double rTurning_kP; 
+    public static double rTurning_kI;
+    public static double rTurning_kD;
+    public static double rTurning_kF;
+    public static double rTurning_Iz;
+    public static double rTurning_PeakOut; 
+
+    public static double rVelocity_kP;
+    public static double rVelocity_kI;
+    public static double rVelocity_kD;
+    public static double rVelocity_kF;
+    public static double rVelocity_Iz;
+    public static double rVelocity_PeakOut;
+
+    public static double rMotProf_kP;
+    public static double rMotProf_kI;
+    public static double rMotProf_kD;
+    public static double rMotProf_kF;
+    public static double rMotProf_Iz;
+    public static double rMotProf_PeakOut;
 
     static{
         
         if(Weld){
                 
-             distance_kP = 0.1;
-             distance_kI = 0;
-             distance_kD = 0;
-             distance_kF = 0;
-             distance_Iz = 100;
-             distance_PeakOut = .5;
+             lDistance_kP = 0.1;
+             lDistance_kI = 0;
+             lDistance_kD = 0;
+             lDistance_kF = 0;
+             lDistance_Iz = 100;
+             lDistance_PeakOut = .5;
 
-             turning_kP = 2;
-             turning_kI = 0;
-             turning_kD = 4;
-             turning_kF = 0;
-             turning_Iz = 200;
-             turning_PeakOut = 1; 
+             lTurning_kP = 2;
+             lTurning_kI = 0;
+             lTurning_kD = 4;
+             lTurning_kF = 0;
+             lTurning_Iz = 200;
+             lTurning_PeakOut = 1; 
 
-             velocity_kP = .1;
-             velocity_kI = 0;
-             velocity_kD = 20;
-             velocity_kF = 1023/6800;
-             velocity_Iz = 300;
-             velocity_PeakOut = .5;
+             lVelocity_kP = .1;
+             lVelocity_kI = 0;
+             lVelocity_kD = 20;
+             lVelocity_kF = 1023/6800;
+             lVelocity_Iz = 300;
+             lVelocity_PeakOut = .5;
 
-             motProf_kP = 1;
-             motProf_kI = 0;
-             motProf_kD = 0;
-             motProf_kF = 1023/6800;
-             motProf_Iz = 400;
-             motProf_PeakOut = 1;
+             lMotProf_kP = 1;
+             lMotProf_kI = 0;
+             lMotProf_kD = 0;
+             lMotProf_kF = 1023/6800;
+             lMotProf_Iz = 400;
+             lMotProf_PeakOut = 1;
 
+
+             rDistance_kP = 0.1;
+             rDistance_kI = 0;
+             rDistance_kD = 0;
+             rDistance_kF = 0;
+             rDistance_Iz = 100;
+             rDistance_PeakOut = .5;
+
+             rTurning_kP = 2;
+             rTurning_kI = 0;
+             rTurning_kD = 4;
+             rTurning_kF = 0;
+             rTurning_Iz = 200;
+             rTurning_PeakOut = 1; 
+
+             rVelocity_kP = .1;
+             rVelocity_kI = 0;
+             rVelocity_kD = 20;
+             rVelocity_kF = 1023/6800;
+             rVelocity_Iz = 300;
+             rVelocity_PeakOut = .5;
+
+             rMotProf_kP = 1;
+             rMotProf_kI = 0;
+             rMotProf_kD = 0;
+             rMotProf_kF = 1023/6800;
+             rMotProf_Iz = 400;
+             rMotProf_PeakOut = 1;
         }
         else{
 
-             distance_kP = 0.1;
-             distance_kI = 0;
-             distance_kD = 0;
-             distance_kF = 0;
-             distance_Iz = 100;
-             distance_PeakOut = .5;
+             lDistance_kP = 0.1;
+             lDistance_kI = 0;
+             lDistance_kD = 0;
+             lDistance_kF = 0;
+             lDistance_Iz = 100;
+             lDistance_PeakOut = .5;
 
-             turning_kP = 2;
-             turning_kI = 0;
-             turning_kD = 4;
-             turning_kF = 0;
-             turning_Iz = 200;
-             turning_PeakOut = 1; 
+             lTurning_kP = 2;
+             lTurning_kI = 0;
+             lTurning_kD = 4;
+             lTurning_kF = 0;
+             lTurning_Iz = 200;
+             lTurning_PeakOut = 1; 
 
-             velocity_kP = .1;
-             velocity_kI = 0;
-             velocity_kD = 20;
-             velocity_kF = 1023/6800;
-             velocity_Iz = 300;
-             velocity_PeakOut = .5;
+             lVelocity_kP = .1;
+             lVelocity_kI = 0;
+             lVelocity_kD = 20;
+             lVelocity_kF = 1023/6800;
+             lVelocity_Iz = 300;
+             lVelocity_PeakOut = .5;
 
-             motProf_kP = 1;
-             motProf_kI = 0;
-             motProf_kD = 0;
-             motProf_kF = 1023/6800;
-             motProf_Iz = 400;
-             motProf_PeakOut = 1;
+             lMotProf_kP = 1;
+             lMotProf_kI = 0;
+             lMotProf_kD = 0;
+             lMotProf_kF = 1023/6800;
+             lMotProf_Iz = 400;
+             lMotProf_PeakOut = 1;
+             
+
+             rDistance_kP = 0.1;
+             rDistance_kI = 0;
+             rDistance_kD = 0;
+             rDistance_kF = 0;
+             rDistance_Iz = 100;
+             rDistance_PeakOut = .5;
+
+             rTurning_kP = 2;
+             rTurning_kI = 0;
+             rTurning_kD = 4;
+             rTurning_kF = 0;
+             rTurning_Iz = 200;
+             rTurning_PeakOut = 1; 
+
+             rVelocity_kP = .1;
+             rVelocity_kI = 0;
+             rVelocity_kD = 20;
+             rVelocity_kF = 1023/6800;
+             rVelocity_Iz = 300;
+             rVelocity_PeakOut = .5;
+
+             rMotProf_kP = 1;
+             rMotProf_kI = 0;
+             rMotProf_kD = 0;
+             rMotProf_kF = 1023/6800;
+             rMotProf_Iz = 400;
+             rMotProf_PeakOut = 1;
 
         }
 
