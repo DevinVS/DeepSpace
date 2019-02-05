@@ -7,15 +7,6 @@
 
 package frc.robot;
 
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.OutakeCommand;
-import frc.robot.commands.Move;
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -49,27 +40,10 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  public JoystickButton buttonOne;
-  public JoystickButton buttonThree;
-  public JoystickButton buttonEleven;
-  public Joystick right;
-  public Joystick left;
-  public AHRS gyro;
-  
+
 
   public OI(){
-    left = new Joystick(0);
-    right = new Joystick(1);
-    buttonOne = new JoystickButton(right,1);
-    buttonThree = new JoystickButton(right,3);
-    buttonEleven = new JoystickButton(right,11);
 
-
-    buttonOne.whileHeld(new IntakeCommand());
-    buttonThree.whileHeld(new OutakeCommand());
-    //buttonEleven.whenPressed(new Move(6000));
-
-    gyro = new AHRS(Port.kMXP);
   }
 
 }
