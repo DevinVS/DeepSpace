@@ -7,15 +7,7 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -24,4 +16,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class RobotMap {
 
+  // Master Talons are the motors closest to the back
+  public int leftMasterTalonPort = 4;
+  public int leftSlaveTalonPort = 1;
+  public int rightMasterTalonPort = 2;
+  public int rightSlaveTalonPort = 3;
+
+  
 }
