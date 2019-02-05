@@ -17,10 +17,10 @@ package frc.robot;
 public class RobotMap {
 
   // Master Talons are the motors closest to the back
-  public int leftMasterTalonPort = 4;
-  public int leftSlaveTalonPort = 1;
-  public int rightMasterTalonPort = 2;
-  public int rightSlaveTalonPort = 3;
+  public static int leftMasterTalonPort = 4;
+  public static int leftSlaveTalonPort = 1;
+  public static int rightMasterTalonPort = 2;
+  public static int rightSlaveTalonPort = 3;
 
   
 }
