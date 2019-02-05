@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -37,27 +38,31 @@ public class Drivetrain extends Subsystem {
 
     leftMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
     rightMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
+
+    rightMasterTalon.setInverted(true);
+    rightSlaveTalon.setInverted(true);
+
     //Slot 0 = Distance PID
     //Slot 1 = Velocity PID
-    leftMasterTalon.config_kF(0, Constants.distance_kF, Constants.kTimeoutMs);
-    leftMasterTalon.config_kP(0, Constants.distance_kP, Constants.kTimeoutMs);
-    leftMasterTalon.config_kI(0, Constants.distance_kI, Constants.kTimeoutMs);
-    leftMasterTalon.config_kD(0, Constants.distance_kD, Constants.kTimeoutMs);
+    leftMasterTalon.config_kF(0, Constants.lDistance_kF, Constants.kTimeoutMs);
+    leftMasterTalon.config_kP(0, Constants.lDistance_kP, Constants.kTimeoutMs);
+    leftMasterTalon.config_kI(0, Constants.lDistance_kI, Constants.kTimeoutMs);
+    leftMasterTalon.config_kD(0, Constants.lDistance_kD, Constants.kTimeoutMs);
 
-    leftMasterTalon.config_kF(1, Constants.velocity_kF, Constants.kTimeoutMs);
-    leftMasterTalon.config_kP(1, Constants.velocity_kP, Constants.kTimeoutMs);
-    leftMasterTalon.config_kI(1, Constants.velocity_kI, Constants.kTimeoutMs);
-    leftMasterTalon.config_kD(1, Constants.velocity_kD, Constants.kTimeoutMs);
+    leftMasterTalon.config_kF(1, Constants.lVelocity_kF, Constants.kTimeoutMs);
+    leftMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
+    leftMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
+    leftMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
 
-    rightMasterTalon.config_kF(0, Constants.distance_kF, Constants.kTimeoutMs);
-    rightMasterTalon.config_kP(0, Constants.distance_kP, Constants.kTimeoutMs);
-    rightMasterTalon.config_kI(0, Constants.distance_kI, Constants.kTimeoutMs);
-    rightMasterTalon.config_kD(0, Constants.distance_kD, Constants.kTimeoutMs);
+    rightMasterTalon.config_kF(0, Constants.lDistance_kF, Constants.kTimeoutMs);
+    rightMasterTalon.config_kP(0, Constants.lDistance_kP, Constants.kTimeoutMs);
+    rightMasterTalon.config_kI(0, Constants.lDistance_kI, Constants.kTimeoutMs);
+    rightMasterTalon.config_kD(0, Constants.lDistance_kD, Constants.kTimeoutMs);
 
-    rightMasterTalon.config_kF(1, Constants.velocity_kF, Constants.kTimeoutMs);
-    rightMasterTalon.config_kP(1, Constants.velocity_kP, Constants.kTimeoutMs);
-    rightMasterTalon.config_kI(1, Constants.velocity_kI, Constants.kTimeoutMs);
-    rightMasterTalon.config_kD(1, Constants.velocity_kD, Constants.kTimeoutMs);
+    rightMasterTalon.config_kF(1, Constants.lVelocity_kF, Constants.kTimeoutMs);
+    rightMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
+    rightMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
+    rightMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
     
   }
 
@@ -65,5 +70,15 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     setDefaultCommand(new JoystickDrive());
+  }
+
+  public void setTurnPower(double power){
+    leftMasterTalon.set(ControlMode.PercentOutput, power);
+    rightMasterTalon.set(ControlMode.PercentOutput, -power);
+  }
+
+  public void setMovePower(double power){
+    leftMasterTalon.set(ControlMode.PercentOutput, power);
+    rightMasterTalon.set(ControlMode.PercentOutput, power);
   }
 }

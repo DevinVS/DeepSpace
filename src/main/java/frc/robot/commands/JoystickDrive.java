@@ -8,11 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.OI;
 
 public class JoystickDrive extends Command {
   public JoystickDrive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -23,6 +26,17 @@ public class JoystickDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double joyX = OI.stick.getX();
+    double joyY = OI.stick.getY();
+
+    if(Math.abs(joyX)> .1){
+      Robot.drivetrain.setTurnPower(joyX);
+    }else if(Math.abs(joyY) > .1){
+      Robot.drivetrain.setMovePower(joyY);
+    }else{
+      Robot.drivetrain.setMovePower(0);
+    }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

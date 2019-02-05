@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.subsystems.Drivetrain;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.vision.Block;
 import frc.robot.vision.Pixy2SpiJNI;
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   public static RobotMap robotMap = new RobotMap();
   public static OI m_oi;
   public static Pixy2SpiJNI pixy2SpiJNI = new Pixy2SpiJNI();
+  public static Drivetrain drivetrain = new Drivetrain();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
