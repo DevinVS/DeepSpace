@@ -5,35 +5,35 @@ public class Constants{
     private static boolean Weld = true;
     public static int encoderTicksToAxleRevs = 4096;
 
-    public double kTimeoutMs = 20;
+    public static double kTimeoutMs = 20;
 
-   public static double distance_kP;
-   public static double distance_kI;
-   public static double distance_kD;
-   public static double distance_kF;
-   public static double distance_Iz;
-   public static double distance_PeakOut;
+    public static double distance_kP;
+    public static double distance_kI;
+    public static double distance_kD;
+    public static double distance_kF;
+    public static double distance_Iz;
+    public static double distance_PeakOut;
 
-   public static double turning_kP; 
-   public static double turning_kI;
-   public static double turning_kD;
-   public static double turning_kF;
-   public static double turning_Iz;
-   public static double turning_PeakOut; 
+    public static double turning_kP; 
+    public static double turning_kI;
+    public static double turning_kD;
+    public static double turning_kF;
+    public static double turning_Iz;
+    public static double turning_PeakOut; 
 
-   public static double velocity_kP;
-   public static double velocity_kI;
-   public static double velocity_kD;
-   public static double velocity_kF;
-   public static double velocity_Iz;
-   public static double velocity_PeakOut;
+    public static double velocity_kP;
+    public static double velocity_kI;
+    public static double velocity_kD;
+    public static double velocity_kF;
+    public static double velocity_Iz;
+    public static double velocity_PeakOut;
 
-   public static double motProf_kP;
-   public static double motProf_kI;
-   public static double motProf_kD;
-   public static double motProf_kF;
-   public static double motProf_Iz;
-   public static double motProf_PeakOut;
+    public static double motProf_kP;
+    public static double motProf_kI;
+    public static double motProf_kD;
+    public static double motProf_kF;
+    public static double motProf_Iz;
+    public static double motProf_PeakOut;
 
 
     static{
