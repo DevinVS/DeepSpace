@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -21,6 +22,4 @@ public class RobotMap {
   public static int leftSlaveTalonPort = 1;
   public static int rightMasterTalonPort = 2;
   public static int rightSlaveTalonPort = 3;
-
-  
 }

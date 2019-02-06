@@ -27,6 +27,8 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX rightMasterTalon;
   private WPI_TalonSRX rightSlaveTalon;
 
+  private double quickStopAccumulator;
+
   public Drivetrain(){
     leftMasterTalon = new WPI_TalonSRX(RobotMap.leftMasterTalonPort);
     leftSlaveTalon = new WPI_TalonSRX(RobotMap.leftSlaveTalonPort);
@@ -63,6 +65,9 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
     rightMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
     rightMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
+
+    leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
+    rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
     
   }
 
@@ -72,40 +77,158 @@ public class Drivetrain extends Subsystem {
     setDefaultCommand(new JoystickDrive());
   }
 
-  public void move(String type, double magnitude){
+  public void zero(){
+    leftMasterTalon.setSelectedSensorPosition(0);
+    rightMasterTalon.setSelectedSensorPosition(0);
+  }
+
+  public void set(ControlMode type, double magnitude){
     switch(type){
-      case "pow":
+      case PercentOutput:
         leftMasterTalon.set(ControlMode.PercentOutput, magnitude);
         rightMasterTalon.set(ControlMode.PercentOutput, magnitude);
         break;
-      case "vel":
+      case Velocity:
         leftMasterTalon.set(ControlMode.Velocity, magnitude);
         rightMasterTalon.set(ControlMode.Velocity, magnitude);
         break;
-      case "pos":
+      case MotionMagic:
         leftMasterTalon.set(ControlMode.MotionMagic, magnitude);
         rightMasterTalon.set(ControlMode.MotionMagic, magnitude);
         break;
     }
   }
 
-  public void turn(String type, double magnitude){
-    switch(type){
-      case "pow":
-        leftMasterTalon.set(ControlMode.PercentOutput, magnitude);
-        rightMasterTalon.set(ControlMode.PercentOutput, -magnitude);
-        break;
-      case "vel":
-        leftMasterTalon.set(ControlMode.Velocity, magnitude);
-        rightMasterTalon.set(ControlMode.Velocity, -magnitude);
-        break;
-      case "pos":
-        leftMasterTalon.set(ControlMode.MotionMagic, magnitude);
-        rightMasterTalon.set(ControlMode.MotionMagic, -magnitude);
-        break;
-    }
-  }
   public void print(){
-    System.out.println(leftMasterTalon.getSelectedSensorPosition());
+    System.out.println(leftMasterTalon.getSelectedSensorVelocity());
+  }
+
+  public int[] getPosition(){
+    int[] positions = {leftMasterTalon.getSelectedSensorPosition(), rightMasterTalon.getSelectedSensorPosition()};
+    return positions;
+    
+  }
+
+  public int[] getVelocity(){
+    int[] velocities = {leftMasterTalon.getSelectedSensorPosition(), rightMasterTalon.getSelectedSensorPosition()};
+    return velocities;
+  }
+
+  public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
+    
+    xSpeed = limit(xSpeed);
+    zRotation = limit(zRotation);
+
+    // Square the inputs (while preserving the sign) to increase fine control
+    // while permitting full power.
+    if (squareInputs) {
+      xSpeed = Math.copySign(xSpeed * xSpeed, xSpeed);
+      zRotation = Math.copySign(zRotation * zRotation, zRotation);
+    }
+
+    double leftMotorOutput;
+    double rightMotorOutput;
+
+    double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
+
+    if (xSpeed >= 0.0) {
+      // First quadrant, else second quadrant
+      if (zRotation >= 0.0) {
+        leftMotorOutput = maxInput;
+        rightMotorOutput = xSpeed - zRotation;
+      } else {
+        leftMotorOutput = xSpeed + zRotation;
+        rightMotorOutput = maxInput;
+      }
+    } else {
+      // Third quadrant, else fourth quadrant
+      if (zRotation >= 0.0) {
+        leftMotorOutput = xSpeed + zRotation;
+        rightMotorOutput = maxInput;
+      } else {
+        leftMotorOutput = maxInput;
+        rightMotorOutput = xSpeed - zRotation;
+      }
+    }
+
+    leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
+    rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * Constants.kMaxVelocity * -1);
+
+  }
+
+  protected double limit(double value) {
+    if (value > 1.0) {
+      return 1.0;
+    }
+    if (value < -1.0) {
+      return -1.0;
+    }
+    return value;
+  }
+
+  public void setPIDSlot(int slot){
+    leftMasterTalon.selectProfileSlot(slot, 0);
+    rightMasterTalon.selectProfileSlot(slot, 0);
+  }
+
+  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
+    xSpeed = limit(xSpeed);
+    
+
+    zRotation = limit(zRotation);
+
+    double angularPower;
+    boolean overPower;
+
+    if (isQuickTurn) {
+      if (Math.abs(xSpeed) < 0.2) {
+        quickStopAccumulator = (1 - .1) * quickStopAccumulator
+            + .1 * limit(zRotation) * 2;
+      }
+      overPower = true;
+      angularPower = zRotation;
+    } else {
+      overPower = false;
+      angularPower = Math.abs(xSpeed) * zRotation - quickStopAccumulator;
+
+      if (quickStopAccumulator > 1) {
+        quickStopAccumulator -= 1;
+      } else if (quickStopAccumulator < -1) {
+        quickStopAccumulator += 1;
+      } else {
+        quickStopAccumulator = 0.0;
+      }
+    }
+
+    double leftMotorOutput = xSpeed + angularPower;
+    double rightMotorOutput = xSpeed - angularPower;
+
+    // If rotation is overpowered, reduce both outputs to within acceptable range
+    if (overPower) {
+      if (leftMotorOutput > 1.0) {
+        rightMotorOutput -= leftMotorOutput - 1.0;
+        leftMotorOutput = 1.0;
+      } else if (rightMotorOutput > 1.0) {
+        leftMotorOutput -= rightMotorOutput - 1.0;
+        rightMotorOutput = 1.0;
+      } else if (leftMotorOutput < -1.0) {
+        rightMotorOutput -= leftMotorOutput + 1.0;
+        leftMotorOutput = -1.0;
+      } else if (rightMotorOutput < -1.0) {
+        leftMotorOutput -= rightMotorOutput + 1.0;
+        rightMotorOutput = -1.0;
+      }
+    }
+
+    // Normalize the wheel speeds
+    double maxMagnitude = Math.max(Math.abs(leftMotorOutput), Math.abs(rightMotorOutput));
+    if (maxMagnitude > 1.0) {
+      leftMotorOutput /= maxMagnitude;
+      rightMotorOutput /= maxMagnitude;
+    }
+
+    leftMasterTalon.set(ControlMode.Velocity, leftMotorOutput * Constants.kMaxVelocity);
+    rightMasterTalon.set(ControlMode.Velocity, rightMotorOutput * Constants.kMaxVelocity * -1);
+
   }
 }

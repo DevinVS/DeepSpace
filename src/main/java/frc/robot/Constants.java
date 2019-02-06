@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 public class Constants{
     
     private static boolean Weld = true;
@@ -8,6 +10,7 @@ public class Constants{
     public static int kTimeoutMs = 20;
 
     public static double kMaxVelocity;
+    public static int kAllowableClosedLoopError;
 
     public static double lDistance_kP;
     public static double lDistance_kI;
@@ -66,8 +69,12 @@ public class Constants{
     public static double rMotProf_PeakOut;
 
     static{
+
+        kMaxVelocity = 12360;
         
         if(Weld){
+
+            kAllowableClosedLoopError = 200;
                 
              lDistance_kP = 0.1;
              lDistance_kI = 0;
@@ -83,12 +90,12 @@ public class Constants{
              lTurning_Iz = 200;
              lTurning_PeakOut = 1; 
 
-             lVelocity_kP = .1;
+             lVelocity_kP = 0;
              lVelocity_kI = 0;
-             lVelocity_kD = 20;
-             lVelocity_kF = 1023/6800;
-             lVelocity_Iz = 300;
-             lVelocity_PeakOut = .5;
+             lVelocity_kD = 0;
+             lVelocity_kF = .1;
+             //lVelocity_Iz = 300;
+             //lVelocity_PeakOut = .5;
 
              lMotProf_kP = 1;
              lMotProf_kI = 0;
@@ -127,6 +134,8 @@ public class Constants{
              rMotProf_PeakOut = 1;
         }
         else{
+
+            kAllowableClosedLoopError = 200;
 
              lDistance_kP = 0.1;
              lDistance_kI = 0;
