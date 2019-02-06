@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.OI;
+import frc.robot.Constants;
 
 public class JoystickDrive extends Command {
   public JoystickDrive() {
@@ -29,14 +30,18 @@ public class JoystickDrive extends Command {
     double joyX = OI.stick.getX();
     double joyY = OI.stick.getY();
 
-    if(Math.abs(joyX)> .1){
-      Robot.drivetrain.setTurnPower(joyX);
+    /*if(Math.abs(joyX)> .1){
+      //Robot.drivetrain.setTurnPower(joyX);
+      //Robot.drivetrain.turn("vel", joyX*Constants.kMaxVelocity);
     }else if(Math.abs(joyY) > .1){
-      Robot.drivetrain.setMovePower(joyY);
+      //Robot.drivetrain.move("vel", joyY*Constants.kMaxVelocity);
+      //Robot.drivetrain.move("vel", joyY*Constants.kMaxVelocity);
+      Robot.drivetrain.move("pow", 
+      )
     }else{
-      Robot.drivetrain.setMovePower(0);
-    }
-
+      //Robot.drivetrain.move("vel", 0);*/
+      Robot.drivetrain.print();
+    //}
   }
 
   // Make this return true when this Command no longer needs to run execute()

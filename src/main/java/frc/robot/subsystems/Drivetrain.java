@@ -72,13 +72,40 @@ public class Drivetrain extends Subsystem {
     setDefaultCommand(new JoystickDrive());
   }
 
-  public void setTurnPower(double power){
-    leftMasterTalon.set(ControlMode.PercentOutput, power);
-    rightMasterTalon.set(ControlMode.PercentOutput, -power);
+  public void move(String type, double magnitude){
+    switch(type){
+      case "pow":
+        leftMasterTalon.set(ControlMode.PercentOutput, magnitude);
+        rightMasterTalon.set(ControlMode.PercentOutput, magnitude);
+        break;
+      case "vel":
+        leftMasterTalon.set(ControlMode.Velocity, magnitude);
+        rightMasterTalon.set(ControlMode.Velocity, magnitude);
+        break;
+      case "pos":
+        leftMasterTalon.set(ControlMode.MotionMagic, magnitude);
+        rightMasterTalon.set(ControlMode.MotionMagic, magnitude);
+        break;
+    }
   }
 
-  public void setMovePower(double power){
-    leftMasterTalon.set(ControlMode.PercentOutput, power);
-    rightMasterTalon.set(ControlMode.PercentOutput, power);
+  public void turn(String type, double magnitude){
+    switch(type){
+      case "pow":
+        leftMasterTalon.set(ControlMode.PercentOutput, magnitude);
+        rightMasterTalon.set(ControlMode.PercentOutput, -magnitude);
+        break;
+      case "vel":
+        leftMasterTalon.set(ControlMode.Velocity, magnitude);
+        rightMasterTalon.set(ControlMode.Velocity, -magnitude);
+        break;
+      case "pos":
+        leftMasterTalon.set(ControlMode.MotionMagic, magnitude);
+        rightMasterTalon.set(ControlMode.MotionMagic, -magnitude);
+        break;
+    }
+  }
+  public void print(){
+    System.out.println(leftMasterTalon.getSelectedSensorPosition());
   }
 }
