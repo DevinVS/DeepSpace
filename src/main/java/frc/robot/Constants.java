@@ -7,6 +7,8 @@ public class Constants{
 
     public static int kTimeoutMs = 20;
 
+    public static double kMaxVelocity;
+
     public static double lDistance_kP;
     public static double lDistance_kI;
     public static double lDistance_kD;

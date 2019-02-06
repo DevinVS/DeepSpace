@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     Block[] blocks = pixy2SpiJNI.blocksBuffer.poll();
     if(blocks != null){
       for(Block b : blocks){
-        System.out.println(b.toString());
+        // System.out.println(b.toString());
       }
     }
   }
