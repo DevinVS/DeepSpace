@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 import frc.robot.commands.JoystickDrive;
@@ -26,7 +27,7 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX leftSlaveTalon;
   private WPI_TalonSRX rightMasterTalon;
   private WPI_TalonSRX rightSlaveTalon;
-
+  public DifferentialDrive drive;
   private double quickStopAccumulator;
 
   public Drivetrain(){
@@ -68,7 +69,7 @@ public class Drivetrain extends Subsystem {
 
     leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
     rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
-    
+    //drive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);
   }
 
   @Override
@@ -115,9 +116,13 @@ public class Drivetrain extends Subsystem {
   }
 
   public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
-    
+
+    double m_deadband = 0.02;
     xSpeed = limit(xSpeed);
+    xSpeed = applyDeadband(xSpeed, m_deadband);
+
     zRotation = limit(zRotation);
+    zRotation = applyDeadband(zRotation, m_deadband);
 
     // Square the inputs (while preserving the sign) to increase fine control
     // while permitting full power.
@@ -152,7 +157,7 @@ public class Drivetrain extends Subsystem {
     }
 
     leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
-    rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * Constants.kMaxVelocity * -1);
+    rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
 
   }
 
@@ -230,5 +235,17 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.set(ControlMode.Velocity, leftMotorOutput * Constants.kMaxVelocity);
     rightMasterTalon.set(ControlMode.Velocity, rightMotorOutput * Constants.kMaxVelocity * -1);
 
+  }
+
+  protected double applyDeadband(double value, double deadband) {
+    if (Math.abs(value) > deadband) {
+      if (value > 0.0) {
+        return (value - deadband) / (1.0 - deadband);
+      } else {
+        return (value + deadband) / (1.0 - deadband);
+      }
+    } else {
+      return 0.0;
+    }
   }
 }

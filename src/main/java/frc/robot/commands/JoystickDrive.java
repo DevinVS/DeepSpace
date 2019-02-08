@@ -24,6 +24,7 @@ public class JoystickDrive extends Command {
   @Override
   protected void initialize() {
     Robot.drivetrain.setPIDSlot(1);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,8 +32,10 @@ public class JoystickDrive extends Command {
   protected void execute() {
     double joyX = OI.stick.getX();
     double joyY = OI.stick.getY();
+    
 
-    Robot.drivetrain.arcadeDrive(joyX, joyY, true);
+    Robot.drivetrain.arcadeDrive(-joyX, joyY, true);
+    //Robot.drivetrain.drive.arcadeDrive(-joyX, joyY, true);
     Robot.drivetrain.print();
 
     /*if(Math.abs(joyX)> .1){
