@@ -93,7 +93,7 @@ public class Pixy2SpiJNI implements Runnable{
               int index = sc.nextInt();
               sc.next();
               int age = sc.nextInt();
-
+               sc.close();
               blocks[arrayIndex++] = new Block(sig, x, y, width, height, index, age);
               }catch (Exception e){
                  e.printStackTrace();

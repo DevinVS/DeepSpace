@@ -8,7 +8,8 @@ public class Constants{
     public static int encoderTicksToAxleRevs = 4096;
 
     public static int kTimeoutMs = 20;
-
+    public static int screenWidth = 300;
+    public static int screenHeight = 200;
     public static double kMaxVelocity;
     public static int kAllowableClosedLoopError;
 

@@ -22,9 +22,9 @@ import frc.robot.commands.JoystickDrive;
 public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_TalonSRX leftMasterTalon;
+  public WPI_TalonSRX leftMasterTalon;
   private WPI_TalonSRX leftSlaveTalon;
-  private WPI_TalonSRX rightMasterTalon;
+  public WPI_TalonSRX rightMasterTalon;
   private WPI_TalonSRX rightSlaveTalon;
 
   private double quickStopAccumulator;

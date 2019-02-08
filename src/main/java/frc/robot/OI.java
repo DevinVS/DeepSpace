@@ -50,7 +50,7 @@ public class OI {
 
 
   public OI(){
-    button1.whenPressed(new Move(40000));
+    button1.whenPressed(new FollowBall());
   }
 
 
