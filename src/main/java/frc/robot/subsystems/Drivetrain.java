@@ -97,6 +97,8 @@ public class Drivetrain extends Subsystem {
         leftMasterTalon.set(ControlMode.MotionMagic, magnitude);
         rightMasterTalon.set(ControlMode.MotionMagic, magnitude);
         break;
+      default:
+        break;
     }
   }
 
