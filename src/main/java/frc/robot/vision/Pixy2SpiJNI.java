@@ -119,5 +119,19 @@ public class Pixy2SpiJNI implements Runnable{
      private void updateAlarm(){
          NotifierJNI.updateNotifierAlarm(m_notifier, (long) (m_expirationTime * 1e6));
      }
+
+     public boolean ballExists(){
+      boolean ballExists = false;
+        try{
+         
+         for(Block b: blocksBuffer.poll()){
+            if(b.sig==1){
+               ballExists = true;
+               break;
+            }
+         }}catch (Exception e){}
+         return ballExists;
+      
+     }
    
 }

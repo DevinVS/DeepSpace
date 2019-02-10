@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
+import frc.robot.vision.Pixy2SpiJNI;
 import frc.robot.OI;
 import frc.robot.Constants;
 
@@ -36,7 +37,7 @@ public class JoystickDrive extends Command {
 
     Robot.drivetrain.arcadeDrive(-joyX, joyY, true);
     //Robot.drivetrain.drive.arcadeDrive(-joyX, joyY, true);
-    Robot.drivetrain.print();
+    //Robot.drivetrain.print();
 
     /*if(Math.abs(joyX)> .1){
       //Robot.drivetrain.turn("pow", joyX);
@@ -48,6 +49,9 @@ public class JoystickDrive extends Command {
       Robot.drivetrain.move("vel", 0);
     }
     Robot.drivetrain.print();*/
+    if(Robot.pixy2SpiJNI.ballExists()){
+      System.out.println("Ball Found");
+    }
 
 
   }

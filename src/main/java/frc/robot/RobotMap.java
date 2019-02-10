@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class RobotMap {
 
   // Master Talons are the motors closest to the back
-  public static int leftMasterTalonPort = 4;
-  public static int leftSlaveTalonPort = 1;
-  public static int rightMasterTalonPort = 2;
-  public static int rightSlaveTalonPort = 3;
+  public static int leftMasterTalonPort = 1;
+  public static int leftSlaveTalonPort = 2;
+  public static int rightMasterTalonPort = 3;
+  public static int rightSlaveTalonPort = 4;
 }
