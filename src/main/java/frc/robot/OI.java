@@ -7,10 +7,17 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.LiftVelocityMove;
 import frc.robot.commands.OutakeCommand;
+import frc.robot.commands.UpCommand;
+import frc.robot.commands.Move;
+import frc.robot.commands.LiftRobot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -47,20 +54,33 @@ public class OI {
 
   public JoystickButton buttonOne;
   public JoystickButton buttonThree;
+  public JoystickButton buttonEleven;
+  public JoystickButton buttonTen;
+  public JoystickButton buttonNine;
   public Joystick right;
   public Joystick left;
-
-  
+  public AHRS gyro;
+  public JoystickButton buttonTwo;
 
   public OI(){
     left = new Joystick(0);
     right = new Joystick(1);
     buttonOne = new JoystickButton(right,1);
     buttonThree = new JoystickButton(right,3);
+//    buttonEleven = new JoystickButton(right,11);
+    buttonTen = new JoystickButton(right,10); 
+    buttonNine = new JoystickButton(right,9);
+
+    buttonTwo = new JoystickButton(right, 2);
 
     buttonOne.whileHeld(new IntakeCommand());
     buttonThree.whileHeld(new OutakeCommand());
+  //  buttonEleven.whenPressed(new Move(640000));
+    buttonTen.whenPressed(new LiftVelocityMove(10 , 50));
+    buttonNine.whenPressed(new UpCommand(50));
+    buttonTwo.whileHeld(new LiftRobot());
 
+    gyro = new AHRS(Port.kMXP);
   }
 
 }

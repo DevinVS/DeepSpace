@@ -12,9 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-
+import frc.robot.subsystems.*;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -23,10 +21,12 @@ import frc.robot.subsystems.IntakeSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static RobotMap robotMap = new RobotMap();
   public static DriveSubsystem driveSubsystem = new DriveSubsystem();
   public static OI m_oi;
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-
+  public static LiftSubsystem liftSubsystem = new LiftSubsystem();
+  public static Winch winch = new Winch();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();

@@ -14,24 +14,21 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Robot;
 
 
-public class Move extends Command {
+public class Turn extends Command {
 
-  private static final double pulsesPerFoot = 1;
+  private static final double pulsesPerDegree = 1;
   private WPI_TalonSRX leftMasterTalon;
   private WPI_TalonSRX rightMasterTalon;
-  private double leftTargetDistance;
-  private double rightTargetDistance;
+  private double targetDistance;
 
 
 
-  public Move(int distance) {
+  public Turn(double degrees) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.driveSubsystem);
+    this.targetDistance = pulsesPerDegree * degrees;
     leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
     rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
-
-    this.leftTargetDistance = distance;
-    this.rightTargetDistance = distance;
   }
   
     
@@ -39,30 +36,21 @@ public class Move extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveSubsystem.zero();
+    
 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-
-    leftTargetDistance *= pulsesPerFoot;
-    rightTargetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, -leftTargetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, -rightTargetDistance);
-    Robot.driveSubsystem.tankDrive.feed();
-    
-    
+    leftMasterTalon.set(ControlMode.MotionMagic, targetDistance);
+    rightMasterTalon.set(ControlMode.MotionMagic, -targetDistance);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = leftMasterTalon.getSelectedSensorPosition() + leftTargetDistance;
-    System.out.println(error);
-    return false;
+    return (leftMasterTalon.isMotionProfileFinished() && rightMasterTalon.isMotionProfileFinished());
   }
 
   // Called once after isFinished returns true

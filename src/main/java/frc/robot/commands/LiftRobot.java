@@ -8,60 +8,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-
-public class Move extends Command {
-
-  private static final double pulsesPerFoot = 1;
-  private WPI_TalonSRX leftMasterTalon;
-  private WPI_TalonSRX rightMasterTalon;
-  private double leftTargetDistance;
-  private double rightTargetDistance;
-
-
-
-  public Move(int distance) {
+public class LiftRobot extends Command {
+  public LiftRobot() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveSubsystem);
-    leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
-    rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
+    // eg. requires(chassis);
+    requires(Robot.winch);
 
-    this.leftTargetDistance = distance;
-    this.rightTargetDistance = distance;
+    System.out.println("LiftRobot constructor");
   }
-  
-    
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveSubsystem.zero();
-
+    System.out.println( "Initialize LiftRobot....");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-
-    leftTargetDistance *= pulsesPerFoot;
-    rightTargetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, -leftTargetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, -rightTargetDistance);
-    Robot.driveSubsystem.tankDrive.feed();
-    
-    
+    System.out.println( "Lifting....");
+    if (Robot.m_oi.buttonTwo.get()) {
+      Robot.winch.Down();
+    }else {
+      Robot.winch.No();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = leftMasterTalon.getSelectedSensorPosition() + leftTargetDistance;
-    System.out.println(error);
     return false;
   }
 
@@ -75,6 +53,4 @@ public class Move extends Command {
   @Override
   protected void interrupted() {
   }
-
-  
 }

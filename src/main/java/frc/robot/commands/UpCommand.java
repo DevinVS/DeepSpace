@@ -7,74 +7,52 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.ControlType;
+
 import edu.wpi.first.wpilibj.command.Command;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Robot;
+import frc.robot.subsystems.LiftSubsystem;
 
+public class UpCommand extends Command {
 
-public class Move extends Command {
-
-  private static final double pulsesPerFoot = 1;
-  private WPI_TalonSRX leftMasterTalon;
-  private WPI_TalonSRX rightMasterTalon;
-  private double leftTargetDistance;
-  private double rightTargetDistance;
-
-
-
-  public Move(int distance) {
+  private int distance;
+  public UpCommand(int distance) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveSubsystem);
-    leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
-    rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
+     requires(Robot.liftSubsystem);
+     this.distance = distance;
 
-    this.leftTargetDistance = distance;
-    this.rightTargetDistance = distance;
   }
-  
-    
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveSubsystem.zero();
+    //Robot.liftSubsystem.moveUpComand();
 
+    Robot.robotMap.liftPid.setReference(distance, ControlType.kPosition);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-
-    leftTargetDistance *= pulsesPerFoot;
-    rightTargetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, -leftTargetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, -rightTargetDistance);
-    Robot.driveSubsystem.tankDrive.feed();
-    
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = leftMasterTalon.getSelectedSensorPosition() + leftTargetDistance;
-    System.out.println(error);
-    return false;
+    double error = Math.abs((Robot.robotMap.liftEncoder1.getPosition() - distance) / distance);
+    return error <= 0.05;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.liftSubsystem.stopLift();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.liftSubsystem.stopLift();
   }
-
-  
 }

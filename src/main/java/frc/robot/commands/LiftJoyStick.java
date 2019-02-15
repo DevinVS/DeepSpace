@@ -8,60 +8,35 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-
-public class Move extends Command {
-
-  private static final double pulsesPerFoot = 1;
-  private WPI_TalonSRX leftMasterTalon;
-  private WPI_TalonSRX rightMasterTalon;
-  private double leftTargetDistance;
-  private double rightTargetDistance;
-
-
-
-  public Move(int distance) {
+public class LiftJoyStick extends Command {
+  public LiftJoyStick() {
+    requires(Robot.liftSubsystem);
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveSubsystem);
-    leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
-    rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
-
-    this.leftTargetDistance = distance;
-    this.rightTargetDistance = distance;
+    // eg. requires(chassis);
   }
-  
-    
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveSubsystem.zero();
-
+    Robot.robotMap.liftBrushLessMaster.set(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
 
-    leftTargetDistance *= pulsesPerFoot;
-    rightTargetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, -leftTargetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, -rightTargetDistance);
-    Robot.driveSubsystem.tankDrive.feed();
-    
-    
+    double liftJoystickValues = Robot.m_oi.left.getY();
+    Robot.robotMap.liftBrushLessMaster.set(liftJoystickValues);
+
+    SmartDashboard.putNumber("Lift Encoder Values", Robot.robotMap.liftEncoder1.getPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = leftMasterTalon.getSelectedSensorPosition() + leftTargetDistance;
-    System.out.println(error);
     return false;
   }
 
@@ -75,6 +50,4 @@ public class Move extends Command {
   @Override
   protected void interrupted() {
   }
-
-  
 }

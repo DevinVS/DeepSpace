@@ -12,12 +12,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 //import frc.robot.OI;
+import frc.robot.subsystems.DriveSubsystem;
 
 /**
  * An example command.  You can replace me with your own command.
  */
 public class JoystickCommand extends Command {
-  private static final float INPUT_DRIVE_RATIO = 0.75f;
+  private static final float INPUT_DRIVE_RATIO = 1f;
 
   public JoystickCommand() {
     // Use requires() here to declare subsystem dependencies
@@ -34,7 +35,16 @@ public class JoystickCommand extends Command {
   protected void execute() {
     double rightStickValueY = Robot.m_oi.right.getY() *INPUT_DRIVE_RATIO;
     double rightStickValueX = -Robot.m_oi.right.getX() *INPUT_DRIVE_RATIO;
+    if (Math.abs(rightStickValueX) < 0.1) {
+      rightStickValueX = 0;
+    }
     
+    if (Math.abs(rightStickValueY) < 0.1) {
+      rightStickValueY = 0;
+    }
+    rightStickValueX = Math.signum(rightStickValueX) * 1.23456789 * Math.pow(Math.abs(rightStickValueX) - 0.1, 2);
+    rightStickValueY = Math.signum(rightStickValueY) * 1.23456789 * Math.pow(Math.abs(rightStickValueY) - 0.1, 2);
+
     // If(Robot.m_oi.right.getRawButtonPressed(1) = 1){
 
     // }
@@ -48,9 +58,6 @@ public class JoystickCommand extends Command {
 
    Robot.driveSubsystem.tankDrive.arcadeDrive(rightStickValueX, rightStickValueY, true);
 
-  
-
-    
 
   }
 

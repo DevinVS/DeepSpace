@@ -7,74 +7,55 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import com.revrobotics.ControlType;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+public class LiftVelocityMove extends Command {
 
-public class Move extends Command {
+private float speed;
+private int distance;
 
-  private static final double pulsesPerFoot = 1;
-  private WPI_TalonSRX leftMasterTalon;
-  private WPI_TalonSRX rightMasterTalon;
-  private double leftTargetDistance;
-  private double rightTargetDistance;
-
-
-
-  public Move(int distance) {
+  public LiftVelocityMove(float speed,int distance) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.driveSubsystem);
-    leftMasterTalon = Robot.driveSubsystem.leftMasterTalon;
-    rightMasterTalon = Robot.driveSubsystem.rightMasterTalon;
+    requires(Robot.liftSubsystem);
 
-    this.leftTargetDistance = distance;
-    this.rightTargetDistance = distance;
+    this.distance = distance;
+    this.speed = Math.signum(distance)*Math.abs(speed);
   }
-  
-    
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveSubsystem.zero();
+    //Robot.liftSubsystem.moveSpeedCommand(speed);
 
+    Robot.robotMap.liftVelocityPid.setReference(speed, ControlType.kVelocity);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-
-    leftTargetDistance *= pulsesPerFoot;
-    rightTargetDistance *= pulsesPerFoot;
-    leftMasterTalon.set(ControlMode.MotionMagic, -leftTargetDistance);
-    rightMasterTalon.set(ControlMode.MotionMagic, -rightTargetDistance);
-    Robot.driveSubsystem.tankDrive.feed();
-    
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = leftMasterTalon.getSelectedSensorPosition() + leftTargetDistance;
-    System.out.println(error);
-    return false;
+    double error = Math.abs((Robot.robotMap.liftEncoder1.getPosition() - distance) / distance);
+    return error <= 0.05;
+    
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.liftSubsystem.stopLift();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.liftSubsystem.stopLift();
   }
-
-  
 }

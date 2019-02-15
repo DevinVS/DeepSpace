@@ -15,6 +15,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 //import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.commands.JoystickCommand;
 
 /**
@@ -22,15 +24,8 @@ import frc.robot.commands.JoystickCommand;
  */
 public class DriveSubsystem extends Subsystem {
 
-  //1 = back left
-  //2 = front left
-  //3 = back right
-  //4 =  back left
-
   public static WPI_TalonSRX rightMasterTalon;
-  private static WPI_TalonSRX rightSlaveTalon;
   public static WPI_TalonSRX leftMasterTalon;
-  private static WPI_TalonSRX leftSlaveTalon;
   
 
   private static double encoderRevsPerWheelRev = 7.5;
@@ -42,30 +37,24 @@ public class DriveSubsystem extends Subsystem {
 
     //return (int) (((encoderRevsPerWheelRev * feetPerSec) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
     
-   encoderPulsePerDistance = (((encoderRevsPerWheelRev) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
+    encoderPulsePerDistance = (((encoderRevsPerWheelRev) / (wheelDiameterFeet * Math.PI)) * 4096) / 10;
     
-    
-    leftMasterTalon = new WPI_TalonSRX(1);
-    leftSlaveTalon = new WPI_TalonSRX(2);
-    rightMasterTalon = new WPI_TalonSRX(3);
-    rightSlaveTalon = new WPI_TalonSRX(4);
-  
-
-
-    leftSlaveTalon.follow(leftMasterTalon);
-    rightSlaveTalon.follow(rightMasterTalon);
-
-    rightMasterTalon.setInverted(true);
-    rightSlaveTalon.setInverted(true);
+    leftMasterTalon = RobotMap.leftMasterTalon;
+    rightMasterTalon = RobotMap.rightMasterTalon;
 
     tankDrive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);
-    
+       
   }
 
-  public void Stop(){
+  public static void Stop(){
     rightMasterTalon.set(ControlMode.PercentOutput, 0);
     leftMasterTalon.set(ControlMode.PercentOutput, 0);
     
+  }
+
+  public static void MoveForward(double motorPower){
+    leftMasterTalon.set(motorPower);
+    rightMasterTalon.set(motorPower);
   }
 
   public static void MoveLR (double leftValue, double rightValue){
@@ -79,5 +68,11 @@ public class DriveSubsystem extends Subsystem {
   public void initDefaultCommand(){
     setDefaultCommand(new JoystickCommand());
 
+  }
+
+  public void zero(){
+    System.out.println("Zeroing");
+    leftMasterTalon.setSelectedSensorPosition(0, 0, Robot.robotMap.timeoutMs);
+    rightMasterTalon.setSelectedSensorPosition(0, 0, Robot.robotMap.timeoutMs);
   }
 }
