@@ -9,8 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.OutakeCommand;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,6 +24,9 @@ public class OI {
   // Joystick stick = new Joystick(port);
   // Button button = new JoystickButton(stick, buttonNumber);
 
+  public static Joystick stick = new Joystick(1);
+  public static JoystickButton button1 = new JoystickButton(stick, 1);
+  
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
@@ -36,7 +38,7 @@ public class OI {
   // Start the command when the button is pressed and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenPressed(new ExampleCommand());
-
+  
   // Run the command while the button is being held down and interrupt it once
   // the button is released.
   // button.whileHeld(new ExampleCommand());
@@ -45,22 +47,11 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  public JoystickButton buttonOne;
-  public JoystickButton buttonThree;
-  public Joystick right;
-  public Joystick left;
 
-  
 
   public OI(){
-    left = new Joystick(0);
-    right = new Joystick(1);
-    buttonOne = new JoystickButton(right,1);
-    buttonThree = new JoystickButton(right,3);
-
-    buttonOne.whileHeld(new IntakeCommand());
-    buttonThree.whileHeld(new OutakeCommand());
-
+    button1.whenPressed(new FollowBall());
   }
+
 
 }

@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.subsystems.Drivetrain;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-
+import frc.robot.vision.Block;
+import frc.robot.vision.Pixy2SpiJNI;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -23,10 +23,10 @@ import frc.robot.subsystems.IntakeSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public static RobotMap robotMap = new RobotMap();
   public static OI m_oi;
-  public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-
+  public static Pixy2SpiJNI pixy2SpiJNI = new Pixy2SpiJNI();
+  public static Drivetrain drivetrain = new Drivetrain();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -37,6 +37,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Thread pixy2thread = new Thread(pixy2SpiJNI);
+    pixy2thread.start();
     m_oi = new OI();
     //m_chooser.setDefaultOption("Default Auto", new DriveCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -53,6 +55,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    Block[] blocks = pixy2SpiJNI.blocksBuffer.poll();
+    if(blocks != null){
+      for(Block b : blocks){
+        // System.out.println(b.toString());
+      }
+    }
   }
 
   /**
