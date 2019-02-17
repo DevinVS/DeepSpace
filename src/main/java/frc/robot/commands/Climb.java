@@ -7,41 +7,32 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.Robot;
-import frc.robot.vision.Pixy2USBJNI;
-import frc.robot.OI;
-import frc.robot.Constants;
+import com.revrobotics.ControlType;
 
-public class JoystickDrive extends Command {
-  public JoystickDrive() {
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
+import frc.robot.Robot;
+
+public class Climb extends Command {
+  public Climb() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.drivetrain);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.setPIDSlot(1);
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double joyX = OI.stick.getX();
-    double joyY = OI.stick.getY();
-    
-
-    Robot.drivetrain.arcadeDrive(-joyX, joyY, true);
-
-    /*if(Robot.pixy2SpiJNI.ballExists()){
-      System.out.println("Ball Found");
-    }*/
-
-
+    double joyY = Robot.m_oi.liftStick.getY();
+    Robot.lift.liftSpark.set(.5 * joyY);
+    Robot.lift.elevatorSpark.set(.5 * joyY);
+    //Robot.lift.liftPID.setReference(joyY * .5 *Constants.kNeoMaxVelocity, ControlType.kVelocity);
+    //Robot.lift.elevatorPID.setReference(joyY * .5 * Constants.kNeoMaxVelocity, ControlType.kVelocity);
   }
 
   // Make this return true when this Command no longer needs to run execute()

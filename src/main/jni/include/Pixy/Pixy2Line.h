@@ -16,6 +16,7 @@
 // (TPixy2).  TPixy takes a communication link as a template parameter so that 
 // all communication modes (SPI, I2C and UART) can share the same code.  
 //
+#include <iostream>
 
 #ifndef _PIXY2LINE_H
 #define _PIXY2LINE_H
@@ -51,8 +52,8 @@ struct Vector
   void print()
   {
     char buf[64];
-    printf("vector: (%d %d) (%d %d) index: %d flags %d", m_x0, m_y0, m_x1, m_y1, m_index, m_flags);
-	  // printf(buf);
+    sprintf(buf, "vector: (%d %d) (%d %d) index: %d flags %d", m_x0, m_y0, m_x1, m_y1, m_index, m_flags);
+    std::cout << buf << std::endl;
   }
   
   uint8_t m_x0;
@@ -76,12 +77,12 @@ struct Intersection
   {
     char buf[64];
     uint8_t i;
-    printf("intersection: (%d %d)", m_x, m_y);
-	  // Serial.println(buf);
+    sprintf(buf, "intersection: (%d %d)", m_x, m_y);
+    std::cout << buf << std::endl;
     for (i=0; i<m_n; i++)
     {
-      printf("  %d: index: %d angle: %d", i, m_intLines[i].m_index, m_intLines[i].m_angle);
-	    // Serial.println(buf);
+      sprintf(buf, "  %d: index: %d angle: %d", i, m_intLines[i].m_index, m_intLines[i].m_angle);
+      std::cout << buf << std::endl;
     }
   }
   
@@ -98,8 +99,8 @@ struct Barcode
   void print()
   {
     char buf[64];
-    printf("Barcode: (%d %d), val: %d flags: %d", m_x, m_y, m_code, m_flags);
-    // Serial.println(buf);
+    sprintf(buf, "Barcode: (%d %d), val: %d flags: %d", m_x, m_y, m_code, m_flags);
+    std::cout << buf << std::endl;
   }
   
   uint8_t m_x;

@@ -7,14 +7,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.subsystems.BallIO;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Lift;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.vision.Block;
-import frc.robot.vision.Pixy2SpiJNI;
+import frc.robot.vision.Pixy2USBJNI;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -25,8 +28,11 @@ import frc.robot.vision.Pixy2SpiJNI;
 public class Robot extends TimedRobot {
   public static RobotMap robotMap = new RobotMap();
   public static OI m_oi;
-  public static Pixy2SpiJNI pixy2SpiJNI = new Pixy2SpiJNI();
+  public static Pixy2USBJNI pixy2SpiJNI = new Pixy2USBJNI();
   public static Drivetrain drivetrain = new Drivetrain();
+  public static Lift lift = new Lift();
+  public static BallIO ballIO = new BallIO();
+  public static Compressor compressor = new Compressor(0);
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -40,6 +46,8 @@ public class Robot extends TimedRobot {
     Thread pixy2thread = new Thread(pixy2SpiJNI);
     pixy2thread.start();
     m_oi = new OI();
+    //compressor.setClosedLoopControl(true);
+    compressor.start();
     //m_chooser.setDefaultOption("Default Auto", new DriveCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     //SmartDashboard.putData("Auto mode", m_chooser);

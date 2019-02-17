@@ -7,6 +7,8 @@ public class Constants{
     private static boolean Weld = true;
     public static int encoderTicksToAxleRevs = 4096;
 
+    public static int kNeoMaxVelocity = 5600;
+
     public static int kTimeoutMs = 20;
     public static int screenWidth = 300;
     public static int screenHeight = 200;

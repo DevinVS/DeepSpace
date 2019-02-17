@@ -8,40 +8,24 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
-import frc.robot.vision.Pixy2USBJNI;
-import frc.robot.OI;
-import frc.robot.Constants;
 
-public class JoystickDrive extends Command {
-  public JoystickDrive() {
+public class SetEndEffector extends Command {
+  public SetEndEffector() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.drivetrain);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.setPIDSlot(1);
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double joyX = OI.stick.getX();
-    double joyY = OI.stick.getY();
-    
-
-    Robot.drivetrain.arcadeDrive(-joyX, joyY, true);
-
-    /*if(Robot.pixy2SpiJNI.ballExists()){
-      System.out.println("Ball Found");
-    }*/
-
-
+    Robot.lift.elevatorSpark.set(Robot.m_oi.liftStick.getY());
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -69,7 +69,7 @@ public class Drivetrain extends Subsystem {
 
     leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
     rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
-    //drive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);
+
   }
 
   @Override

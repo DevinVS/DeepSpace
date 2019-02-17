@@ -7,41 +7,37 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
-import frc.robot.vision.Pixy2USBJNI;
-import frc.robot.OI;
-import frc.robot.Constants;
 
-public class JoystickDrive extends Command {
-  public JoystickDrive() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.drivetrain);
+public class SetIntakeMode extends Command {
+
+  String mode;
+
+  public SetIntakeMode(String mode) {
+    requires(Robot.ballIO);
+    this.mode = mode;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.setPIDSlot(1);
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double joyX = OI.stick.getX();
-    double joyY = OI.stick.getY();
-    
-
-    Robot.drivetrain.arcadeDrive(-joyX, joyY, true);
-
-    /*if(Robot.pixy2SpiJNI.ballExists()){
-      System.out.println("Ball Found");
-    }*/
-
-
+    switch(mode){
+      case "neutral":
+        Robot.ballIO.setPower(0);
+        Robot.ballIO.setPosition("up");
+        break;
+      case "intake":
+        Robot.ballIO.setPower(.3);
+        Robot.ballIO.setPosition("down");
+        break;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

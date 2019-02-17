@@ -24,8 +24,13 @@ public class OI {
   // Joystick stick = new Joystick(port);
   // Button button = new JoystickButton(stick, buttonNumber);
 
-  public static Joystick stick = new Joystick(1);
+  public static Joystick stick = new Joystick(0);
+  public static Joystick liftStick = new Joystick(1);
   public static JoystickButton button1 = new JoystickButton(stick, 1);
+  public static JoystickButton button5 = new JoystickButton(stick, 5);
+  public static JoystickButton button6 = new JoystickButton(stick, 6);
+  public static JoystickButton button7 = new JoystickButton(stick, 7);
+  public static JoystickButton button8 = new JoystickButton(stick, 8);
   
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -50,7 +55,12 @@ public class OI {
 
 
   public OI(){
-    button1.whenPressed(new FollowBall());
+    //button1.whenPressed(new FollowBall());
+    button5.whenPressed(new SetIntakeMode("neutral"));
+    button6.whenPressed(new SetIntakeMode("intake"));
+    button7.whenPressed(new Climb()); 
+    button8.whenPressed(new SetEndEffector());
+    
   }
 
 
