@@ -7,17 +7,17 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class SetIntakeMode extends Command {
-
-  String mode;
-
-  public SetIntakeMode(String mode) {
-    requires(Robot.ballIO);
-    this.mode = mode;
+public class VelocityPIDTest extends Command {
+  public VelocityPIDTest() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -28,21 +28,13 @@ public class SetIntakeMode extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    switch(mode){
-      case "neutral":
-        Robot.ballIO.setPower(0);
-        Robot.ballIO.setPosition("up");
-        break;
-      case "intake":
-        Robot.ballIO.setPower(.8);
-        Robot.ballIO.setPosition("down");
-        break;
-    }
+    Robot.drivetrain.leftMasterTalon.set(ControlMode.Velocity, Constants.kMaxVelocity);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    System.out.println(Robot.drivetrain.leftMasterTalon.getSelectedSensorVelocity());
     return false;
   }
 

@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 /**
@@ -34,6 +35,9 @@ public class BallIO extends Subsystem {
 
     IntakeSolenoid = new DoubleSolenoid(RobotMap.leftIntakeSolenoidInPort, RobotMap.leftIntakeSolenoidOutport);
     //rightIntakeSolenoid = new DoubleSolenoid(RobotMap.rightIntakeSolenoidInPort, RobotMap.rightIntakeSolenoidOutPort);
+
+    leftIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
+    rightIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
   }
 
   @Override
@@ -44,11 +48,11 @@ public class BallIO extends Subsystem {
 
   public void setPosition(String value){
     switch(value){
-      case "up":
+      case "down":
         IntakeSolenoid.set(DoubleSolenoid.Value.kReverse);
         //rightIntakeSolenoid.set(DoubleSolenoid.Value.kReverse);
         break;
-      case "down":
+      case "up":
         IntakeSolenoid.set(DoubleSolenoid.Value.kForward);
         //rightIntakeSolenoid.set(DoubleSolenoid.Value.kForward);
         break;
@@ -56,7 +60,7 @@ public class BallIO extends Subsystem {
   }
 
   public void setPower(double power){
-    leftIntakeTalon.set(power);
+    leftIntakeTalon.set(-power);
     rightIntakeTalon.set(power);
   }
 }

@@ -12,7 +12,7 @@ public class Constants{
     public static int kTimeoutMs = 20;
     public static int screenWidth = 300;
     public static int screenHeight = 200;
-    public static double kMaxVelocity;
+    public static double kMaxVelocity = 25000;
     public static int kAllowableClosedLoopError;
 
     public static double lDistance_kP;
@@ -72,8 +72,6 @@ public class Constants{
     public static double rMotProf_PeakOut;
 
     static{
-
-        kMaxVelocity = 12360;
         
         if(Weld){
 
@@ -96,7 +94,7 @@ public class Constants{
              lVelocity_kP = 0;
              lVelocity_kI = 0;
              lVelocity_kD = 0;
-             lVelocity_kF = .1;
+             lVelocity_kF = .01;
              //lVelocity_Iz = 300;
              //lVelocity_PeakOut = .5;
 

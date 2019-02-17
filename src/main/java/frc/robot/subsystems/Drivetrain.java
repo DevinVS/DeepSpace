@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
@@ -29,6 +30,7 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX rightSlaveTalon;
   public DifferentialDrive drive;
   private double quickStopAccumulator;
+  private static DoubleSolenoid shiftSolenoid;
 
   public Drivetrain(){
     leftMasterTalon = new WPI_TalonSRX(RobotMap.leftMasterTalonPort);
@@ -69,6 +71,8 @@ public class Drivetrain extends Subsystem {
 
     leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
     rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
+
+
 
   }
 
