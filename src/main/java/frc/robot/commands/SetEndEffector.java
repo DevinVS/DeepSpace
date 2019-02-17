@@ -7,14 +7,23 @@
 
 package frc.robot.commands;
 
+import java.util.LinkedList;
+
+import org.graalvm.compiler.graph.Position;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class SetEndEffector extends Command {
-  public SetEndEffector() {
+
+  private float liftDistance;
+
+  public SetEndEffector(float liftDistance) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.lift);
+
+    this.liftDistance = liftDistance;
   }
 
   // Called just before this Command runs the first time
@@ -25,7 +34,14 @@ public class SetEndEffector extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.elevatorSpark.set(Robot.m_oi.liftStick.getY());
+
+    //Robot.lift.elevatorSpark.set(Robot.m_oi.liftStick.getY());
+
+    Robot.lift.elevatorSpark.set(liftDistance);
+
+    LinkedList<Float> liftEncoderValues = new LinkedList<Float>();
+    //liftEncoderValues.add(Robot.lift.elevatorSpark.getEncoder());
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
