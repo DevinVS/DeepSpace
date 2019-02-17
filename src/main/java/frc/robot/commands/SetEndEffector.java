@@ -9,7 +9,6 @@ package frc.robot.commands;
 
 import java.util.LinkedList;
 
-import org.graalvm.compiler.graph.Position;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -35,11 +34,11 @@ public class SetEndEffector extends Command {
   @Override
   protected void execute() {
 
-    //Robot.lift.elevatorSpark.set(Robot.m_oi.liftStick.getY());
+    Robot.lift.elevatorSpark.set(Robot.m_oi.liftStick.getY());
 
-    Robot.lift.elevatorSpark.set(liftDistance);
+    //Robot.lift.elevatorSpark.set(liftDistance);
 
-    LinkedList<Float> liftEncoderValues = new LinkedList<Float>();
+    //LinkedList<Float> liftEncoderValues = new LinkedList<Float>();
     //liftEncoderValues.add(Robot.lift.elevatorSpark.getEncoder());
 
   }

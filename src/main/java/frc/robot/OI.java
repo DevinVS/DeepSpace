@@ -59,7 +59,7 @@ public class OI {
     button5.whenPressed(new SetIntakeMode("neutral"));
     button6.whenPressed(new SetIntakeMode("intake"));
     button7.whenPressed(new Climb()); 
-    button8.whenPressed(new SetEndEffector());
+    button8.whenPressed(new SetEndEffector(30));
     
   }
 
