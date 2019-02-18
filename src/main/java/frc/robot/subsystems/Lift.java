@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -27,9 +28,11 @@ public class Lift extends Subsystem {
 
   public static CANSparkMax liftSpark;
   public static CANPIDController liftPID;
+  public static CANEncoder liftEncoder;
 
   public static CANSparkMax elevatorSpark;
   public static CANPIDController elevatorPID;
+  public static CANEncoder elevatorEncoder;
   
   public Lift(){
     liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalon);
