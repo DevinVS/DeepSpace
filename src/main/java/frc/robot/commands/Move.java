@@ -38,7 +38,7 @@ public class Move extends Command {
     //Robot.drivetrain.move("vel", 60000);
 
     Robot.drivetrain.setPIDSlot(0);
-    Robot.drivetrain.set(ControlMode.MotionMagic, targetDistance);
+    Robot.drivetrain.set(ControlMode.MotionMagic, targetDistance, targetDistance);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -50,7 +50,7 @@ public class Move extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.drivetrain.set(ControlMode.PercentOutput, 0);
+    Robot.drivetrain.set(ControlMode.PercentOutput, 0, 0);
   }
 
   // Called when another command which requires one or more of the same

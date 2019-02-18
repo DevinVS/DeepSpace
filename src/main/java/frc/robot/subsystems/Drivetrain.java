@@ -24,11 +24,10 @@ import frc.robot.commands.JoystickDrive;
 public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public WPI_TalonSRX leftMasterTalon;
+  private WPI_TalonSRX leftMasterTalon;
   private WPI_TalonSRX leftSlaveTalon;
-  public WPI_TalonSRX rightMasterTalon;
+  private WPI_TalonSRX rightMasterTalon;
   private WPI_TalonSRX rightSlaveTalon;
-  public DifferentialDrive drive;
   private double quickStopAccumulator;
   private static DoubleSolenoid shiftSolenoid;
 
@@ -46,6 +45,8 @@ public class Drivetrain extends Subsystem {
 
     rightMasterTalon.setInverted(true);
     rightSlaveTalon.setInverted(true);
+
+    shiftSolenoid = new DoubleSolenoid(RobotMap.leftShiftSolenoidInPort, RobotMap.leftShiftSolenoidOutPort);
 
     //Slot 0 = Distance PID
     //Slot 1 = Velocity PID
@@ -87,19 +88,19 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon.setSelectedSensorPosition(0);
   }
 
-  public void set(ControlMode type, double magnitude){
+  public void set(ControlMode type, double leftMagnitude, double rightMagnitude){
     switch(type){
       case PercentOutput:
-        leftMasterTalon.set(ControlMode.PercentOutput, magnitude);
-        rightMasterTalon.set(ControlMode.PercentOutput, magnitude);
+        leftMasterTalon.set(ControlMode.PercentOutput, leftMagnitude);
+        rightMasterTalon.set(ControlMode.PercentOutput, rightMagnitude);
         break;
       case Velocity:
-        leftMasterTalon.set(ControlMode.Velocity, magnitude);
-        rightMasterTalon.set(ControlMode.Velocity, magnitude);
+        leftMasterTalon.set(ControlMode.Velocity, leftMagnitude);
+        rightMasterTalon.set(ControlMode.Velocity, rightMagnitude);
         break;
       case MotionMagic:
-        leftMasterTalon.set(ControlMode.MotionMagic, magnitude);
-        rightMasterTalon.set(ControlMode.MotionMagic, magnitude);
+        leftMasterTalon.set(ControlMode.MotionMagic, leftMagnitude);
+        rightMasterTalon.set(ControlMode.MotionMagic, rightMagnitude);
         break;
       default:
         break;

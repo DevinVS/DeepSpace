@@ -43,8 +43,7 @@ public class FollowBall extends Command {
     }
     System.out.println(rightPower + " " + leftPower);
     double  multiplier = -.25;
-    Robot.drivetrain.leftMasterTalon.set(ControlMode.Velocity, Constants.kMaxVelocity * leftPower * multiplier);
-    Robot.drivetrain.rightMasterTalon.set(ControlMode.Velocity, Constants.kMaxVelocity * rightPower * multiplier);
+    Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity * leftPower * multiplier, Constants.kMaxVelocity * rightPower * multiplier);
 
     try{
       Thread.sleep(100);

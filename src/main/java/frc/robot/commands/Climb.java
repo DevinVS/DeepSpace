@@ -29,8 +29,6 @@ public class Climb extends Command {
   @Override
   protected void execute() {
     double joyY = Robot.m_oi.liftStick.getY();
-    Robot.lift.liftSpark.set(.5 * joyY);
-    Robot.lift.elevatorSpark.set(.5 * joyY);
     //Robot.lift.liftPID.setReference(joyY * .5 *Constants.kNeoMaxVelocity, ControlType.kVelocity);
     //Robot.lift.elevatorPID.setReference(joyY * .5 * Constants.kNeoMaxVelocity, ControlType.kVelocity);
   }

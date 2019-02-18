@@ -27,7 +27,7 @@ public class BallIO extends Subsystem {
   private static WPI_TalonSRX leftIntakeTalon;
   private static WPI_TalonSRX rightIntakeTalon;
 
-  public boolean isExtended = false;
+  private boolean isExtended = false;
 
   public BallIO(){
     leftIntakeTalon = new WPI_TalonSRX(RobotMap.leftIntakeTalonPort);

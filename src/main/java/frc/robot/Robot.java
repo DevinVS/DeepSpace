@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -78,12 +80,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    drivetrain.leftMasterTalon.set(0);
-    drivetrain.rightMasterTalon.set(0);
+    drivetrain.set(ControlMode.PercentOutput, 0, 0);
 
-    lift.elevatorSpark.set(0);
-    lift.liftSpark.set(0);
-    lift.liftDrive.set(0);
+    lift.setElevator(0);
+    lift.setLift(0);
+    lift.setDrive(0);
   }
 
   @Override

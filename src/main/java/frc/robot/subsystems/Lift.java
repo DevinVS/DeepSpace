@@ -24,15 +24,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Lift extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public static WPI_TalonSRX liftDrive;
+  private static WPI_TalonSRX liftDrive;
 
-  public static CANSparkMax liftSpark;
-  public static CANPIDController liftPID;
-  public static CANEncoder liftEncoder;
+  private static CANSparkMax liftSpark;
+  private static CANPIDController liftPID;
+  private static CANEncoder liftEncoder;
 
-  public static CANSparkMax elevatorSpark;
-  public static CANPIDController elevatorPID;
-  public static CANEncoder elevatorEncoder;
+  private static CANSparkMax elevatorSpark;
+  private static CANPIDController elevatorPID;
+  private static CANEncoder elevatorEncoder;
 
   public Lift(){
     liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalon);
@@ -61,5 +61,17 @@ public class Lift extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public void setElevator(double magnitude){
+    elevatorSpark.set(magnitude);
+  }
+
+  public void setLift(double magnitude){
+    liftSpark.set(magnitude);
+  }
+
+  public void setDrive(double magnitude){
+    liftDrive.set(magnitude);
   }
 }
