@@ -78,6 +78,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    drivetrain.leftMasterTalon.set(0);
+    drivetrain.rightMasterTalon.set(0);
+
+    lift.elevatorSpark.set(0);
+    lift.liftSpark.set(0);
+    lift.liftDrive.set(0);
   }
 
   @Override
@@ -149,4 +155,6 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
+
 }

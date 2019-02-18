@@ -33,7 +33,7 @@ public class Lift extends Subsystem {
   public static CANSparkMax elevatorSpark;
   public static CANPIDController elevatorPID;
   public static CANEncoder elevatorEncoder;
-  
+
   public Lift(){
     liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalon);
 
@@ -51,10 +51,10 @@ public class Lift extends Subsystem {
     elevatorSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
     // elevatorPID = elevatorSpark.getPIDController();
 
-    // elevatorPID.setFF(Constants.lVelocity_kF);
-    // elevatorPID.setP(Constants.lVelocity_kP);
-    // elevatorPID.setI(Constants.lVelocity_kI);
-    // elevatorPID.setD(Constants.lVelocity_kD);
+    elevatorPID.setFF(0.00001);
+    elevatorPID.setP(0);
+    elevatorPID.setI(0);
+    elevatorPID.setD(0);
   }
 
   @Override

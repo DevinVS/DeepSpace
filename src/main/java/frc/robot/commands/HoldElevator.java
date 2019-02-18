@@ -21,12 +21,14 @@ public class HoldElevator extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Initializing HoldElevator Command");
     Robot.lift.elevatorEncoder.setPosition(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Executing HoldElevator Command");
     Robot.lift.elevatorPID.setReference(0, ControlType.kPosition);
   }
 
