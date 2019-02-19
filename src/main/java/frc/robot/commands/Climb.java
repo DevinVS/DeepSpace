@@ -14,10 +14,12 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class Climb extends Command {
-  public Climb() {
+  private double targetPos;
+  public Climb(double targetPos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.lift);
+    this.targetPos = targetPos;
   }
 
   // Called just before this Command runs the first time
@@ -28,9 +30,8 @@ public class Climb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double joyY = Robot.m_oi.liftStick.getY();
-    //Robot.lift.liftPID.setReference(joyY * .5 *Constants.kNeoMaxVelocity, ControlType.kVelocity);
-    //Robot.lift.elevatorPID.setReference(joyY * .5 * Constants.kNeoMaxVelocity, ControlType.kVelocity);
+    Robot.lift.up(targetPos);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

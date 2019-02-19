@@ -64,6 +64,6 @@ public class OI {
     //button6.whenPressed(new SetIntakeMode("intake"));
     //button7.whenPressed(new Climb()); 
     //button8.whenPressed(new SetEndEffector());
-    button8.whenPressed(new HoldElevator());
+    button8.whenPressed(new Climb(15));
   }
 }

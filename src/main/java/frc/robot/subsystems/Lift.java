@@ -12,11 +12,14 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.ControlType;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -34,27 +37,44 @@ public class Lift extends Subsystem {
   private static CANPIDController elevatorPID;
   private static CANEncoder elevatorEncoder;
 
+  private double kF, kP, kI, kD, kMaxAcceleration, kMaxVelocity;
+
   public Lift(){
     liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalon);
 
     liftSpark = new CANSparkMax(RobotMap.liftSparkPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     liftSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    liftSpark.setInverted(true);
 
-    // liftPID = liftSpark.getPIDController();
+    liftPID = liftSpark.getPIDController();
 
-    // liftPID.setFF(Constants.lVelocity_kF);
-    // liftPID.setP(Constants.lVelocity_kP);
-    // liftPID.setI(Constants.lVelocity_kI);
-    // liftPID.setD(Constants.lVelocity_kD);
+    liftPID.setFF(Constants.elevatorkF);
+    liftPID.setP(Constants.elevatorkP);
+    liftPID.setI(Constants.elevatorkI);
+    liftPID.setD(Constants.elevatorkD);
+
+    liftPID.setSmartMotionAllowedClosedLoopError(0, 0);
+    liftPID.setSmartMotionMaxAccel(Constants.elevatorkMaxAccel, 0);
+    liftPID.setSmartMotionMaxVelocity(Constants.elevatorkMaxVelocity, 0);
+    liftPID.setSmartMotionMinOutputVelocity(0, 0);
 
     elevatorSpark = new CANSparkMax(RobotMap.elevatorSparkPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     elevatorSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
-    // elevatorPID = elevatorSpark.getPIDController();
+    elevatorSpark.setInverted(true);
+    elevatorEncoder = elevatorSpark.getEncoder();
+    elevatorPID = elevatorSpark.getPIDController();
 
-    elevatorPID.setFF(0.00001);
-    elevatorPID.setP(0);
-    elevatorPID.setI(0);
-    elevatorPID.setD(0);
+    elevatorPID.setSmartMotionMaxAccel(Constants.elevatorkMaxAccel, 0);
+    elevatorPID.setSmartMotionMaxVelocity(Constants.elevatorkMaxVelocity, 0);
+    elevatorPID.setSmartMotionAllowedClosedLoopError(0, 0);
+    elevatorPID.setSmartMotionMinOutputVelocity(0 , 0);
+
+    elevatorPID.setFF(Constants.elevatorkF);
+    elevatorPID.setP(Constants.elevatorkP);
+    elevatorPID.setI(Constants.elevatorkI);
+    elevatorPID.setD(Constants.elevatorkD);
+
+    SmartDashboard.putNumber("Pos", 0);
   }
 
   @Override
@@ -64,7 +84,7 @@ public class Lift extends Subsystem {
   }
 
   public void setElevator(double magnitude){
-    elevatorSpark.set(magnitude);
+    elevatorPID.setReference(magnitude, ControlType.kSmartMotion);
   }
 
   public void setLift(double magnitude){
@@ -73,5 +93,17 @@ public class Lift extends Subsystem {
 
   public void setDrive(double magnitude){
     liftDrive.set(magnitude);
+  }
+
+  public double getElevatorPosition(){return elevatorEncoder.getPosition();}
+
+  public void zero(){
+    elevatorPID.setReference(0, ControlType.kCurrent);
+  }
+
+  public void up(double targetPos){
+    elevatorPID.setReference(-targetPos*1.5, ControlType.kSmartMotion);
+    liftPID.setReference(-targetPos, ControlType.kSmartMotion);
+    System.out.println(elevatorSpark.getOutputCurrent() + " " + liftSpark.getOutputCurrent());
   }
 }

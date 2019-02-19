@@ -29,10 +29,10 @@ import frc.robot.vision.Pixy2USBJNI;
  */
 public class Robot extends TimedRobot {
   public static RobotMap robotMap = new RobotMap();
+  public static Lift lift = new Lift();
   public static OI m_oi;
   public static Pixy2USBJNI pixy2SpiJNI = new Pixy2USBJNI();
   public static Drivetrain drivetrain = new Drivetrain();
-  public static Lift lift = new Lift();
   public static BallIO ballIO = new BallIO();
   public static Compressor compressor = new Compressor(0);
 
@@ -90,6 +90,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    lift.zero();
   }
 
   /**
