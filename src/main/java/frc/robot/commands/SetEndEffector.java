@@ -30,6 +30,9 @@ public class SetEndEffector extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Executing SetEndEffector Command");
+
+    targetPos = (targetPos > 85)? 85: targetPos;
     Robot.lift.setElevator(targetPos);
     System.out.println(Robot.lift.getElevatorPosition());
   }
