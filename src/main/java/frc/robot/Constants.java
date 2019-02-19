@@ -75,7 +75,7 @@ public class Constants{
     public static double elevatorkP = 5e-5;
     public static double elevatorkI = 1e-6;
     public static double elevatorkD = 0;
-    public static double elevatorkMaxAccel = 1000;
+    public static double elevatorkMaxAccel = 3000;
     public static double elevatorkMaxVelocity = 3000;
 
     static{
