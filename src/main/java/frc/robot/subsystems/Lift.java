@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
@@ -106,4 +107,9 @@ public class Lift extends Subsystem {
     liftPID.setReference(-targetPos, ControlType.kSmartMotion);
     System.out.println(elevatorSpark.getOutputCurrent() + " " + liftSpark.getOutputCurrent());
   }
+
+  public void liftDrive(double power){
+    liftDrive.set(ControlMode.PercentOutput, power);
+  }
+
 }
