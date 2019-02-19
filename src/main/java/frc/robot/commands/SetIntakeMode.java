@@ -15,7 +15,7 @@ public class SetIntakeMode extends Command {
   String mode;
 
   public SetIntakeMode(String mode) {
-    requires(Robot.ballIO);
+    requires(Robot.io);
     this.mode = mode;
   }
 
@@ -27,15 +27,19 @@ public class SetIntakeMode extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Executing SetIntakeMode Command");
     switch(mode){
       case "neutral":
-        Robot.ballIO.setPower(0);
-        Robot.ballIO.setPosition("up");
+        Robot.io.setPower(0);
+        Robot.io.setPosition("up");
         break;
-      case "intake":
-        Robot.ballIO.setPower(.8);
-        Robot.ballIO.setPosition("down");
+      case "in":
+        Robot.io.setPower(.8);
+        Robot.io.setPosition("down");
         break;
+      case "out":
+        Robot.io.setPower(-.8);
+        Robot.io.setPosition("down");
     }
   }
 

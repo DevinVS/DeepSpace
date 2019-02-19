@@ -31,14 +31,15 @@ public class FollowBall extends Command {
   protected void execute() {
     double pos;
     double rightPower =0, leftPower = 0;
+    double offset = 104;
     
     if((pos = getClosestBallPos())<Constants.screenWidth){
       if(pos<=0){
-        leftPower= 1+(pos/(Constants.screenWidth/2));
+        leftPower= 1+(pos/(offset));
         rightPower=1;
       }else{
         leftPower=1;
-        rightPower= 1-(pos/(Constants.screenWidth/2));
+        rightPower= 1-(pos/(offset));
       }
     }
     System.out.println(rightPower + " " + leftPower);

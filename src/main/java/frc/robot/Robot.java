@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.subsystems.BallIO;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.IO;
 import frc.robot.subsystems.Lift;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.vision.Block;
@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static Pixy2USBJNI pixy2SpiJNI = new Pixy2USBJNI();
   public static Drivetrain drivetrain = new Drivetrain();
-  public static BallIO ballIO = new BallIO();
+  public static IO io = new IO();
   public static Compressor compressor = new Compressor(0);
 
   Command m_autonomousCommand;

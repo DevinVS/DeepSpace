@@ -17,7 +17,7 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class BallIO extends Subsystem {
+public class IO extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -27,9 +27,9 @@ public class BallIO extends Subsystem {
   private static WPI_TalonSRX leftIntakeTalon;
   private static WPI_TalonSRX rightIntakeTalon;
 
-  private boolean isExtended = false;
+  public static enum IOMode{ball, hatch}
 
-  public BallIO(){
+  public IO(){
     leftIntakeTalon = new WPI_TalonSRX(RobotMap.leftIntakeTalonPort);
     rightIntakeTalon = new WPI_TalonSRX(RobotMap.rightIntakeTalonPort);
 
