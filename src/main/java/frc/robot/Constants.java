@@ -16,7 +16,7 @@ public class Constants{
     public static int kAllowableClosedLoopError;
 
     public static double centerBallHeight = 4.5; //in inches
-    public static double centerHatchHeight; //in inches
+    public static double centerHatchHeight = 13; //in inches
 
     public static double lDistance_kP;
     public static double lDistance_kI;

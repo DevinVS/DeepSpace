@@ -62,8 +62,8 @@ public class OI {
   public OI(){
     trigger.toggleWhenPressed(new FollowBall());
     button3.toggleWhenPressed(new AutoIntakeG());
-    button5.whenPressed(new MoveElevator(SmartDashboard.getNumber("MyValue",0)));
-    button4.whenPressed(new MoveElevator(0));
+    button4.whenPressed(new MoveElevator(50));
+    button5.whenPressed(new MoveElevator(3.25));
     
     // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
   }
