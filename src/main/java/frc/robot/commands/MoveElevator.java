@@ -7,10 +7,7 @@
 
 package frc.robot.commands;
 
-import com.revrobotics.ControlType;
-
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class MoveElevator extends Command {
