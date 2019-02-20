@@ -34,7 +34,7 @@ public class MoveElevator extends Command {
 
     targetPos = (targetPos > 85)? 85: targetPos;
     Robot.lift.setElevator(targetPos);
-    System.out.println(Robot.lift.getElevatorPosition());
+    System.out.println("Elevator Posotion " + Robot.lift.getElevatorPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()

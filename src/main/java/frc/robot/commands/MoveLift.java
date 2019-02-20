@@ -8,11 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class MoveLift extends Command {
-  public MoveLift() {
+  private double targetPos;
+  public MoveLift(double targetPos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    this.targetPos = targetPos;
   }
 
   // Called just before this Command runs the first time
@@ -23,6 +26,12 @@ public class MoveLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    System.out.println("Executing MoveLift Command");
+ 
+    targetPos = (targetPos > 85)? 85: targetPos;
+    Robot.lift.setLift(targetPos);
+    System.out.println("Lift Position " + Robot.lift.getLiftPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()

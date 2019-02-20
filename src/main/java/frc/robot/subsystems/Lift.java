@@ -80,12 +80,12 @@ public class Lift extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void setElevator(double magnitude){
-    elevatorPID.setReference(magnitude, ControlType.kSmartMotion);
+  public void setElevator(double targetPos){
+    elevatorPID.setReference(targetPos, ControlType.kSmartMotion);
   }
 
-  public void setLift(double magnitude){
-    liftSpark.set(magnitude);
+  public void setLift(double targetPos){
+    liftPID.setReference(targetPos, ControlType.kSmartMotion);
   }
 
   public void setDrive(double magnitude){
@@ -98,16 +98,12 @@ public class Lift extends Subsystem {
   }
 
   public double getElevatorPosition(){return elevatorEncoder.getPosition();}
+  public double getLiftPosition(){return liftEncoder.getPosition();}
 
   public void zero(){
     elevatorPID.setReference(0, ControlType.kCurrent);
   }
 
-  public void up(double targetPos){
-    elevatorPID.setReference(-targetPos*1.5, ControlType.kSmartMotion);
-    liftPID.setReference(-targetPos, ControlType.kSmartMotion);
-    System.out.println(elevatorSpark.getOutputCurrent() + " " + liftSpark.getOutputCurrent());
-  }
 
   public void liftDrive(double power){
     liftDrive.set(ControlMode.PercentOutput, power);
