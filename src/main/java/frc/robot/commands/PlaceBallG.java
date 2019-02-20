@@ -31,11 +31,11 @@ public class PlaceBallG extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-    // addSequential(new MoveElevator(desiredPos));
-    // addSequential(new Place("put"));
-    // addSequential(new MoveElevator(desiredPos-1));
-    // addSequential(new Place("take"));
-    // addSequential(new MoveElevator(3.25)); 
+    addSequential(new MoveElevator(desiredPos));
+    addSequential(new Place("put"));
+    addSequential(new MoveElevator(desiredPos-1));
+    addSequential(new Place("take"));
+    addSequential(new MoveElevator(3.25)); 
 
   }
 }

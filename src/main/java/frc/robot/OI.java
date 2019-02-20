@@ -60,7 +60,8 @@ public class OI {
 
 
   public OI(){
-    
+    button5.whenPressed(new Raise(-10));
+    button6.whenPressed(new PlaceBallG(50));
     // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
   }
 }

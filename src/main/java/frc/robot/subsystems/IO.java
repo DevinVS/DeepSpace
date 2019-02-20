@@ -35,7 +35,7 @@ public class IO extends Subsystem {
     rightIntakeTalon = new WPI_TalonSRX(RobotMap.rightIntakeTalonPort);
 
     IntakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidInPort, RobotMap.intakeSolenoidOutport);
-    // PlacingSolenoid = new DoubleSolenoid(RobotMap.placeSolenoidInPort, RobotMap.placeSolenoidOutport);
+    PlacingSolenoid = new DoubleSolenoid(RobotMap.placeSolenoidInPort, RobotMap.placeSolenoidOutPort);
 
     leftIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
     rightIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);

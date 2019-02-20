@@ -73,7 +73,7 @@ public class Lift extends Subsystem {
     elevatorPID.setD(Constants.elevatorkD);
 
     SmartDashboard.putNumber("MyValue", 0);
-  
+    liftEncoder.setPosition(0);
 
 
   }
