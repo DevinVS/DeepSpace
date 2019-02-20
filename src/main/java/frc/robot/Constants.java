@@ -15,6 +15,9 @@ public class Constants{
     public static double kMaxVelocity = 25000;
     public static int kAllowableClosedLoopError;
 
+    public static double centerBallHeight = 4.5; //in inches
+    public static double centerHatchHeight; //in inches
+
     public static double lDistance_kP;
     public static double lDistance_kI;
     public static double lDistance_kD;
