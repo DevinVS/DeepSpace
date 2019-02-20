@@ -7,16 +7,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
-public class Place extends Command {
-  private String value;
-  public Place(String value) {
+
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
+
+public class Raise extends Command {
+  private double targetPos;
+  public Raise(double targetPos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.io);
-    this.value = value;
+
+    this.targetPos = targetPos;
   }
 
   // Called just before this Command runs the first time
@@ -27,7 +29,7 @@ public class Place extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.io.Place(value);
+    Robot.lift.up(targetPos);
   }
 
   // Make this return true when this Command no longer needs to run execute()
