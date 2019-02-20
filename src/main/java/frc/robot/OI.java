@@ -57,6 +57,7 @@ public class OI {
 
 
   public OI(){
+    trigger.toggleWhenPressed(new FollowBall());
     button8.whenPressed(new Raise(15));
   }
 }
