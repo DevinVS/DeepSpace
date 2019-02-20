@@ -8,13 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class MoveElevator extends Command {
   double targetPos;
   public MoveElevator(double targetPos) {
     requires(Robot.lift);
-    this.targetPos = targetPos;
+    this.targetPos = (targetPos*1.0829) -2.9889;
+
+
+
   }
 
 

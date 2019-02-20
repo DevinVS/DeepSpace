@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 
 
@@ -31,6 +32,7 @@ public class OI {
   public static JoystickButton trigger = new JoystickButton(stick, 1);
   public static JoystickButton button3 = new JoystickButton(stick, 3);
   public static JoystickButton button5 = new JoystickButton(stick, 5);
+  public static JoystickButton button4 = new JoystickButton(stick, 4);
   public static JoystickButton button6 = new JoystickButton(stick, 6);
   public static JoystickButton button7 = new JoystickButton(stick, 7);
   public static JoystickButton button8 = new JoystickButton(stick, 8);
@@ -60,6 +62,8 @@ public class OI {
   public OI(){
     trigger.toggleWhenPressed(new FollowBall());
     button3.toggleWhenPressed(new AutoIntakeG());
+    button4.whenPressed(new MoveElevator(50));
+    button5.whenPressed(new MoveElevator(3.25));
     
     // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
   }

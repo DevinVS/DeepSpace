@@ -44,6 +44,7 @@ public class Lift extends Subsystem {
     liftSpark.setInverted(true);
 
     liftPID = liftSpark.getPIDController();
+    liftEncoder = liftSpark.getEncoder();
 
     liftPID.setFF(Constants.elevatorkF);
     liftPID.setP(Constants.elevatorkP);
@@ -70,6 +71,9 @@ public class Lift extends Subsystem {
     elevatorPID.setP(Constants.elevatorkP);
     elevatorPID.setI(Constants.elevatorkI);
     elevatorPID.setD(Constants.elevatorkD);
+
+    SmartDashboard.putNumber("MyValue", 0);
+  
 
 
   }
