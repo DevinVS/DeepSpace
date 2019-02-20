@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Constants{
     
@@ -63,25 +62,25 @@ public class Constants{
              lDistance_kP = 0.1;
              lDistance_kI = 0;
              lDistance_kD = 0;
-             lDistance_kF = 0;
+             lDistance_kF = 0.1;
              lDistance_Iz = 100;
              lDistance_PeakOut = .5;
 
              lVelocity_kP = 0;
              lVelocity_kI = 0;
              lVelocity_kD = 0;
-             lVelocity_kF = .01;
+             lVelocity_kF = 0.1;
              //lVelocity_Iz = 300;
              //lVelocity_PeakOut = .5;
 
-             rDistance_kP = 0.1;
-             rDistance_kI = 0;
+             rDistance_kP = 0.07;
+             rDistance_kI = 0.001;
              rDistance_kD = 0;
-             rDistance_kF = 0;
+             rDistance_kF = 0.1;
              rDistance_Iz = 100;
              rDistance_PeakOut = .5;
 
-             rVelocity_kP = .1;
+             rVelocity_kP = 0.1;
              rVelocity_kI = 0;
              rVelocity_kD = 20;
              rVelocity_kF = 1023/6800;

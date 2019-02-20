@@ -58,8 +58,9 @@ public class OI {
 
 
   public OI(){
-    trigger.toggleWhenPressed(new FollowBall());
-    button3.toggleWhenPressed(new AutoIntakeG());
+    //trigger.toggleWhenPressed(new FollowBall());
+    //utton3.toggleWhenPressed(new AutoIntakeG());
+    button5.whenPressed(new TestPID());
     
     // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
   }

@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 import frc.robot.commands.JoystickDrive;
@@ -30,6 +31,7 @@ public class Drivetrain extends Subsystem {
   private double quickStopAccumulator;
   private static DoubleSolenoid shiftSolenoid;
 
+  private double kf = 0.1, kp =0, ki=0, kd=0;
   public Drivetrain(){
     leftMasterTalon = new WPI_TalonSRX(RobotMap.leftMasterTalonPort);
     leftSlaveTalon = new WPI_TalonSRX(RobotMap.leftSlaveTalonPort);
@@ -59,10 +61,11 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
     leftMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
 
-    rightMasterTalon.config_kF(0, Constants.lDistance_kF, Constants.kTimeoutMs);
-    rightMasterTalon.config_kP(0, Constants.lDistance_kP, Constants.kTimeoutMs);
-    rightMasterTalon.config_kI(0, Constants.lDistance_kI, Constants.kTimeoutMs);
-    rightMasterTalon.config_kD(0, Constants.lDistance_kD, Constants.kTimeoutMs);
+    rightMasterTalon.config_kF(0, Constants.rDistance_kF, Constants.kTimeoutMs);
+    rightMasterTalon.config_kP(0, Constants.rDistance_kP, Constants.kTimeoutMs);
+    rightMasterTalon.config_kI(0, Constants.rDistance_kI, Constants.kTimeoutMs);
+    rightMasterTalon.config_kD(0, Constants.rDistance_kD, Constants.kTimeoutMs);
+
 
     rightMasterTalon.config_kF(1, Constants.lVelocity_kF, Constants.kTimeoutMs);
     rightMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
@@ -72,7 +75,11 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
     rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
 
+    leftMasterTalon.configMotionAcceleration(6385);
+    leftMasterTalon.configMotionCruiseVelocity(6385);
 
+    leftMasterTalon.configMotionAcceleration(6835);
+    leftMasterTalon.configMotionCruiseVelocity(6835);
 
   }
 

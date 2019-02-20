@@ -42,7 +42,7 @@ public class Lift extends Subsystem {
     liftSpark = new CANSparkMax(RobotMap.liftSparkPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     liftSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
     liftSpark.setInverted(true);
-
+    liftEncoder = liftSpark.getEncoder();
     liftPID = liftSpark.getPIDController();
 
     liftPID.setFF(Constants.elevatorkF);
