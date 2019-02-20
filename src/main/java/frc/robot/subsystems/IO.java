@@ -18,23 +18,21 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class IO extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
 
   private static DoubleSolenoid IntakeSolenoid;
-  //private static DoubleSolenoid rightIntakeSolenoid;
 
   private static WPI_TalonSRX leftIntakeTalon;
   private static WPI_TalonSRX rightIntakeTalon;
 
-  public static enum IOMode{ball, hatch}
+  public static enum IOMode{ball, hatch, neutral}
+  IOMode mode = IOMode.neutral;
 
   public IO(){
     leftIntakeTalon = new WPI_TalonSRX(RobotMap.leftIntakeTalonPort);
     rightIntakeTalon = new WPI_TalonSRX(RobotMap.rightIntakeTalonPort);
 
-    IntakeSolenoid = new DoubleSolenoid(RobotMap.leftIntakeSolenoidInPort, RobotMap.leftIntakeSolenoidOutport);
-    //rightIntakeSolenoid = new DoubleSolenoid(RobotMap.rightIntakeSolenoidInPort, RobotMap.rightIntakeSolenoidOutPort);
+    IntakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidInPort, RobotMap.intakeSolenoidOutport);
 
     leftIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
     rightIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
@@ -50,11 +48,9 @@ public class IO extends Subsystem {
     switch(value){
       case "down":
         IntakeSolenoid.set(DoubleSolenoid.Value.kReverse);
-        //rightIntakeSolenoid.set(DoubleSolenoid.Value.kReverse);
         break;
       case "up":
         IntakeSolenoid.set(DoubleSolenoid.Value.kForward);
-        //rightIntakeSolenoid.set(DoubleSolenoid.Value.kForward);
         break;
     }
   }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.IO;
 import frc.robot.subsystems.Lift;
@@ -65,12 +66,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Block[] blocks = pixy2SpiJNI.blocksBuffer.poll();
-    if(blocks != null){
-      for(Block b : blocks){
-        // System.out.println(b.toString());
-      }
-    }
+    double[] currents = lift.getAmps();
+    SmartDashboard.putNumber("Elevator Current", currents[0]);
+    SmartDashboard.putNumber("Lift Current", currents[1]);
   }
 
   /**

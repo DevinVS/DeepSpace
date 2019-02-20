@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
 import frc.robot.commands.JoystickDrive;
@@ -46,7 +45,7 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon.setInverted(true);
     rightSlaveTalon.setInverted(true);
 
-    shiftSolenoid = new DoubleSolenoid(RobotMap.leftShiftSolenoidInPort, RobotMap.leftShiftSolenoidOutPort);
+    shiftSolenoid = new DoubleSolenoid(RobotMap.shiftSolenoidInPort, RobotMap.shiftSolenoidOutPort);
 
     //Slot 0 = Distance PID
     //Slot 1 = Velocity PID
@@ -181,67 +180,6 @@ public class Drivetrain extends Subsystem {
   public void setPIDSlot(int slot){
     leftMasterTalon.selectProfileSlot(slot, 0);
     rightMasterTalon.selectProfileSlot(slot, 0);
-  }
-
-  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
-    xSpeed = limit(xSpeed);
-    
-
-    zRotation = limit(zRotation);
-
-    double angularPower;
-    boolean overPower;
-
-    if (isQuickTurn) {
-      if (Math.abs(xSpeed) < 0.2) {
-        quickStopAccumulator = (1 - .1) * quickStopAccumulator
-            + .1 * limit(zRotation) * 2;
-      }
-      overPower = true;
-      angularPower = zRotation;
-    } else {
-      overPower = false;
-      angularPower = Math.abs(xSpeed) * zRotation - quickStopAccumulator;
-
-      if (quickStopAccumulator > 1) {
-        quickStopAccumulator -= 1;
-      } else if (quickStopAccumulator < -1) {
-        quickStopAccumulator += 1;
-      } else {
-        quickStopAccumulator = 0.0;
-      }
-    }
-
-    double leftMotorOutput = xSpeed + angularPower;
-    double rightMotorOutput = xSpeed - angularPower;
-
-    // If rotation is overpowered, reduce both outputs to within acceptable range
-    if (overPower) {
-      if (leftMotorOutput > 1.0) {
-        rightMotorOutput -= leftMotorOutput - 1.0;
-        leftMotorOutput = 1.0;
-      } else if (rightMotorOutput > 1.0) {
-        leftMotorOutput -= rightMotorOutput - 1.0;
-        rightMotorOutput = 1.0;
-      } else if (leftMotorOutput < -1.0) {
-        rightMotorOutput -= leftMotorOutput + 1.0;
-        leftMotorOutput = -1.0;
-      } else if (rightMotorOutput < -1.0) {
-        leftMotorOutput -= rightMotorOutput + 1.0;
-        rightMotorOutput = -1.0;
-      }
-    }
-
-    // Normalize the wheel speeds
-    double maxMagnitude = Math.max(Math.abs(leftMotorOutput), Math.abs(rightMotorOutput));
-    if (maxMagnitude > 1.0) {
-      leftMotorOutput /= maxMagnitude;
-      rightMotorOutput /= maxMagnitude;
-    }
-
-    leftMasterTalon.set(ControlMode.Velocity, leftMotorOutput * Constants.kMaxVelocity);
-    rightMasterTalon.set(ControlMode.Velocity, rightMotorOutput * Constants.kMaxVelocity * -1);
-
   }
 
   protected double applyDeadband(double value, double deadband) {

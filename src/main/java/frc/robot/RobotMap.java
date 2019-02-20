@@ -27,18 +27,12 @@ public class RobotMap {
   public static int leftIntakeTalonPort = 5;
   public static int rightIntakeTalonPort = 6;
 
-  public static int leftIntakeSolenoidInPort = 7;
-  public static int leftIntakeSolenoidOutport = 5;
+  public static int intakeSolenoidInPort = 7;
+  public static int intakeSolenoidOutport = 5;
 
-  public static int rightIntakeSolenoidInPort = 7;
-  public static int rightIntakeSolenoidOutPort = 5;
-
-  public static int leftShiftSolenoidInPort = 4;
-  public static int leftShiftSolenoidOutPort = 6;
+  public static int shiftSolenoidInPort = 4;
+  public static int shiftSolenoidOutPort = 6;
   
-  public static int rightShiftSolenoidInPort = 4;
-  public static int rightShiftSolenoidOutPort = 6;
-
   public static int backDriveTalon = 7;
   
   public static int elevatorSparkPort = 8;

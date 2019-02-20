@@ -8,14 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class SetIntakeMode extends Command {
+public class SetIntakeMode extends InstantCommand {
 
   String mode;
 
   public SetIntakeMode(String mode) {
-    requires(Robot.io);
     this.mode = mode;
   }
 
@@ -41,12 +41,6 @@ public class SetIntakeMode extends Command {
         Robot.io.setPower(-.8);
         Robot.io.setPosition("down");
     }
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
   }
 
   // Called once after isFinished returns true

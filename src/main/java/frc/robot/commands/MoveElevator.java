@@ -7,15 +7,20 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.ControlType;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class LiftDrive extends Command {
-  private double distance;
-  public LiftDrive(double distance) {
+public class MoveElevator extends Command {
+  double targetPos;
+  public MoveElevator(double targetPos) {
     requires(Robot.lift);
-    this.distance = distance;
+    this.targetPos = targetPos;
   }
+
+
 
   // Called just before this Command runs the first time
   @Override
@@ -25,6 +30,11 @@ public class LiftDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Executing MoveElevator Command");
+
+    targetPos = (targetPos > 85)? 85: targetPos;
+    Robot.lift.setElevator(targetPos);
+    System.out.println(Robot.lift.getElevatorPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()

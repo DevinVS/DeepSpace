@@ -7,19 +7,14 @@
 
 package frc.robot.commands;
 
-import com.revrobotics.ControlType;
-
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class SetEndEffector extends Command {
-  double targetPos;
-  public SetEndEffector(double targetPos) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.lift);
-    this.targetPos = targetPos;
+public class Move extends Command {
+  public Move(double targetDistance) {
+    requires(Robot.drivetrain);
+    Robot.drivetrain.zero();
+
   }
 
   // Called just before this Command runs the first time
@@ -30,11 +25,8 @@ public class SetEndEffector extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Executing SetEndEffector Command");
+    System.out.println("Executing Move Command");
 
-    targetPos = (targetPos > 85)? 85: targetPos;
-    Robot.lift.setElevator(targetPos);
-    System.out.println(Robot.lift.getElevatorPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()

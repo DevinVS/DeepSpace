@@ -18,15 +18,13 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
  */
 public class Lift extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
   private static WPI_TalonSRX liftDrive;
 
   private static CANSparkMax liftSpark;
@@ -36,8 +34,6 @@ public class Lift extends Subsystem {
   private static CANSparkMax elevatorSpark;
   private static CANPIDController elevatorPID;
   private static CANEncoder elevatorEncoder;
-
-  private double kF, kP, kI, kD, kMaxAcceleration, kMaxVelocity;
 
   public Lift(){
     liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalon);
@@ -74,7 +70,7 @@ public class Lift extends Subsystem {
     elevatorPID.setI(Constants.elevatorkI);
     elevatorPID.setD(Constants.elevatorkD);
 
-    SmartDashboard.putNumber("Pos", 0);
+
   }
 
   @Override
@@ -93,6 +89,11 @@ public class Lift extends Subsystem {
 
   public void setDrive(double magnitude){
     liftDrive.set(magnitude);
+  }
+  
+  public double[] getAmps(){
+    double[] nums= {elevatorSpark.getOutputCurrent(), liftSpark.getOutputCurrent()};
+    return nums;
   }
 
   public double getElevatorPosition(){return elevatorEncoder.getPosition();}

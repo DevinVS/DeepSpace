@@ -14,8 +14,11 @@ import frc.robot.Robot;
 import frc.robot.vision.Block;
 import frc.robot.Constants;
 
-public class FollowBall extends Command {
-  public FollowBall() {
+public class ToggleBallFollow extends Command {
+  
+  private boolean running = false;
+  
+  public ToggleBallFollow() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.drivetrain);
@@ -24,6 +27,7 @@ public class FollowBall extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    running = !running;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -56,7 +60,7 @@ public class FollowBall extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return !running;
   }
 
   // Called once after isFinished returns true
