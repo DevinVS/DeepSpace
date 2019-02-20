@@ -29,6 +29,7 @@ public class OI {
 
   public static Joystick stick = new Joystick(0);
   public static JoystickButton trigger = new JoystickButton(stick, 1);
+  public static JoystickButton button3 = new JoystickButton(stick, 3);
   public static JoystickButton button5 = new JoystickButton(stick, 5);
   public static JoystickButton button6 = new JoystickButton(stick, 6);
   public static JoystickButton button7 = new JoystickButton(stick, 7);
@@ -58,6 +59,8 @@ public class OI {
 
   public OI(){
     trigger.toggleWhenPressed(new FollowBall());
-    button8.whenPressed(new Raise(15));
+    button3.toggleWhenPressed(new AutoIntake());
+    
+    // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
   }
 }
