@@ -14,25 +14,22 @@ import frc.robot.Robot;
 import frc.robot.vision.Block;
 import frc.robot.Constants;
 
-public class ToggleBallFollow extends Command {
+public class FollowBall extends Command {
   
-  private boolean running = false;
   
-  public ToggleBallFollow() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  public FollowBall() {
     requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    running = !running;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Executing FollowBall Command");
     double pos;
     double rightPower =0, leftPower = 0;
     double offset = 104;
@@ -46,7 +43,7 @@ public class ToggleBallFollow extends Command {
         rightPower= 1-(pos/(offset));
       }
     }
-    System.out.println(rightPower + " " + leftPower);
+
     double  multiplier = -.25;
     Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity * leftPower * multiplier, Constants.kMaxVelocity * rightPower * multiplier);
 
@@ -60,7 +57,7 @@ public class ToggleBallFollow extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !running;
+    return false;
   }
 
   // Called once after isFinished returns true
