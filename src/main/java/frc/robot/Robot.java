@@ -69,6 +69,8 @@ public class Robot extends TimedRobot {
     double[] currents = lift.getAmps();
     SmartDashboard.putNumber("Elevator Current", currents[0]);
     SmartDashboard.putNumber("Lift Current", currents[1]);
+    SmartDashboard.putNumber("Elevator Position", Robot.lift.getElevatorPosition());
+    SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());
   }
 
   /**

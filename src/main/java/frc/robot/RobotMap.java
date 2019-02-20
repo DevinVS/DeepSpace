@@ -32,6 +32,12 @@ public class RobotMap {
 
   public static int shiftSolenoidInPort = 4;
   public static int shiftSolenoidOutPort = 6;
+
+  public static int placeSolenoidInPort = 0;
+  public static int placeSolenoidOutPort = 1;
+
+  public static int brakeSolenoidInPort = 2;
+  public static int brakeSolenoidOutPort = 3;
   
   public static int backDriveTalon = 7;
   

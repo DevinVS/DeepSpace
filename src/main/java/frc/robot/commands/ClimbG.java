@@ -9,11 +9,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutoIntake extends CommandGroup {
+public class ClimbG extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public AutoIntake() {
+  public ClimbG(double targetPos, double power, double distanceOne, double distanceTwo ) {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -31,8 +31,15 @@ public class AutoIntake extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-    addSequential(new SetIntakeMode("in"));
-    addSequential(new FollowBall());
+    // addParallel(new MoveElevator(targetPos));
+    // addSequential(new MoveLift(targetPos));
+    // addSequential(new LiftDrive(power));
+    // addSequential(new MoveElevator(0));
+    // addParallel(new LiftDrive(power));
+    // addSequential(new Move(distanceOne));
+    // addSequential(new MoveLift(0));
+    // addSequential(new Move(distanceTwo));
+
 
   }
 }

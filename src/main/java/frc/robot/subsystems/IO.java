@@ -22,6 +22,8 @@ public class IO extends Subsystem {
 
   private static DoubleSolenoid IntakeSolenoid;
 
+  private static DoubleSolenoid PlacingSolenoid;
+
   private static WPI_TalonSRX leftIntakeTalon;
   private static WPI_TalonSRX rightIntakeTalon;
 
@@ -33,6 +35,7 @@ public class IO extends Subsystem {
     rightIntakeTalon = new WPI_TalonSRX(RobotMap.rightIntakeTalonPort);
 
     IntakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidInPort, RobotMap.intakeSolenoidOutport);
+    // PlacingSolenoid = new DoubleSolenoid(RobotMap.placeSolenoidInPort, RobotMap.placeSolenoidOutport);
 
     leftIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
     rightIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
@@ -58,5 +61,16 @@ public class IO extends Subsystem {
   public void setPower(double power){
     leftIntakeTalon.set(-power);
     rightIntakeTalon.set(power);
+  }
+
+  public void Place(String value){
+    switch(value){
+      case "put":
+        PlacingSolenoid.set(DoubleSolenoid.Value.kForward);
+        break;
+      case "take":
+        PlacingSolenoid.set(DoubleSolenoid.Value.kReverse);
+        break;
+    }
   }
 }
