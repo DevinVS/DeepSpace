@@ -36,6 +36,8 @@ public class OI {
   public static JoystickButton button6 = new JoystickButton(stick, 6);
   public static JoystickButton button7 = new JoystickButton(stick, 7);
   public static JoystickButton button8 = new JoystickButton(stick, 8);
+  public static JoystickButton button10 = new JoystickButton(stick, 10);
+  public static JoystickButton button11 = new JoystickButton(stick, 11);
   
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -60,8 +62,13 @@ public class OI {
 
 
   public OI(){
-    button5.whenPressed(new Raise(-10));
+    // button5.whenPressed(new Raise(-10));
     button6.whenPressed(new PlaceBallG(50));
+    button11.whenPressed(new Place("put"));
+    button10.whenPressed(new Place("take"));
+    trigger.whenPressed(new SetIntakeMode("in"));
+    button3.whenPressed(new SetIntakeMode("neutral"));
+    
     // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
   }
 }

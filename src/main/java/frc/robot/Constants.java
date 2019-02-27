@@ -100,21 +100,20 @@ public class Constants{
              lDistance_PeakOut = .5;
 
 
-             lVelocity_kP = .1;
-             lVelocity_kI = 0;
-             lVelocity_kD = 20;
-             lVelocity_kF = 1023/6800;
-             lVelocity_Iz = 300;
-             lVelocity_PeakOut = .5;
-
-             
-
              rDistance_kP = 0.1;
              rDistance_kI = 0;
              rDistance_kD = 0;
              rDistance_kF = 0;
              rDistance_Iz = 100;
              rDistance_PeakOut = .5;
+
+
+             lVelocity_kP = .1;
+             lVelocity_kI = 0;
+             lVelocity_kD = 20;
+             lVelocity_kF = 1023/6800;
+             lVelocity_Iz = 300;
+             lVelocity_PeakOut = .5;
 
 
              rVelocity_kP = .1;

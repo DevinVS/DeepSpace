@@ -39,6 +39,9 @@ public class IO extends Subsystem {
 
     leftIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
     rightIntakeTalon.configContinuousCurrentLimit(6, Constants.kTimeoutMs);
+
+    setPosition("up");
+    setPower(0);
   }
 
   @Override

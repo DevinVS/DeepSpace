@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.realtest;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.IO;
 import frc.robot.subsystems.Lift;
@@ -40,6 +41,8 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+   
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -54,6 +57,8 @@ public class Robot extends TimedRobot {
     //m_chooser.setDefaultOption("Default Auto", new DriveCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     //SmartDashboard.putData("Auto mode", m_chooser);
+    SmartDashboard.putData("TestRun", new realtest(5));
+
   }
 
   /**
@@ -71,6 +76,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Lift Current", currents[1]);
     SmartDashboard.putNumber("Elevator Position", Robot.lift.getElevatorPosition());
     SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());
+    
   }
 
   /**
@@ -147,6 +153,25 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
+     int[] velocities = Robot.drivetrain.getVelocity();
+     int leftside = velocities[0];
+     int rightside = velocities[1];
+
+     int[] positions = Robot.drivetrain.getPosition();
+     int pLeftside = positions[0];
+     int pRightside = positions[1];
+
+     double[] currents = Robot.drivetrain.getCurrent();
+     double cLeftside = currents[0];
+     double cRightside = currents[1];
+    
+     SmartDashboard.putNumber("Leftside Position ", pLeftside);
+     SmartDashboard.putNumber("Rightside Position ", pRightside);
+     SmartDashboard.putNumber("Leftside Velocity ", leftside);
+     SmartDashboard.putNumber("Rightside Velocity ", rightside);
+     SmartDashboard.putNumber("Leftside Current ", cLeftside);
+     SmartDashboard.putNumber("Righside Current ", cRightside );
+
     //Scheduler.getInstance().run();
     Scheduler.getInstance().run();
   }

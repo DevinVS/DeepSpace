@@ -7,44 +7,40 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-public class SetIntakeMode extends InstantCommand {
-
-  String mode;
-
-  public SetIntakeMode(String mode) {
-    this.mode = mode;
+/**
+ * Add your docs here.
+ */
+public class realtest extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public realtest(double timeout) {
+    super(timeout);
+    requires(Robot.drivetrain);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.drivetrain.set(ControlMode.PercentOutput, -1, -1);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Executing SetIntakeMode Command");
-    switch(mode){
-      case "neutral":
-        Robot.io.setPower(0);
-        Robot.io.setPosition("up");
-        break;
-      case "in":
-        Robot.io.setPower(1);
-        Robot.io.setPosition("down");
-        break;
-      case "out":
-        Robot.io.setPower(-1);
-        Robot.io.setPosition("down");
-    }
   }
 
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
+    Robot.drivetrain.set(ControlMode.PercentOutput, 0, 0);
   }
 
   // Called when another command which requires one or more of the same

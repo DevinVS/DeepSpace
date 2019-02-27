@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -81,6 +82,11 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.configMotionAcceleration(6835);
     leftMasterTalon.configMotionCruiseVelocity(6835);
 
+    leftMasterTalon.setNeutralMode(NeutralMode.Coast);
+    rightMasterTalon.setNeutralMode(NeutralMode.Coast);
+    leftSlaveTalon.setNeutralMode(NeutralMode.Coast);
+    rightSlaveTalon.setNeutralMode(NeutralMode.Coast);
+
   }
 
   @Override
@@ -124,8 +130,13 @@ public class Drivetrain extends Subsystem {
   }
 
   public int[] getVelocity(){
-    int[] velocities = {leftMasterTalon.getSelectedSensorPosition(), rightMasterTalon.getSelectedSensorPosition()};
+    int[] velocities = {leftMasterTalon.getSelectedSensorVelocity(), rightMasterTalon.getSelectedSensorVelocity()};
     return velocities;
+  }
+
+  public double[] getCurrent(){
+    double[] currents = {leftMasterTalon.getOutputCurrent(), rightMasterTalon.getOutputCurrent()};
+    return currents;
   }
 
   public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
