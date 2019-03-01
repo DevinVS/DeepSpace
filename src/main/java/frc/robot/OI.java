@@ -9,7 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 
 
@@ -68,7 +67,8 @@ public class OI {
     button10.whenPressed(new Place("take"));
     trigger.whenPressed(new SetIntakeMode("in"));
     button3.whenPressed(new SetIntakeMode("neutral"));
-    button4.whenPressed(new BackLift());
+    button4.whenPressed(new MoveLift(-5));
+
     
     // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
   }

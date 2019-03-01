@@ -37,7 +37,7 @@ public class Lift extends Subsystem {
   private static CANEncoder elevatorEncoder;
 
   public Lift(){
-    liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalon);
+    liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalonPort);
 
     liftSpark = new CANSparkMax(RobotMap.liftSparkPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     liftSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -89,7 +89,7 @@ public class Lift extends Subsystem {
   }
 
   public void setLift(double targetPos){
-    liftPID.setReference(-targetPos, ControlType.kSmartMotion);
+    liftPID.setReference(targetPos, ControlType.kSmartMotion);
   }
 
   public void setDrive(double magnitude){
@@ -114,8 +114,8 @@ public class Lift extends Subsystem {
   }
 
   public void up(double targetPos){
-    elevatorPID.setReference(targetPos*1.5, ControlType.kSmartMotion);
-    liftPID.setReference(targetPos, ControlType.kSmartMotion);
+    liftPID.setReference(targetPos*1.6106, ControlType.kSmartMotion);
+    elevatorPID.setReference((targetPos*1.0829) -2.9889, ControlType.kSmartMotion);
   }
 
 }

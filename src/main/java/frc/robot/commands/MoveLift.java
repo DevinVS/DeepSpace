@@ -15,7 +15,7 @@ public class MoveLift extends Command {
   public MoveLift(double targetPos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.targetPos = targetPos;
+    this.targetPos = targetPos * 1.6106;
   }
 
   // Called just before this Command runs the first time
@@ -29,9 +29,9 @@ public class MoveLift extends Command {
 
     System.out.println("Executing MoveLift Command");
  
-    targetPos = (targetPos > 85)? 85: targetPos;
+    targetPos = (targetPos > 35)? 35: targetPos;
     Robot.lift.setLift(targetPos);
-    System.out.println("Lift Position " + Robot.lift.getLiftPosition());
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

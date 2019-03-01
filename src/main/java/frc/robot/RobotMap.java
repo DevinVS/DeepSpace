@@ -39,7 +39,8 @@ public class RobotMap {
   public static int brakeSolenoidInPort = 2;
   public static int brakeSolenoidOutPort = 3;
   
-  public static int backDriveTalon = 7;
+  public static int backDriveTalonPort = 7;
+  public static int endEffectorVictorPort = 10;
   
   public static int elevatorSparkPort = 8;
   public static int liftSparkPort = 9;

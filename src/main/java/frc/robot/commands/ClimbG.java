@@ -30,7 +30,7 @@ public class ClimbG extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-
+    
     // addParallel(new MoveElevator(targetPos));
     // addSequential(new MoveLift(targetPos));
     // addSequential(new LiftDrive(power));

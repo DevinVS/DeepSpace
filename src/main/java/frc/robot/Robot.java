@@ -173,7 +173,6 @@ public class Robot extends TimedRobot {
      SmartDashboard.putNumber("Leftside Current ", cLeftside);
      SmartDashboard.putNumber("Righside Current ", cRightside );
 
-
     //Scheduler.getInstance().run();
     Scheduler.getInstance().run();
   }
