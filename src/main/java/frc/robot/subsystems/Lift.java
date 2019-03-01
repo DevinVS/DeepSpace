@@ -89,7 +89,7 @@ public class Lift extends Subsystem {
   }
 
   public void setLift(double targetPos){
-    liftPID.setReference(SmartDashboard.getNumber("MyValue", 0), ControlType.kSmartMotion);
+    liftPID.setReference(-targetPos, ControlType.kSmartMotion);
   }
 
   public void setDrive(double magnitude){
