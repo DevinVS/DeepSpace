@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     //SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("TestRun", new realtest(5));
+    SmartDashboard.putNumber("MyValue", 0);
 
   }
 
@@ -171,6 +172,7 @@ public class Robot extends TimedRobot {
      SmartDashboard.putNumber("Rightside Velocity ", rightside);
      SmartDashboard.putNumber("Leftside Current ", cLeftside);
      SmartDashboard.putNumber("Righside Current ", cRightside );
+
 
     //Scheduler.getInstance().run();
     Scheduler.getInstance().run();
