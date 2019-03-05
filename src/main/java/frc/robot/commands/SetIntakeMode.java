@@ -27,18 +27,29 @@ public class SetIntakeMode extends InstantCommand {
   @Override
   protected void execute() {
     System.out.println("Executing SetIntakeMode Command");
+    if(Robot.io.toggle == 0){
+      System.out.println("You failed");
+    }
+    if(Robot.io.toggle == 1){
     switch(mode){
       case "neutral":
         Robot.io.setPower(0);
         Robot.io.setPosition("up");
+        Robot.io.Place("put");
+        Robot.io.GiveOrTake("nada");
         break;
       case "in":
-        Robot.io.setPower(1);
+        Robot.io.setPower(.8);
         Robot.io.setPosition("down");
+        Robot.io.Place("put");
+        Robot.io.GiveOrTake("take");
         break;
       case "out":
         Robot.io.setPower(-1);
         Robot.io.setPosition("down");
+        Robot.io.Place("take");
+        Robot.io.GiveOrTake("give");
+      }
     }
   }
 

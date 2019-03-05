@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class Place extends Command {
-  private String value;
-  public Place(String value) {
+
+  public Place() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.io);
-    this.value = value;
+
   }
 
   // Called just before this Command runs the first time
@@ -28,7 +28,16 @@ public class Place extends Command {
   @Override
   protected void execute() {
     System.out.println("Execute Place");
-    Robot.io.Place(value);
+    if(Robot.io.toggle == 0){
+      System.out.println("Don't do that");
+    }
+    if(Robot.io.toggle == 1){
+    Robot.io.Place("put");
+    Robot.io.Place("take");   
+    }
+    else{
+      System.out.println("review code ");
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

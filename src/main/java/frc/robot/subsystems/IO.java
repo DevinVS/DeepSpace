@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,6 +28,9 @@ public class IO extends Subsystem {
 
   private static WPI_TalonSRX leftIntakeTalon;
   private static WPI_TalonSRX rightIntakeTalon;
+  private static WPI_VictorSPX intakeVictor;
+
+  public static int toggle = 1;
 
   public static enum IOMode{ball, hatch, neutral}
   IOMode mode = IOMode.neutral;
@@ -33,6 +38,7 @@ public class IO extends Subsystem {
   public IO(){
     leftIntakeTalon = new WPI_TalonSRX(RobotMap.leftIntakeTalonPort);
     rightIntakeTalon = new WPI_TalonSRX(RobotMap.rightIntakeTalonPort);
+    intakeVictor = new WPI_VictorSPX(RobotMap.endEffectorVictorPort);
 
     IntakeSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidInPort, RobotMap.intakeSolenoidOutport);
     PlacingSolenoid = new DoubleSolenoid(RobotMap.placeSolenoidInPort, RobotMap.placeSolenoidOutPort);
@@ -76,4 +82,23 @@ public class IO extends Subsystem {
         break;
     }
   }
+
+  public void GiveOrTake(String key){
+    switch(key){
+      case "give":
+        intakeVictor.set(ControlMode.PercentOutput, .5);
+        break;
+      case "take":
+        intakeVictor.set(ControlMode.PercentOutput, -.3);
+        break;
+      case "nada":
+        intakeVictor.set(ControlMode.PercentOutput, 0);
+        break;
+    }
+  }
+
+  public void Toggle(int toggle){
+    this.toggle = toggle;
+  }
+
 }
