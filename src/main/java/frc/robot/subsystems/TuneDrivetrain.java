@@ -5,18 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class MoveLift extends Command {
-  private double targetPos;
-  public MoveLift(double targetPos) {
+public class TuneDrivetrain extends InstantCommand {
+  public TuneDrivetrain() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
-    this.targetPos = targetPos * 1.6106;
   }
 
   // Called just before this Command runs the first time
@@ -28,18 +24,8 @@ public class MoveLift extends Command {
   @Override
   protected void execute() {
 
-    System.out.println("Executing MoveLift Command");
- 
-    targetPos = (targetPos > 35)? 35: targetPos;
-    Robot.lift.setLift(targetPos);
-
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
 
   // Called once after isFinished returns true
   @Override

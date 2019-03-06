@@ -11,13 +11,14 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Raise extends Command {
   private double targetPos;
   public Raise(double targetPos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-
+    requires(Robot.lift);
     this.targetPos = targetPos;
   }
 
@@ -30,6 +31,11 @@ public class Raise extends Command {
   @Override
   protected void execute() {
     Robot.lift.up(targetPos);
+    SmartDashboard.putNumber("Lift Velocity", Robot.lift.getLiftVelocity()); 
+    SmartDashboard.putNumber("Elevator Velocity", Robot.lift.getElevatorVelocity());
+    
+    double power = Math.abs(Robot.m_oi.stick.getY())>.05? Robot.m_oi.stick.getY(): 0;
+    Robot.lift.setDrive(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()

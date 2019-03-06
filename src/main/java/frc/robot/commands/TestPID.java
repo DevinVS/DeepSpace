@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class TestPID extends Command {
@@ -26,20 +27,25 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     Robot.drivetrain.zero();
-    Robot.drivetrain.setPIDSlot(0);
+    Robot.drivetrain.setPIDSlot(1);
+    Robot.drivetrain.getConstants();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
 
-    Robot.drivetrain.set(ControlMode.MotionMagic, targetPos, targetPos);
+    //Robot.drivetrain.set(ControlMode.Velocity, targetPos, 0);
+    Robot.drivetrain.set(ControlMode.Velocity,Constants.kMaxVelocity, Constants.kMaxVelocity);
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    System.out.println(targetPos - Robot.drivetrain.getPosition()[0]);
+    int[] vels = Robot.drivetrain.getVelocity();
+    SmartDashboard.putNumber("Left Velocity", vels[0]);
+    SmartDashboard.putNumber("Right Velocity", vels[1]);
     return false;
   }
 
@@ -53,4 +59,5 @@ public class TestPID extends Command {
   @Override
   protected void interrupted() {
   }
+
 }

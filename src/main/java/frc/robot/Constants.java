@@ -11,7 +11,7 @@ public class Constants{
     public static int kTimeoutMs = 20;
     public static int screenWidth = 300;
     public static int screenHeight = 200;
-    public static double kMaxVelocity = 25000;
+    public static double kMaxVelocity = 22000;
     public static int kAllowableClosedLoopError;
 
     public static double centerBallHeight = 4.5; //in inches
@@ -47,11 +47,15 @@ public class Constants{
     public static double rVelocity_PeakOut;
 
     public static double elevatorkF = 0.00015;
-    public static double elevatorkP = 5e-5;
-    public static double elevatorkI = 1e-6;
+    public static double elevatorkP = 0; //5e-5
+    public static double elevatorkI = 0; //1e-6
     public static double elevatorkD = 0;
-    public static double elevatorkMaxAccel = 3000;
-    public static double elevatorkMaxVelocity = 3000;
+
+    public static double elevatorkMaxVelocity = 3000; //3000
+    public static double elevatorkMaxAccel = 3000; //3000
+
+    public static double liftMaxVelocity = 2785;
+    public static double liftMaxAccel = 2785;
 
     static{
         
@@ -70,8 +74,8 @@ public class Constants{
              lVelocity_kI = 0;
              lVelocity_kD = 0;
              lVelocity_kF = 0.1;
-             //lVelocity_Iz = 300;
-             //lVelocity_PeakOut = .5;
+             lVelocity_Iz = 300;
+             lVelocity_PeakOut = .5;
 
              rDistance_kP = 0.07;
              rDistance_kI = 0.001;
@@ -80,10 +84,10 @@ public class Constants{
              rDistance_Iz = 100;
              rDistance_PeakOut = .5;
 
-             rVelocity_kP = 0.1;
+             rVelocity_kP = 0;
              rVelocity_kI = 0;
-             rVelocity_kD = 20;
-             rVelocity_kF = 1023/6800;
+             rVelocity_kD = 0;
+             rVelocity_kF = 0.1;
              rVelocity_Iz = 300;
              rVelocity_PeakOut = .5;
 

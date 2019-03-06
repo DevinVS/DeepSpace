@@ -30,6 +30,7 @@ import frc.robot.vision.Pixy2USBJNI;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static boolean debug = true;
   public static RobotMap robotMap = new RobotMap();
   public static Lift lift = new Lift();
   public static OI m_oi;

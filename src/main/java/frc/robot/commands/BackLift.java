@@ -10,7 +10,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.subsystems.Lift;
 
 public class BackLift extends Command {
   public BackLift() {
@@ -27,7 +26,11 @@ public class BackLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setLift(SmartDashboard.getNumber("MyValue", 0));
+    //Robot.lift.setLift(SmartDashboard.getNumber("MyValue", 0));
+    Robot.lift.setLift(Robot.m_oi.stick.getY());
+    SmartDashboard.putNumber("Lift Velocity", Robot.lift.getLiftVelocity()); 
+    System.out.println("Test");
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

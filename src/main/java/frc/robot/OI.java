@@ -67,7 +67,7 @@ public class OI {
     button10.whenPressed(new Place("take"));
     trigger.whenPressed(new SetIntakeMode("in"));
     button3.whenPressed(new SetIntakeMode("neutral"));
-    button4.whenPressed(new MoveLift(-5));
+    button4.whenPressed(new BackLift());
 
     
     // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));

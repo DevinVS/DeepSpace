@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.commands.JoystickDrive;
 
 /**
@@ -29,10 +30,11 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX leftSlaveTalon;
   private WPI_TalonSRX rightMasterTalon;
   private WPI_TalonSRX rightSlaveTalon;
-  private double quickStopAccumulator;
+
   private static DoubleSolenoid shiftSolenoid;
 
-  private double kf = 0.1, kp =0, ki=0, kd=0;
+  private double lkP, lkI, lkD, rkP, rkI, rkD;
+
   public Drivetrain(){
     leftMasterTalon = new WPI_TalonSRX(RobotMap.leftMasterTalonPort);
     leftSlaveTalon = new WPI_TalonSRX(RobotMap.leftSlaveTalonPort);
@@ -50,6 +52,14 @@ public class Drivetrain extends Subsystem {
 
     shiftSolenoid = new DoubleSolenoid(RobotMap.shiftSolenoidInPort, RobotMap.shiftSolenoidOutPort);
 
+    lkP = Constants.lVelocity_kP;
+    lkI = Constants.lVelocity_kI;
+    lkD = Constants.lVelocity_kD;
+
+    rkP = Constants.lVelocity_kP;
+    rkI = Constants.lVelocity_kI;
+    rkD = Constants.lVelocity_kD;
+
     //Slot 0 = Distance PID
     //Slot 1 = Velocity PID
     leftMasterTalon.config_kF(0, Constants.lDistance_kF, Constants.kTimeoutMs);
@@ -58,9 +68,9 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.config_kD(0, Constants.lDistance_kD, Constants.kTimeoutMs);
 
     leftMasterTalon.config_kF(1, Constants.lVelocity_kF, Constants.kTimeoutMs);
-    leftMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
-    leftMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
-    leftMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
+    leftMasterTalon.config_kP(1, lkP, Constants.kTimeoutMs);
+    leftMasterTalon.config_kI(1, lkI, Constants.kTimeoutMs);
+    leftMasterTalon.config_kD(1, lkD, Constants.kTimeoutMs);
 
     rightMasterTalon.config_kF(0, Constants.rDistance_kF, Constants.kTimeoutMs);
     rightMasterTalon.config_kP(0, Constants.rDistance_kP, Constants.kTimeoutMs);
@@ -69,9 +79,9 @@ public class Drivetrain extends Subsystem {
 
 
     rightMasterTalon.config_kF(1, Constants.lVelocity_kF, Constants.kTimeoutMs);
-    rightMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
-    rightMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
-    rightMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
+    rightMasterTalon.config_kP(1, rkP, Constants.kTimeoutMs);
+    rightMasterTalon.config_kI(1, rkI, Constants.kTimeoutMs);
+    rightMasterTalon.config_kD(1, rkD, Constants.kTimeoutMs);
 
     leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
     rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
@@ -87,12 +97,22 @@ public class Drivetrain extends Subsystem {
     leftSlaveTalon.setNeutralMode(NeutralMode.Coast);
     rightSlaveTalon.setNeutralMode(NeutralMode.Coast);
 
+    if(Robot.debug){
+      SmartDashboard.putNumber("lP", lkP);
+      SmartDashboard.putNumber("lI", lkI);
+      SmartDashboard.putNumber("lD", lkD);
+
+      SmartDashboard.putNumber("rP", rkP);
+      SmartDashboard.putNumber("rI", rkI);
+      SmartDashboard.putNumber("rD", rkD);
+    }
+
   }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new JoystickDrive());
+    //setDefaultCommand(new JoystickDrive());
   }
 
   public void zero(){
@@ -209,6 +229,29 @@ public class Drivetrain extends Subsystem {
       }
     } else {
       return 0.0;
+    }
+  }
+
+  public void getConstants(){
+    if(Robot.debug){
+      double lP,lI,lD, rP, rI, rD;
+
+      lP = SmartDashboard.getNumber("lp", 0);
+      lI = SmartDashboard.getNumber("li", 0);
+      lD = SmartDashboard.getNumber("ld", 0);
+
+      rP = SmartDashboard.getNumber("rp", 0);
+      rI = SmartDashboard.getNumber("ri", 0);
+      rD = SmartDashboard.getNumber("rd", 0);
+
+      if(lP != lkP){lkP = lP; leftMasterTalon.config_kP(1, lkP);}
+      if(lI != lkI){lkI = lI; leftMasterTalon.config_kI(1, lkI);}
+      if(lD != lkD){lkD = lD; leftMasterTalon.config_kD(1, lkD);}
+
+      if(rP != rkP){rkP = rP; rightMasterTalon.config_kP(1, rkP);}
+      if(rI != rkI){rkI = rI; rightMasterTalon.config_kI(1, rkI);}
+      if(rD != rkD){rkD = rD; rightMasterTalon.config_kD(1, rkD);}
+
     }
   }
 }
