@@ -31,8 +31,7 @@ public class Raise extends Command {
   @Override
   protected void execute() {
     Robot.lift.up(targetPos);
-    SmartDashboard.putNumber("Lift Velocity", Robot.lift.getLiftVelocity()); 
-    SmartDashboard.putNumber("Elevator Velocity", Robot.lift.getElevatorVelocity());
+
     
     double power = Math.abs(Robot.m_oi.stick.getY())>.05? Robot.m_oi.stick.getY(): 0;
     Robot.lift.setDrive(power);

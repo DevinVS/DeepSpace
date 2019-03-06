@@ -74,6 +74,7 @@ public class OI {
     button1.whenActive(new SetObjectMode("Hatch"));
     button1.whenInactive(new SetObjectMode("Ball"));
     // button4.whenPressed(new MoveLift(-5));
+    button4.whenPressed(new TestPID());
 
 
     

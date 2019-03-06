@@ -16,7 +16,7 @@ import frc.robot.Robot;
 
 public class TestPID extends Command {
 
-  double targetPos = 100000;
+  double targetPos = 1;
   public TestPID() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -35,8 +35,8 @@ public class TestPID extends Command {
   @Override
   protected void execute() {
 
-    //Robot.drivetrain.set(ControlMode.Velocity, targetPos, 0);
-    Robot.drivetrain.set(ControlMode.Velocity,Constants.kMaxVelocity, Constants.kMaxVelocity);
+    Robot.drivetrain.set(ControlMode.PercentOutput, targetPos, targetPos);
+    //Robot.drivetrain.set(ControlMode.Velocity,Constants.kMaxVelocity, Constants.kMaxVelocity);
     
   }
 

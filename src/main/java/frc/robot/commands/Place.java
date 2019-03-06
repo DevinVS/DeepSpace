@@ -28,10 +28,10 @@ public class Place extends Command {
   @Override
   protected void execute() {
     System.out.println("Execute Place");
-    if(Robot.io.toggle == 0){
+    if(Robot.io.mode == 0){
       System.out.println("Don't do that");
     }
-    if(Robot.io.toggle == 1){
+    if(Robot.io.mode == 1){
     Robot.io.Place("put");
     Robot.io.Place("take");   
     }

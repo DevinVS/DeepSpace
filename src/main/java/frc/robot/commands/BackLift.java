@@ -28,7 +28,6 @@ public class BackLift extends Command {
   protected void execute() {
     //Robot.lift.setLift(SmartDashboard.getNumber("MyValue", 0));
     Robot.lift.setLift(Robot.m_oi.stick.getY());
-    SmartDashboard.putNumber("Lift Velocity", Robot.lift.getLiftVelocity()); 
     System.out.println("Test");
 
   }

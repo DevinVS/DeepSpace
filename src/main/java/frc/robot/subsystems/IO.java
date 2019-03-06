@@ -30,10 +30,9 @@ public class IO extends Subsystem {
   private static WPI_TalonSRX rightIntakeTalon;
   private static WPI_VictorSPX intakeVictor;
 
-  public static int toggle = 1;
+  public static int mode = 1;
 
-  public static enum IOMode{ball, hatch, neutral}
-  IOMode mode = IOMode.neutral;
+
 
   public IO(){
     leftIntakeTalon = new WPI_TalonSRX(RobotMap.leftIntakeTalonPort);
@@ -98,7 +97,7 @@ public class IO extends Subsystem {
   }
 
   public void Toggle(int toggle){
-    this.toggle = toggle;
+    this.mode = toggle;
   }
 
 }
