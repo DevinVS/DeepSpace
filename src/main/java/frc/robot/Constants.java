@@ -3,7 +3,8 @@ package frc.robot;
 
 public class Constants{
     
-    private static boolean Weld = true;
+    private static boolean Weld = false;
+    // Recursion is when Weld = true
     public static int encoderTicksToAxleRevs = 4096;
 
     public static int kNeoMaxVelocity = 5600;
@@ -11,7 +12,8 @@ public class Constants{
     public static int kTimeoutMs = 20;
     public static int screenWidth = 300;
     public static int screenHeight = 200;
-    public static double kMaxVelocity = 22000;
+    public static double kMaxVelocity = 25000;
+    // kMaxVelocity = 22000
     public static int kAllowableClosedLoopError;
 
     public static double centerBallHeight = 4.5; //in inches
@@ -112,18 +114,18 @@ public class Constants{
              rDistance_PeakOut = .5;
 
 
-             lVelocity_kP = .1;
+             lVelocity_kP = 0;
              lVelocity_kI = 0;
-             lVelocity_kD = 20;
-             lVelocity_kF = 1023/6800;
+             lVelocity_kD = 0;
+             lVelocity_kF = 1023/kMaxVelocity;
              lVelocity_Iz = 300;
              lVelocity_PeakOut = .5;
 
 
-             rVelocity_kP = .1;
+             rVelocity_kP = 0;
              rVelocity_kI = 0;
-             rVelocity_kD = 20;
-             rVelocity_kF = 1023/6800;
+             rVelocity_kD = 0;
+             rVelocity_kF = 1023/kMaxVelocity;
              rVelocity_Iz = 300;
              rVelocity_PeakOut = .5;
 

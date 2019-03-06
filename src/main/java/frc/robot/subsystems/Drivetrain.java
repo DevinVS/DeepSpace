@@ -97,15 +97,15 @@ public class Drivetrain extends Subsystem {
     leftSlaveTalon.setNeutralMode(NeutralMode.Coast);
     rightSlaveTalon.setNeutralMode(NeutralMode.Coast);
 
-    if(Robot.debug){
-      SmartDashboard.putNumber("lP", lkP);
-      SmartDashboard.putNumber("lI", lkI);
-      SmartDashboard.putNumber("lD", lkD);
+    // if(Robot.debug){
+    //   SmartDashboard.putNumber("lP", lkP);
+    //   SmartDashboard.putNumber("lI", lkI);
+    //   SmartDashboard.putNumber("lD", lkD);
 
-      SmartDashboard.putNumber("rP", rkP);
-      SmartDashboard.putNumber("rI", rkI);
-      SmartDashboard.putNumber("rD", rkD);
-    }
+    //   SmartDashboard.putNumber("rP", rkP);
+    //   SmartDashboard.putNumber("rI", rkI);
+    //   SmartDashboard.putNumber("rD", rkD);
+    // }
 
   }
 
@@ -199,7 +199,7 @@ public class Drivetrain extends Subsystem {
         rightMotorOutput = xSpeed - zRotation;
       }
     }
-
+    System.out.println(leftMotorOutput + " " + rightMotorOutput);
     leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
     rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
 

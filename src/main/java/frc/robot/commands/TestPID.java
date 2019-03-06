@@ -28,16 +28,16 @@ public class TestPID extends Command {
   protected void initialize() {
     Robot.drivetrain.zero();
     Robot.drivetrain.setPIDSlot(1);
-    Robot.drivetrain.getConstants();
+    //Robot.drivetrain.getConstants();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    Robot.drivetrain.set(ControlMode.PercentOutput, targetPos, targetPos);
-    //Robot.drivetrain.set(ControlMode.Velocity,Constants.kMaxVelocity, Constants.kMaxVelocity);
-    
+    System.out.println("running pid test");
+    // Robot.drivetrain.set(ControlMode.PercentOutput, targetPos, targetPos);
+    Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity, Constants.kMaxVelocity);
+    SmartDashboard.putNumber("error", Constants.kMaxVelocity - Math.abs(Robot.drivetrain.getVelocity()[0]));
   }
 
   // Make this return true when this Command no longer needs to run execute()
