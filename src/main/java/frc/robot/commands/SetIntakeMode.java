@@ -39,7 +39,7 @@ public class SetIntakeMode extends InstantCommand {
         Robot.io.GiveOrTake("nada");
         break;
       case "in":
-        Robot.io.setPower(.8);
+        Robot.io.setPower(.5);
         Robot.io.setPosition("down");
         Robot.io.Place("put");
         Robot.io.GiveOrTake("take");

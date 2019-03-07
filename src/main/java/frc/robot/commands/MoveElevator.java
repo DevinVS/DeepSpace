@@ -41,7 +41,8 @@ public class MoveElevator extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(Robot.lift.getElevatorPosition() - targetPos) < 0.1;
+    return Math.abs(Robot.lift.getElevatorPosition() - targetPos) < 1;
+    //had to chaange is finished to 1 from .1 
   }
 
   // Called once after isFinished returns true

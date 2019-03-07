@@ -29,7 +29,11 @@ public class Place extends Command {
   protected void execute() {
     System.out.println("Execute Place");
     if(Robot.io.mode == 0){
-      System.out.println("Don't do that");
+      Robot.io.GiveOrTake("give");
+      Robot.io.Place("take");
+      System.out.println("I am here............");
+      Robot.io.GiveOrTake("take");
+      Robot.io.Place("put");
     }
     if(Robot.io.mode == 1){
     Robot.io.Place("put");

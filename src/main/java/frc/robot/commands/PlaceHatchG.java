@@ -9,11 +9,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class PlaceBallG extends CommandGroup {
+public class PlaceHatchG extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public PlaceBallG(double desiredPos) {
+  public PlaceHatchG(double desiredPos) {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -33,9 +33,8 @@ public class PlaceBallG extends CommandGroup {
 
     addSequential(new MoveElevator(desiredPos));
     addSequential(new Place());
-    // addSequential(new MoveElevator(desiredPos-1));
+    addSequential(new MoveElevator(desiredPos-1));
     addSequential(new Place());
-    addSequential(new MoveElevator(2.76)); 
-
+    addSequential(new MoveElevator(2.76));
   }
 }
