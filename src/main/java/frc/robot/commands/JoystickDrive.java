@@ -37,7 +37,7 @@ public class JoystickDrive extends Command {
     double joyY = OI.stick.getY();
     
 
-    Robot.drivetrain.arcadeDrive(-joyX, joyY, true);
+    Robot.drivetrain.arcadeDrive(joyX, -joyY, true);
 
     /*if(Robot.pixy2SpiJNI.ballExists()){
       System.out.println("Ball Found");

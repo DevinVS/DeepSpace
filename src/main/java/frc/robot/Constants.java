@@ -114,7 +114,7 @@ public class Constants{
              rDistance_PeakOut = .5;
 
 
-             lVelocity_kP = 0;
+             lVelocity_kP = 1.75*102.3/1600;
              lVelocity_kI = 0;
              lVelocity_kD = 0;
              lVelocity_kF = 1023/kMaxVelocity;
@@ -122,7 +122,7 @@ public class Constants{
              lVelocity_PeakOut = .5;
 
 
-             rVelocity_kP = 0;
+             rVelocity_kP = 1.75*102.3/1600;
              rVelocity_kI = 0;
              rVelocity_kD = 0;
              rVelocity_kF = 1023/kMaxVelocity;
