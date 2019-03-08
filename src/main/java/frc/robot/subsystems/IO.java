@@ -30,7 +30,7 @@ public class IO extends Subsystem {
   private static WPI_TalonSRX rightIntakeTalon;
   private static WPI_VictorSPX intakeVictor;
 
-  public static int mode = 0;
+  public static int mode = 1;
 
 
 

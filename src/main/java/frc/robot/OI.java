@@ -65,8 +65,8 @@ public class OI {
 
   public OI(){
     // button5.whenPressed(new Raise(-10));
-    button6.whenPressed(new PlaceBallG(50));
-    // button6.whenPressed(new MoveElevator(2.76));
+    // button6.whenPressed(new PlaceBallG(50));
+    button6.whenPressed(new MoveElevator(60));
     button7.whenPressed(new MoveElevator(2.76));
     
     button11.whenPressed(new Place());
