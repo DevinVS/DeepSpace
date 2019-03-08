@@ -74,8 +74,8 @@ public class OI {
 
     button2.whenPressed(new SetIntakeMode("neutral"));
     button3.whenPressed(new SetIntakeMode("out"));
-    button1.whenPressed(new SetObjectMode("hatch"));
-    button1.whenReleased(new SetObjectMode("ball"));
+    button10.whenPressed(new SetObjectMode("hatch"));
+    button10.whenReleased(new SetObjectMode("ball"));
     // // button4.whenPressed(new MoveLift(-5));
     // button4.whenPressed(new TestPID());
 
