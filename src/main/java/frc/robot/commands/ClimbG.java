@@ -13,7 +13,7 @@ public class ClimbG extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ClimbG(double targetPos, double power, double distanceOne, double distanceTwo ) {
+  public ClimbG() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -39,6 +39,10 @@ public class ClimbG extends CommandGroup {
     // addSequential(new Move(distanceOne));
     // addSequential(new MoveLift(0));
     // addSequential(new Move(distanceTwo));
+
+    // addSequential(new Raise(1));
+    // addSequential(new Wait(5));
+    // addSequential(new Raise(2));
 
 
   }

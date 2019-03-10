@@ -16,7 +16,7 @@ public class NeutralIntake extends ConditionalCommand {
    * Add your docs here.
    */
   public NeutralIntake() {
-    super(new NeutralArm());
+    super(new NeutralArm(),new HatchIntakeG());
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

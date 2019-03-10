@@ -34,7 +34,9 @@ public class OI {
   public static JoystickButton pad2 = new JoystickButton(gamepad, 2);
   public static JoystickButton pad3 = new JoystickButton(gamepad, 3);
   public static JoystickButton pad4 = new JoystickButton(gamepad, 4);
+  public static JoystickButton pad5 = new JoystickButton(gamepad, 5);
   public static JoystickButton pad6 = new JoystickButton(gamepad, 6);
+  public static JoystickButton pad7 = new JoystickButton(gamepad, 7);
 
   public static JoystickButton trigger = new JoystickButton(stick, 1);
   public static JoystickButton button3 = new JoystickButton(stick, 3);
@@ -71,9 +73,7 @@ public class OI {
 
 
   public OI(){
-    // button5.whenPressed(new Raise(-10));
-    // button6.whenPressed(new PlaceBallG(50));
-    // button6.whenPressed(new MoveElevator(85));
+    
     button7.whenPressed(new MoveElevator(0));
     
     // button11.whenPressed(new Place(2));
@@ -81,8 +81,11 @@ public class OI {
     trigger.whenReleased(new NeutralIntake() );
     pad1.whenPressed(new SetObjectMode("hatch"));
     pad1.whenReleased(new SetObjectMode("ball"));
+    pad6.whenPressed(new MoveElevator(0));
+    pad7.whenPressed(new MoveLift(2.5));
 
-    pad6.whenPressed(new MoveElevator(7));
+    pad5.whenPressed(new ClimbG());
+
     pad4.whenPressed(new LowConditional());
     pad3.whenPressed(new MiddleConditional());
     pad2.whenPressed(new TopConditional());
