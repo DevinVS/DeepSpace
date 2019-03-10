@@ -7,40 +7,32 @@
 
 package frc.robot.commands;
 
+import java.awt.RenderingHints.Key;
+
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class SetObjectMode extends InstantCommand {
+public class InhaleExhale extends InstantCommand {
   /**
    * Add your docs here.
    */
-    String mode;
-    public static int toggle = 1;
+  String key;
 
-  public SetObjectMode(String mode) {
-    this.mode = mode;
-    requires(Robot.io);
+  public InhaleExhale(String key) {
+    super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.io);
+    this.key = key;
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    System.out.println("Executing SetObjectMode Command ");
-    switch(mode){
-      case "ball":
-        Robot.io.Place("take");
-        Robot.io.Toggle(0);
-        break;
-      case "hatch":
-        Robot.io.Place("take");
-        Robot.io.Toggle(1);
-        break;
-    }
+    Robot.io.GiveOrTake(key);
   }
 
 }

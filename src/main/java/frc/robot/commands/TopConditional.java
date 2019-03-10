@@ -7,13 +7,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.ConditionalCommand;
+import frc.robot.Robot;
 
-public class PlaceBallG extends CommandGroup {
+public class TopConditional extends ConditionalCommand {
   /**
    * Add your docs here.
    */
-  public PlaceBallG(double desiredPos) {
+  public TopConditional() {
+    super(new PlaceBallG(85), new PlaceHatchG(70));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -30,12 +32,10 @@ public class PlaceBallG extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+  }
 
-    addSequential(new MoveElevator(desiredPos));
-    addSequential(new InhaleExhale("give"));
-    addSequential(new Wait(2));
-    addSequential(new InhaleExhale("nada"));
-    addSequential(new MoveElevator(0)); 
-
+  @Override
+  protected boolean condition() {
+    return Robot.io.mode == 0;
   }
 }

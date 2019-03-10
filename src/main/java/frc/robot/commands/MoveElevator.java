@@ -15,7 +15,7 @@ public class MoveElevator extends Command {
   double targetPos;
   public MoveElevator(double targetPos) {
     requires(Robot.lift);
-    this.targetPos = (targetPos*1.0829) -2.9889;
+    this.targetPos = targetPos;
 
 
 
@@ -32,6 +32,14 @@ public class MoveElevator extends Command {
   @Override
   protected void execute() {
     System.out.println("Executing MoveElevator Command");
+
+    // 27 = lowest ball
+    //56 = middle ball
+    // 85 = tallest ball
+
+    // 10 = lowest hatch
+    // 40 = middle hatch
+    // 70 = tallest hatch
 
     targetPos = (targetPos > 85)? 85: targetPos;
     Robot.lift.setElevator(targetPos);

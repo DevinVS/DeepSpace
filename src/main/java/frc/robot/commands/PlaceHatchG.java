@@ -32,9 +32,10 @@ public class PlaceHatchG extends CommandGroup {
     // arm.
 
     addSequential(new MoveElevator(desiredPos));
-    addSequential(new Place());
-    addSequential(new MoveElevator(desiredPos-1));
-    addSequential(new Place());
-    addSequential(new MoveElevator(2.76));
+    addSequential(new Push(.25));
+    addSequential(new MoveElevator(desiredPos-2));
+    // addSequential(new Wait(.5))
+    // addSequential(new Pull(.25));
+    // addSequential(new MoveElevator(0));
   }
 }

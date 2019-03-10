@@ -16,7 +16,9 @@ public class MoveLift extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.lift);
-    this.targetPos = targetPos * 1.6106;
+    // this.targetPos = targetPos * 1.6106;
+    this.targetPos = -(((targetPos)*2.7777) + 4.86);
+  // 1.75 = 0 encoder ticks
   }
 
   // Called just before this Command runs the first time
@@ -28,9 +30,11 @@ public class MoveLift extends Command {
   @Override
   protected void execute() {
 
+
+
     System.out.println("Executing MoveLift Command");
  
-    targetPos = (targetPos > 35)? 35: targetPos;
+    targetPos = (targetPos > 50)? 50: targetPos;
     Robot.lift.setLift(targetPos);
 
   }

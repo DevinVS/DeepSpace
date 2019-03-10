@@ -7,44 +7,35 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-public class SetIntakeMode extends InstantCommand {
-
-  String mode;
- 
-
-  public SetIntakeMode(String mode) {
-    this.mode = mode;
+/**
+ * Add your docs here.
+ */
+public class Push extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public Push(double timeout) {
+    super(timeout);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.io);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.io.Place("put");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+  }
 
-    switch(mode){
-      case "neutral":
-        Robot.io.setPower(0);
-        Robot.io.setPosition("up");
-        break;
-      case "in":
-        Robot.io.setPower(.5);
-        Robot.io.setPosition("down");
-        break;
-      case "out":
-        Robot.io.setPower(-1);
-        Robot.io.setPosition("down");
-      }
-    }
-
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
   }

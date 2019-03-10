@@ -31,7 +31,7 @@ public class JoystickDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Executing JoystickDrive Command");
+    // System.out.println("Executing JoystickDrive Command");
 
     double joyX = OI.stick.getX();
     double joyY = OI.stick.getY();
