@@ -126,5 +126,10 @@ public class Lift extends Subsystem {
     liftSpark.set(s);
   }
 
+  public void resetEncoders(){
+    elevatorEncoder.setPosition(0);
+    liftEncoder.setPosition(0);
+  }
+
 
 }

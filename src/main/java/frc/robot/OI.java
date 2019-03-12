@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 
@@ -84,7 +85,15 @@ public class OI {
     pad6.whenPressed(new MoveElevator(0));
     pad7.whenPressed(new MoveLift(2.5));
 
-    pad5.whenPressed(new ClimbG());
+    button8.whenPressed(new InstantCommand(){
+        @Override
+        protected void initialize() {
+          Robot.lift.resetEncoders();
+        }
+    });
+
+    // pad5.whenPressed(new ClimbG());
+    button11.whenPressed(new ClimbG());
 
     pad4.whenPressed(new LowConditional());
     pad3.whenPressed(new MiddleConditional());

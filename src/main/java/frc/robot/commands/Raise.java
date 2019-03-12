@@ -26,13 +26,15 @@ public class Raise extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.compressor.stop();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setLift((-24.11)*targetPos);
-    Robot.lift.setElevator((-19.5)*targetPos);
+    Robot.lift.setLift((-28)*targetPos);
+    Robot.lift.setElevator((-21.5)*targetPos);
+
     
 
     
@@ -43,7 +45,7 @@ public class Raise extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
