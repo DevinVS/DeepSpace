@@ -28,8 +28,8 @@ public class OI {
   // Button button = new JoystickButton(stick, buttonNumber);
 
   public static Joystick stick = new Joystick(0);
-  //public static Joystick gamepad = new Joystick(1);
-  //public static JoystickButton button1 = new JoystickButton(gamepad, 1);
+  public static Joystick gamepad = new Joystick(1);
+  public static JoystickButton button1 = new JoystickButton(gamepad, 1);
   public static JoystickButton trigger = new JoystickButton(stick, 1);
   public static JoystickButton button3 = new JoystickButton(stick, 3);
   public static JoystickButton button2 = new JoystickButton(stick, 2);
@@ -64,17 +64,17 @@ public class OI {
 
 
   public OI(){
-    // button5.whenPressed(new Raise(-10));
+    button5.whenPressed(new Raise(-10));
     button6.whenPressed(new PlaceBallG(50));
     button11.whenPressed(new Place());
     trigger.whenPressed(new SetIntakeMode("in"));
 
     button2.whenPressed(new SetIntakeMode("neutral"));
     button3.whenPressed(new SetIntakeMode("out"));
-    // button1.whenActive(new SetObjectMode("Hatch"));
-    // button1.whenInactive(new SetObjectMode("Ball"));
-    // // button4.whenPressed(new MoveLift(-5));
-    button4.whenPressed(new TestPID());
+    button1.whenActive(new SetObjectMode("Hatch"));
+    button1.whenInactive(new SetObjectMode("Ball"));
+    button4.whenPressed(new MoveLift(-5));
+    //button4.whenPressed(new TestPID());
 
 
     

@@ -199,7 +199,7 @@ public class Drivetrain extends Subsystem {
         rightMotorOutput = xSpeed - zRotation;
       }
     }
-    System.out.println(leftMotorOutput + " " + rightMotorOutput);
+    
     leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
     rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
 

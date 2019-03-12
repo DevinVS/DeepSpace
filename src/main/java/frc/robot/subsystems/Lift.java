@@ -17,7 +17,7 @@ import com.revrobotics.ControlType;
 
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-
+import frc.robot.commands.MoveElevator;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -81,7 +81,7 @@ public class Lift extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    //setDefaultCommand(new MoveElevator(10));
   }
 
   public void setElevator(double targetPos){
