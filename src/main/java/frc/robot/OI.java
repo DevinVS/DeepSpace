@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 
 
@@ -29,7 +31,16 @@ public class OI {
 
   public static Joystick stick = new Joystick(0);
   public static Joystick gamepad = new Joystick(1);
-  public static JoystickButton button1 = new JoystickButton(gamepad, 1);
+
+  public static JoystickButton pad1 = new JoystickButton(gamepad, 1);
+  public static JoystickButton pad2 = new JoystickButton(gamepad, 2);
+  public static JoystickButton pad3 = new JoystickButton(gamepad, 3);
+  public static JoystickButton pad4 = new JoystickButton(gamepad, 4);
+  public static JoystickButton pad5 = new JoystickButton(gamepad, 5);
+  public static JoystickButton pad6 = new JoystickButton(gamepad, 6);
+  public static JoystickButton pad7 = new JoystickButton(gamepad, 7);
+
+
   public static JoystickButton trigger = new JoystickButton(stick, 1);
   public static JoystickButton button3 = new JoystickButton(stick, 3);
   public static JoystickButton button2 = new JoystickButton(stick, 2);
@@ -40,6 +51,7 @@ public class OI {
   public static JoystickButton button8 = new JoystickButton(stick, 8);
   public static JoystickButton button10 = new JoystickButton(stick, 10);
   public static JoystickButton button11 = new JoystickButton(stick, 11);
+
   
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -64,17 +76,35 @@ public class OI {
 
 
   public OI(){
-    button5.whenPressed(new Raise(-10));
-    button6.whenPressed(new PlaceBallG(50));
-    button11.whenPressed(new Place());
-    trigger.whenPressed(new SetIntakeMode("in"));
+    
+    button7.whenPressed(new MoveElevator(0));
+    
+    // button11.whenPressed(new Place(2));
+    trigger.whenPressed(new Intake());
+    trigger.whenReleased(new NeutralIntake() );
+    pad1.whenPressed(new SetObjectMode("hatch"));
+    pad1.whenReleased(new SetObjectMode("ball"));
+    pad6.whenPressed(new MoveElevator(0));
+    pad7.whenPressed(new MoveLift(2.5));
 
-    button2.whenPressed(new SetIntakeMode("neutral"));
-    button3.whenPressed(new SetIntakeMode("out"));
-    button1.whenActive(new SetObjectMode("Hatch"));
-    button1.whenInactive(new SetObjectMode("Ball"));
-    button4.whenPressed(new MoveLift(-5));
-    //button4.whenPressed(new TestPID());
+    button8.whenPressed(new InstantCommand(){
+        @Override
+        protected void initialize() {
+          Robot.lift.resetEncoders();
+        }
+    });
+
+    // pad5.whenPressed(new ClimbG());
+    button11.whenPressed(new ClimbG());
+
+    pad4.whenPressed(new LowConditional());
+    pad3.whenPressed(new MiddleConditional());
+    pad2.whenPressed(new TopConditional());
+
+    // button4.whenPressed(new MoveLift(19.5));
+    // button8.whenPressed(new MoveLift(0));
+    // button4.whenPressed(new TestPID());
+
 
 
     

@@ -13,6 +13,7 @@ import frc.robot.Robot;
 public class SetIntakeMode extends InstantCommand {
 
   String mode;
+ 
 
   public SetIntakeMode(String mode) {
     this.mode = mode;
@@ -26,32 +27,22 @@ public class SetIntakeMode extends InstantCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Executing SetIntakeMode Command");
-    if(Robot.io.mode == 0){
-      System.out.println("You failed");
-    }
-    if(Robot.io.mode == 1){
+
     switch(mode){
       case "neutral":
         Robot.io.setPower(0);
         Robot.io.setPosition("up");
-        Robot.io.Place("put");
-        Robot.io.GiveOrTake("nada");
         break;
       case "in":
-        Robot.io.setPower(.8);
+        Robot.io.setPower(.5);
         Robot.io.setPosition("down");
-        Robot.io.Place("put");
-        Robot.io.GiveOrTake("take");
         break;
       case "out":
         Robot.io.setPower(-1);
         Robot.io.setPosition("down");
-        Robot.io.Place("take");
-        Robot.io.GiveOrTake("give");
       }
     }
-  }
+
 
   // Called once after isFinished returns true
   @Override

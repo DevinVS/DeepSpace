@@ -32,11 +32,11 @@ public class SetObjectMode extends InstantCommand {
   protected void initialize() {
     System.out.println("Executing SetObjectMode Command ");
     switch(mode){
-      case "Ball":
-        Robot.io.Place("put");
+      case "ball":
+        Robot.io.Place("take");
         Robot.io.Toggle(0);
         break;
-      case "Hatch":
+      case "hatch":
         Robot.io.Place("take");
         Robot.io.Toggle(1);
         break;

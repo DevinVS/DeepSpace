@@ -7,39 +7,32 @@
 
 package frc.robot.commands;
 
+import java.awt.RenderingHints.Key;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class LiftDrive extends TimedCommand {
+/**
+ * Add your docs here.
+ */
+public class InhaleExhale extends InstantCommand {
+  /**
+   * Add your docs here.
+   */
+  String key;
 
-private double power;
-  public LiftDrive(double timeout, double power) {
-    super(timeout);
+  public InhaleExhale(String key) {
+    super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
-    this.power = power;
-
+    requires(Robot.io);
+    this.key = key;
   }
 
-  // Called just before this Command runs the first time
+  // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.lift.liftDrive(power);
-  } 
-  
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    Robot.lift.liftDrive(0);
+    Robot.io.GiveOrTake(key);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
 }

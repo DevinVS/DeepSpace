@@ -113,9 +113,23 @@ public class Lift extends Subsystem {
     liftDrive.set(ControlMode.PercentOutput, power);
   }
 
-  public void up(double targetPos){
-    liftPID.setReference(targetPos*1.6106, ControlType.kSmartMotion);
-    elevatorPID.setReference((targetPos*1.0829) -2.9889, ControlType.kSmartMotion);
+  public void upElevator(double targetPos){
+    elevatorSpark.set(targetPos);
   }
+
+  public void upLift(double targetPos){
+    liftSpark.set(targetPos);
+  }
+
+  public void up(double t, double s ){
+    elevatorSpark.set(t);
+    liftSpark.set(s);
+  }
+
+  public void resetEncoders(){
+    elevatorEncoder.setPosition(0);
+    liftEncoder.setPosition(0);
+  }
+
 
 }

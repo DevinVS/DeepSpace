@@ -31,13 +31,13 @@ public class JoystickDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Executing JoystickDrive Command");
+    // System.out.println("Executing JoystickDrive Command");
 
     double joyX = OI.stick.getX();
     double joyY = OI.stick.getY();
     
 
-    Robot.drivetrain.arcadeDrive(-joyX, joyY, true);
+    Robot.drivetrain.arcadeDrive(joyX, -joyY, true);
 
     /*if(Robot.pixy2SpiJNI.ballExists()){
       System.out.println("Ball Found");

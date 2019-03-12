@@ -30,7 +30,7 @@ public class IO extends Subsystem {
   private static WPI_TalonSRX rightIntakeTalon;
   private static WPI_VictorSPX intakeVictor;
 
-  public static int mode = 1;
+  public static int mode = 0;
 
 
 
@@ -85,10 +85,10 @@ public class IO extends Subsystem {
   public void GiveOrTake(String key){
     switch(key){
       case "give":
-        intakeVictor.set(ControlMode.PercentOutput, .5);
+        intakeVictor.set(ControlMode.PercentOutput, 1);
         break;
       case "take":
-        intakeVictor.set(ControlMode.PercentOutput, -.3);
+        intakeVictor.set(ControlMode.PercentOutput, -.5);
         break;
       case "nada":
         intakeVictor.set(ControlMode.PercentOutput, 0);

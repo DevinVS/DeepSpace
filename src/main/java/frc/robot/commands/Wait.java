@@ -7,16 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
-public class Place extends Command {
-
-  public Place() {
+/**
+ * Add your docs here.
+ */
+public class Wait extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public Wait(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.io);
-
   }
 
   // Called just before this Command runs the first time
@@ -27,26 +30,9 @@ public class Place extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Execute Place");
-    if(Robot.io.mode == 0){
-      System.out.println("Don't do that");
-    }
-    if(Robot.io.mode == 1){
-    Robot.io.Place("put");
-    Robot.io.Place("take");   
-    }
-    else{
-      System.out.println("review code ");
-    }
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
   }

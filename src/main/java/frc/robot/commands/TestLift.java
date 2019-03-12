@@ -7,18 +7,21 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
-public class MoveLift extends Command {
-  private double targetPos;
-  public MoveLift(double targetPos) {
+/**
+ * Add your docs here.
+ */
+public class TestLift extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public TestLift(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.lift);
-    this.targetPos = targetPos;
-    // this.targetPos = -(((targetPos)*2.7777) + 4.86);
-  // 1.75 = 0 encoder ticks
   }
 
   // Called just before this Command runs the first time
@@ -29,25 +32,14 @@ public class MoveLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-
-
-    System.out.println("Executing MoveLift Command");
- 
-    targetPos = (targetPos > 50)? 50: targetPos;
-    Robot.lift.setLift(targetPos);
-
+    Robot.lift.upLift(-.25);
   }
+    
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
+    Robot.lift.upLift(0);
   }
 
   // Called when another command which requires one or more of the same

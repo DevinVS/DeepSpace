@@ -13,7 +13,7 @@ public class ClimbG extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ClimbG(double targetPos, double power, double distanceOne, double distanceTwo ) {
+  public ClimbG() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -31,15 +31,28 @@ public class ClimbG extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
     
-    // addParallel(new MoveElevator(targetPos));
-    // addSequential(new MoveLift(targetPos));
-    // addSequential(new LiftDrive(power));
+
+
     // addSequential(new MoveElevator(0));
     // addParallel(new LiftDrive(power));
     // addSequential(new Move(distanceOne));
     // addSequential(new MoveLift(0));
     // addSequential(new Move(distanceTwo));
 
-
+    addSequential(new Raise(1));
+    addSequential(new Wait(3));
+    addSequential(new Raise(2));
+    addSequential(new Wait(3));
+    addSequential(new LiftDrive(3.5, .8));
+    addSequential(new MoveElevator(4));
+    addSequential(new ActivateArms("down"));
+    addParallel(new LiftDrive(1.1, 1));
+    addSequential(new Move(1.1, .25));
+    addSequential(new Wait(1));
+    addParallel(new Move(1, .1));
+    addSequential(new MoveLift(2));
+    addSequential(new Wait(2));
+    addSequential(new Move(.25, .25));
+    addSequential(new ActivateArms("up"));
   }
 }

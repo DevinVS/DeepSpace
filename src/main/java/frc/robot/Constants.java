@@ -48,16 +48,16 @@ public class Constants{
     public static double rVelocity_Iz;
     public static double rVelocity_PeakOut;
 
-    public static double elevatorkF = 0.00015;
-    public static double elevatorkP = 0; //5e-5
-    public static double elevatorkI = 0; //1e-6
+    public static double elevatorkF = 0.00015;//.00015
+    public static double elevatorkP = 5e-5; //5e-5
+    public static double elevatorkI = 1e-6; //1e-6
     public static double elevatorkD = 0;
 
-    public static double elevatorkMaxVelocity = 3000; //3000
-    public static double elevatorkMaxAccel = 3000; //3000
+    public static double elevatorkMaxVelocity = 3000/2; //3000
+    public static double elevatorkMaxAccel = 3000/2; //3000
 
-    public static double liftMaxVelocity = 2785;
-    public static double liftMaxAccel = 2785;
+    public static double liftMaxVelocity = 3000/2; //2785
+    public static double liftMaxAccel = 3000/2; //2785
 
     static{
         
@@ -114,7 +114,7 @@ public class Constants{
              rDistance_PeakOut = .5;
 
 
-             lVelocity_kP = 0;
+             lVelocity_kP = 1.75*102.3/1600;
              lVelocity_kI = 0;
              lVelocity_kD = 0;
              lVelocity_kF = 1023/kMaxVelocity;
@@ -122,7 +122,7 @@ public class Constants{
              lVelocity_PeakOut = .5;
 
 
-             rVelocity_kP = 0;
+             rVelocity_kP = 1.75*102.3/1600;
              rVelocity_kI = 0;
              rVelocity_kD = 0;
              rVelocity_kF = 1023/kMaxVelocity;

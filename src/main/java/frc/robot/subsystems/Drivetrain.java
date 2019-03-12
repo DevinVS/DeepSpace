@@ -47,8 +47,8 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
     rightMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
 
-    rightMasterTalon.setInverted(true);
-    rightSlaveTalon.setInverted(true);
+    leftMasterTalon.setInverted(true);
+    leftSlaveTalon.setInverted(true);
 
     shiftSolenoid = new DoubleSolenoid(RobotMap.shiftSolenoidInPort, RobotMap.shiftSolenoidOutPort);
 
@@ -83,8 +83,7 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon.config_kI(1, rkI, Constants.kTimeoutMs);
     rightMasterTalon.config_kD(1, rkD, Constants.kTimeoutMs);
 
-    leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
-    rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
+
 
     leftMasterTalon.configMotionAcceleration(6385);
     leftMasterTalon.configMotionCruiseVelocity(6385);
@@ -92,10 +91,13 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.configMotionAcceleration(6835);
     leftMasterTalon.configMotionCruiseVelocity(6835);
 
-    leftMasterTalon.setNeutralMode(NeutralMode.Coast);
-    rightMasterTalon.setNeutralMode(NeutralMode.Coast);
-    leftSlaveTalon.setNeutralMode(NeutralMode.Coast);
-    rightSlaveTalon.setNeutralMode(NeutralMode.Coast);
+    // leftMasterTalon.setNeutralMode(NeutralMode.Coast);
+    // rightMasterTalon.setNeutralMode(NeutralMode.Coast);
+    // leftSlaveTalon.setNeutralMode(NeutralMode.Coast);
+    // rightSlaveTalon.setNeutralMode(NeutralMode.Coast);
+
+    leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
+    rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
 
     // if(Robot.debug){
     //   SmartDashboard.putNumber("lP", lkP);
@@ -199,7 +201,7 @@ public class Drivetrain extends Subsystem {
         rightMotorOutput = xSpeed - zRotation;
       }
     }
-    
+
     leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
     rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
 

@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     //SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("TestRun", new realtest(5));
-    SmartDashboard.putNumber("MyValue", 0);
+    SmartDashboard.putNumber("MyValue", 5);
 
   }
 
@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Lift Current", currents[1]);
     SmartDashboard.putNumber("Elevator Position", Robot.lift.getElevatorPosition());
     SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());
+    
     
   }
 

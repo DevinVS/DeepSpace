@@ -15,7 +15,7 @@ public class MoveElevator extends Command {
   double targetPos;
   public MoveElevator(double targetPos) {
     requires(Robot.lift);
-    this.targetPos = (targetPos*1.0829) -2.9889;
+    this.targetPos = targetPos;
 
 
 
@@ -33,6 +33,14 @@ public class MoveElevator extends Command {
   protected void execute() {
     System.out.println("Executing MoveElevator Command");
 
+    // 27 = lowest ball
+    //56 = middle ball
+    // 85 = tallest ball
+
+    // 10 = lowest hatch
+    // 40 = middle hatch
+    // 70 = tallest hatch
+
     targetPos = (targetPos > 85)? 85: targetPos;
     Robot.lift.setElevator(targetPos);
     System.out.println("Elevator Posotion " + Robot.lift.getElevatorPosition());
@@ -41,7 +49,8 @@ public class MoveElevator extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(Robot.lift.getElevatorPosition() - targetPos) < 0.1;
+    return Math.abs(Robot.lift.getElevatorPosition() - targetPos) < 1;
+    //had to chaange is finished to 1 from .1 
   }
 
   // Called once after isFinished returns true

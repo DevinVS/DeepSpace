@@ -18,29 +18,34 @@ public class Raise extends Command {
   public Raise(double targetPos) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
     this.targetPos = targetPos;
+    requires(Robot.lift);
+    
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.compressor.stop();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.up(targetPos);
+    Robot.lift.setLift((-28)*targetPos);
+    Robot.lift.setElevator((-21.5)*targetPos);
 
     
-    double power = Math.abs(Robot.m_oi.stick.getY())>.05? Robot.m_oi.stick.getY(): 0;
-    Robot.lift.setDrive(power);
+
+    
+    // double power = Math.abs(Robot.m_oi.stick.getY())>.05? Robot.m_oi.stick.getY(): 0;
+    // Robot.lift.setDrive(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
