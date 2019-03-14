@@ -9,6 +9,14 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CameraServerJNI;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -60,6 +68,21 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("TestRun", new realtest(5));
     SmartDashboard.putNumber("MyValue", 5);
+    new Thread(() -> {
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+      camera.setResolution(640, 480);
+      
+      // CvSink cvSink = CameraServer.getInstance().getVideo();
+      // CvSource outputStream = CameraServer.getInstance().putVideo("Video", 640, 480);
+      
+      // Mat source = new Mat();
+      
+      // while(!Thread.interrupted()) {
+      //     cvSink.grabFrame(source);
+      //     //Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+      //     outputStream.putFrame(source);
+      // }
+  }).start();
 
   }
 
