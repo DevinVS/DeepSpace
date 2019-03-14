@@ -27,7 +27,7 @@ public class AlignDistance extends Command {
   static int pixyOffset = 0;
   static double lDistance, rDistance, error, lOut, rOut;
 
-  static Block line, target1, target2;
+  static Block target1, target2;
 
   // Called just before this Command runs the first time
   @Override
@@ -44,7 +44,7 @@ public class AlignDistance extends Command {
 
   @Override
   protected boolean isFinished(){
-    return (error < 10) || line.equals(null) || target1.equals(null) || target2.equals(null);
+    return (error < 10) || target1.equals(null) || target2.equals(null);
   }
 
   // Called once after isFinished returns true
@@ -82,7 +82,7 @@ public class AlignDistance extends Command {
     for(Block b: blocks){
 
       if(b.sig == 2){ 
-        if(centeredBlocks.size()>=3 && b.x-pixyOffset < centeredBlocks.lastKey()){
+        if(centeredBlocks.size()>=2 && b.x-pixyOffset < centeredBlocks.lastKey()){
           centeredBlocks.pollLastEntry();
           centeredBlocks.put(b.x-pixyOffset, b);
         }else{
@@ -90,37 +90,29 @@ public class AlignDistance extends Command {
         }
       }
     }
-    
-    if(centeredBlocks.size() == 3){
-      int lowestY = 99999;
-      int lowestKey = 0;
-      for(int i: centeredBlocks.keySet()){
-        if(centeredBlocks.get(i).y<lowestY){
-          lowestY = centeredBlocks.get(i).y;
-          lowestKey = i;
-        }
-      }
-      line = centeredBlocks.get(lowestKey);
-      centeredBlocks.remove(lowestKey);
+
+    if(centeredBlocks.size() ==2){
       target1 = centeredBlocks.pollFirstEntry().getValue();
       target2 = centeredBlocks.pollFirstEntry().getValue();
     }
+    
   }
 
   private static void alignParallel(){
     getDistances();
     error = lDistance - rDistance;
 
-    rOut = limit(kP*-error);
-    lOut = limit(kP*error);
+    while(Math.abs(error) > 30){
+      getDistances();
+      error = lDistance - rDistance;
+      rOut = limit(kP*-error);
+      lOut = limit(kP*error);
 
-    Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
+      Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
+    }
   }
 
   private static void center(){
-    getBlocks();
-    getDistances();
-
     double angle = getAngle();
     Robot.drivetrain.turn(angle);
     error = lDistance - rDistance;
@@ -132,7 +124,11 @@ public class AlignDistance extends Command {
   }
 
   private static double getAngle(){
-    return 20;
+    getBlocks();
+    getDistances();
+    double xOffset = (((target1.x - target2.x)/2) - pixyOffset)* 1; //constant multiplier for pixels to mm
+    double angle = Math.atan(xOffset/lDistance);
+    return angle;
   }
 
 }
