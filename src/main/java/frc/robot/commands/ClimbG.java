@@ -38,7 +38,7 @@ public class ClimbG extends CommandGroup {
     // addSequential(new Move(distanceOne));
     // addSequential(new MoveLift(0));
     // addSequential(new Move(distanceTwo));
-
+    addSequential(new ResetLiftSSEncoders(0.5));
     addSequential(new Raise(1));
     addSequential(new Wait(3));
     addSequential(new Raise(2));

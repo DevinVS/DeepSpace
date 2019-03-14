@@ -39,7 +39,7 @@ public class AlignDistance extends Command {
   protected void execute() {
     alignParallel();
     center();
-    alignParallel();
+    //alignParallel();
   }
 
   @Override

@@ -130,6 +130,11 @@ public class Lift extends Subsystem {
     elevatorEncoder.setPosition(0);
     liftEncoder.setPosition(0);
   }
+  //ONLY USE FOR RESETING ENCODERS
+  public void setLiftSSPower(double elevatorMagnitude, double liftMagnitude){
+    liftSpark.set(liftMagnitude);
+    elevatorSpark.set(elevatorMagnitude);
+  }
 
 
 }
