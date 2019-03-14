@@ -36,18 +36,10 @@ public class AlignDistance extends Command {
 
   // This acts as a PID loop using only the 'P' constant, trying to reduce the distances to 0
   @Override
-  protected void execute() { 
-
-    getBlocks();
-
-
-    getDistances();
-    error = lDistance - rDistance;
-
-    rOut = limit(kP*-error);
-    lOut = limit(kP*error);
-
-    Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
+  protected void execute() {
+    alignParallel();
+    center();
+    alignParallel();
   }
 
   @Override
@@ -72,7 +64,7 @@ public class AlignDistance extends Command {
     rDistance = 80;
   }
 
-  private double limit(double num){
+  private static double limit(double num){
     if(num>1){
       return 1;
     }else if(num<-1){
@@ -82,7 +74,7 @@ public class AlignDistance extends Command {
     }
   }
 
-  private void getBlocks(){
+  private static void getBlocks(){
     Block[] blocks = Robot.pixy2SpiJNI.blocksBuffer.poll();
     //Hashtable<Integer, Block> centeredBlocks = new Hashtable<Integer, Block>();
     TreeMap<Integer, Block> centeredBlocks = new TreeMap<Integer, Block>();
@@ -112,9 +104,35 @@ public class AlignDistance extends Command {
       centeredBlocks.remove(lowestKey);
       target1 = centeredBlocks.pollFirstEntry().getValue();
       target2 = centeredBlocks.pollFirstEntry().getValue();
-    }else{
-      //Do Nothing
     }
+  }
+
+  private static void alignParallel(){
+    getDistances();
+    error = lDistance - rDistance;
+
+    rOut = limit(kP*-error);
+    lOut = limit(kP*error);
+
+    Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
+  }
+
+  private static void center(){
+    getBlocks();
+    getDistances();
+
+    double angle = getAngle();
+    Robot.drivetrain.turn(angle);
+    error = lDistance - rDistance;
+    while(Math.abs(error) > 10){
+      error = lDistance - rDistance;
+      Robot.drivetrain.set(ControlMode.PercentOutput, 1., 1.);
+    }
+
+  }
+
+  private static double getAngle(){
+    return 20;
   }
 
 }
