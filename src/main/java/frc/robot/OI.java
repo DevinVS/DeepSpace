@@ -96,6 +96,8 @@ public class OI {
 
     // pad5.whenPressed(new ClimbG());
     button11.whenPressed(new ClimbG());
+    // button10.whenPressed(new MoveLift(-10));
+    //button4.whenPressed(new TestPID());
 
     pad4.whenPressed(new LowConditional());
     pad3.whenPressed(new MiddleConditional());
@@ -103,7 +105,7 @@ public class OI {
 
     // button4.whenPressed(new MoveLift(19.5));
     // button8.whenPressed(new MoveLift(0));
-    // button4.whenPressed(new TestPID());
+    button4.whenPressed(new TestPID());
 
 
 

@@ -16,7 +16,7 @@ public class MiddleConditional extends ConditionalCommand {
    * Add your docs here.
    */
   public MiddleConditional() {
-    super(new PlaceBallG(56), new PlaceHatchG(40));
+    super(new PlaceBallG(89.6), new PlaceHatchG(64));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

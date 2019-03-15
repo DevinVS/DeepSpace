@@ -32,8 +32,8 @@ public class Raise extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setLift((-28)*targetPos);
-    Robot.lift.setElevator((-21.5)*targetPos);
+    Robot.lift.setLift((-26)*targetPos);
+    Robot.lift.setElevator((-36)*targetPos);
 
     
 

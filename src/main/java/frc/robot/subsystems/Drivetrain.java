@@ -41,6 +41,11 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon = new WPI_TalonSRX(RobotMap.rightMasterTalonPort);
     rightSlaveTalon = new WPI_TalonSRX(RobotMap.rightSlaveTalonPort);
 
+    // leftMasterTalon.configFactoryDefault();
+    // leftSlaveTalon.configFactoryDefault();
+    // rightMasterTalon.configFactoryDefault();
+    // rightSlaveTalon.configFactoryDefault();
+
     leftSlaveTalon.follow(leftMasterTalon);
     rightSlaveTalon.follow(rightMasterTalon);
 

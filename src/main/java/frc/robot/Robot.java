@@ -63,14 +63,21 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
     //compressor.setClosedLoopControl(true);
     compressor.start();
+    lift.resetEncoders();
     //m_chooser.setDefaultOption("Default Auto", new DriveCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     //SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("TestRun", new realtest(5));
     SmartDashboard.putNumber("MyValue", 5);
+
+    lift.setElevator(0);
+    lift.setLift(1);
+    lift.setDrive(0);
+
+
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-      camera.setResolution(640, 480);
+      camera.setResolution(320, 240);
       
       // CvSink cvSink = CameraServer.getInstance().getVideo();
       // CvSource outputStream = CameraServer.getInstance().putVideo("Video", 640, 480);
@@ -113,10 +120,13 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     drivetrain.set(ControlMode.PercentOutput, 0, 0);
+    
+    
 
-    lift.setElevator(0);
-    lift.setLift(0);
-    lift.setDrive(0);
+ 
+    
+    
+
   }
 
   @Override
@@ -196,7 +206,7 @@ public class Robot extends TimedRobot {
      SmartDashboard.putNumber("Leftside Velocity ", leftside);
      SmartDashboard.putNumber("Rightside Velocity ", rightside);
      SmartDashboard.putNumber("Leftside Current ", cLeftside);
-     SmartDashboard.putNumber("Righside Current ", cRightside );
+     SmartDashboard.putNumber("Righside Current ", cRightside);
 
     //Scheduler.getInstance().run();
     Scheduler.getInstance().run();

@@ -16,7 +16,7 @@ public class LowConditional extends ConditionalCommand {
    * Add your docs here.
    */
   public LowConditional() {
-    super(new PlaceBallG(27), new PlaceHatchG(10));
+    super(new PlaceBallG(43.2), new PlaceHatchG(16));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

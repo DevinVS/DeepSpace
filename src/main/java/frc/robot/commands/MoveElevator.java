@@ -41,7 +41,7 @@ public class MoveElevator extends Command {
     // 40 = middle hatch
     // 70 = tallest hatch
 
-    targetPos = (targetPos > 85)? 85: targetPos;
+    targetPos = (targetPos > 150)? 150: targetPos;
     Robot.lift.setElevator(targetPos);
     System.out.println("Elevator Posotion " + Robot.lift.getElevatorPosition());
   }

@@ -7,44 +7,46 @@
 
 package frc.robot.commands;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Set;
 import java.util.TreeMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.vision.Block;
 
-public class AlignDistance extends Command {
-  public AlignDistance() {
+public class Align extends InstantCommand {
+  public Align() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.drivetrain);
+    // eg. requires(chassis);
+    requires(Robot.lift);
   }
-  static double kP = .01;
-  static int pixyOffset = 0;
-  static double lDistance, rDistance, error, lOut, rOut;
-
-  static Block target1, target2;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
   }
 
-  // This acts as a PID loop using only the 'P' constant, trying to reduce the distances to 0
+  private static double kP = 0.1;
+  private static Block target1;
+  private static Block target2;
+  private static int pixyOffset = 140;
+  private static double error;
+
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    getAngle();
-    
-
+    double blocksPos = getBlocksPos();
+    error = blocksPos - pixyOffset;
+    double rOut = limit(kP * -error);
+    double lOut = limit(kP * error);
+    Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished(){
-    return (error < 10) || target1.equals(null) || target2.equals(null);
+  protected boolean isFinished() {
+    return error < 5;
   }
 
   // Called once after isFinished returns true
@@ -58,20 +60,9 @@ public class AlignDistance extends Command {
   protected void interrupted() {
   }
 
-  private static void getDistances(){
-    //Change this
-    lDistance = 100;
-    rDistance = 80;
-  }
-
-  private static double limit(double num){
-    if(num>1){
-      return 1;
-    }else if(num<-1){
-      return -1;
-    }else{
-      return num;
-    }
+  private static double getBlocksPos(){
+    getBlocks();
+    return (target1.x + target2.x)/2;
   }
 
   private static void getBlocks(){
@@ -97,38 +88,13 @@ public class AlignDistance extends Command {
     }
     
   }
-
-  private static void alignParallel(){
-    getDistances();
-    error = lDistance - rDistance;
-
-    while(Math.abs(error) > 30){
-      getDistances();
-      error = lDistance - rDistance;
-      rOut = limit(kP*-error);
-      lOut = limit(kP*error);
-
-      Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
+  private static double limit(double num){
+    if(num>1){
+      return 1;
+    }else if(num<-1){
+      return -1;
+    }else{
+      return num;
     }
   }
-
-  private static void center(){
-    double angle = getAngle();
-    Robot.drivetrain.turn(angle);
-    error = lDistance - rDistance;
-    while(Math.abs(error) > 10){
-      error = lDistance - rDistance;
-      Robot.drivetrain.set(ControlMode.PercentOutput, 1., 1.);
-    }
-
-  }
-
-  private static double getAngle(){
-    getBlocks();
-    getDistances();
-    double xOffset = (((target1.x - target2.x)/2) - pixyOffset)* 1; //constant multiplier for pixels to mm
-    double angle = Math.atan(xOffset/lDistance);
-    return angle;
-  }
-
 }
