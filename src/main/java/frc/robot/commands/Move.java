@@ -28,12 +28,13 @@ public class Move extends TimedCommand {
   @Override
   protected void initialize() {
     Robot.drivetrain.set(ControlMode.PercentOutput, power, power);
+    System.out.println("Executing Move Command");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Executing Move Command");
+    
 
   }
 

@@ -24,6 +24,7 @@ public class MoveLift extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Executing Move");
     targetPos = (targetPos > 60)? 60: targetPos;
     Robot.lift.setLift(targetPos);
   }

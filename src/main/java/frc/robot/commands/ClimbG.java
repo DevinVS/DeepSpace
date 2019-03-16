@@ -46,7 +46,7 @@ public class ClimbG extends CommandGroup {
     addSequential(new Raise(1),3);
     // addSequential(new Wait(3));
     addSequential(new Raise(2),3);
-    addSequential(new Wait(3));
+    // addSequential(new Wait(3));
     addSequential(new LiftDrive(4, -1));
     addSequential(new MoveElevator(7));
     addSequential(new ActivateArms("down"));
@@ -54,8 +54,9 @@ public class ClimbG extends CommandGroup {
     addSequential(new Move(1.5, .35));
     addSequential(new Wait(1));
     addParallel(new Move(1, .1));
-    addSequential(new MoveLift(2.5));
-    addSequential(new Wait(1));
+    addParallel(new MoveLift(2.5));
+    addSequential(new LiftDrive(1, 1));
+    // addSequential(new Wait(1));
 
     
    

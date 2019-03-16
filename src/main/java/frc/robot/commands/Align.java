@@ -19,7 +19,7 @@ public class Align extends InstantCommand {
   public Align() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.drivetrain);
+    requires(Robot.lift);
   }
 
   // Called just before this Command runs the first time
