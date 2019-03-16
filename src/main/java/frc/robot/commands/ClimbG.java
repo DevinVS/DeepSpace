@@ -42,19 +42,25 @@ public class ClimbG extends CommandGroup {
  
     // addSequential(new Zero());
     // addSequential(new Wait(.5));
-    addSequential(new Raise(1));
-    addSequential(new Wait(3));
-    addSequential(new Raise(2));
+    
+    addSequential(new Raise(1),3);
+    // addSequential(new Wait(3));
+    addSequential(new Raise(2),3);
     addSequential(new Wait(3));
     addSequential(new LiftDrive(4, -1));
     addSequential(new MoveElevator(7));
     addSequential(new ActivateArms("down"));
     addParallel(new LiftDrive(1.5, -1));
-    addSequential(new Move(1.5, .25));
+    addSequential(new Move(1.5, .35));
     addSequential(new Wait(1));
     addParallel(new Move(1, .1));
     addSequential(new MoveLift(2.5));
     addSequential(new Wait(1));
+
+    
+   
+    
+    
     // addParallel(new Move(.4, .25));
     // addSequential(new ActivateArms("up"));
   }

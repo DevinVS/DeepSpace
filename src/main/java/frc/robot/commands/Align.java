@@ -19,7 +19,7 @@ public class Align extends InstantCommand {
   public Align() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
+    requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -27,10 +27,10 @@ public class Align extends InstantCommand {
   protected void initialize() {
   }
 
-  private static double kP = 0.1;
+  private static double kP = 0.005;
   private static Block target1;
   private static Block target2;
-  private static int pixyOffset = 140;
+  private static int pixyOffset = 79; // was at 75
   private static double error;
 
   // Called repeatedly when this Command is scheduled to run
@@ -46,7 +46,8 @@ public class Align extends InstantCommand {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return error < 5;
+    System.out.println(error);
+    return error < 2;
   }
 
   // Called once after isFinished returns true
@@ -62,14 +63,18 @@ public class Align extends InstantCommand {
 
   private static double getBlocksPos(){
     getBlocks();
-    return (target1.x + target2.x)/2;
+    if(target1 == null || target2 == null){
+      return pixyOffset;
+    }else{
+      return (target1.x + target2.x)/2;
+    }
   }
 
   private static void getBlocks(){
     Block[] blocks = Robot.pixy2SpiJNI.blocksBuffer.poll();
     //Hashtable<Integer, Block> centeredBlocks = new Hashtable<Integer, Block>();
     TreeMap<Integer, Block> centeredBlocks = new TreeMap<Integer, Block>();
-
+    if(blocks !=null && blocks.length>0){
     for(Block b: blocks){
 
       if(b.sig == 2){ 
@@ -85,7 +90,9 @@ public class Align extends InstantCommand {
     if(centeredBlocks.size() ==2){
       target1 = centeredBlocks.pollFirstEntry().getValue();
       target2 = centeredBlocks.pollFirstEntry().getValue();
+      System.out.println("found targets");
     }
+  }
     
   }
   private static double limit(double num){

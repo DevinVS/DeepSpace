@@ -30,10 +30,11 @@ public class HatchIntakeG extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    addSequential(new MoveElevator(5));
+
     addSequential(new Push(.5));
-    addSequential(new MoveElevator(10));
+    addSequential(new MoveElevator(18));
     addSequential(new Pull(.5));
+    addSequential(new MoveElevator(0));
 
   }
 }

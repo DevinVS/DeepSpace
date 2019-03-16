@@ -7,48 +7,40 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.wpilibj.command.TimedCommand;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class MoveLift extends Command {
-  private double targetPos;
-  public MoveLift(double targetPos) {
+/**
+ * Add your docs here.
+ */
+public class MovePID extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public MovePID(double timeout) {
+    super(timeout);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lift);
-    this.targetPos = targetPos;
-    // this.targetPos = -(((targetPos)*2.7777) + 4.86);
-  // 1.75 = 0 encoder ticks
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    targetPos = (targetPos > 60)? 60: targetPos;
-    Robot.lift.setLift(targetPos);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-
-
-    // System.out.println("Executing MoveLift Command");
- 
-    
-
+    Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity, Constants.kMaxVelocity);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
+    Robot.drivetrain.set(ControlMode.PercentOutput, 0, 0);
   }
 
   // Called when another command which requires one or more of the same

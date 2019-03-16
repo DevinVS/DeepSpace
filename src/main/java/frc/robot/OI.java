@@ -39,6 +39,8 @@ public class OI {
   public static JoystickButton pad5 = new JoystickButton(gamepad, 5);
   public static JoystickButton pad6 = new JoystickButton(gamepad, 6);
   public static JoystickButton pad7 = new JoystickButton(gamepad, 7);
+  public static JoystickButton pad8 = new JoystickButton(gamepad, 8);
+  public static JoystickButton pad9 = new JoystickButton(gamepad, 9);
 
 
   public static JoystickButton trigger = new JoystickButton(stick, 1);
@@ -49,6 +51,7 @@ public class OI {
   public static JoystickButton button6 = new JoystickButton(stick, 6);
   public static JoystickButton button7 = new JoystickButton(stick, 7);
   public static JoystickButton button8 = new JoystickButton(stick, 8);
+  public static JoystickButton button9 = new JoystickButton(stick, 9);
   public static JoystickButton button10 = new JoystickButton(stick, 10);
   public static JoystickButton button11 = new JoystickButton(stick, 11);
 
@@ -77,15 +80,11 @@ public class OI {
 
   public OI(){
     
-    button7.whenPressed(new MoveElevator(0));
     
-    // button11.whenPressed(new Place(2));
     trigger.whenPressed(new Intake());
     trigger.whenReleased(new NeutralIntake() );
-    pad1.whenPressed(new SetObjectMode("hatch"));
-    pad1.whenReleased(new SetObjectMode("ball"));
-    pad6.whenPressed(new MoveElevator(0));
-    pad7.whenPressed(new MoveLift(2.5));
+    
+    button2.whileHeld(new Align());
 
     button8.whenPressed(new InstantCommand(){
         @Override
@@ -94,22 +93,26 @@ public class OI {
         }
     });
 
-    // pad5.whenPressed(new ClimbG());
-    button11.whenPressed(new ClimbG());
-    // button10.whenPressed(new MoveLift(-10));
-    //button4.whenPressed(new TestPID());
 
-    pad4.whenPressed(new LowConditional());
-    pad3.whenPressed(new MiddleConditional());
+    pad1.whenPressed(new SetObjectMode("hatch"));
+    pad1.whenReleased(new SetObjectMode("ball"));
     pad2.whenPressed(new TopConditional());
-
-    // button4.whenPressed(new MoveLift(19.5));
-    // button8.whenPressed(new MoveLift(0));
-    button4.whenPressed(new TestPID());
-
-
+    pad3.whenPressed(new MiddleConditional());
+    pad4.whenPressed(new LowConditional());
+    pad5.whenPressed(new ClimbG());
+    pad6.whenPressed(new twoClimbG());
+    pad7.whenPressed(new MoveElevator(0));
+    pad8.whenPressed(new HighCenter());
+    // pad9.whenPressed(new Zero());
+   
+    
+    
+    
 
     
-    // button8.whenPressed(new Climb(-15, power, distanceOne, distanceTwo));
+    
+    
+    
+
   }
 }

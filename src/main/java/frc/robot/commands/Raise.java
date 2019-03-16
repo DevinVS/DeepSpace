@@ -27,17 +27,16 @@ public class Raise extends Command {
   @Override
   protected void initialize() {
     Robot.compressor.stop();
+    System.out.println(String.format("Executing Raise %2f", targetPos));
+    Robot.lift.setLift((-26)*targetPos);
+    Robot.lift.setElevator((-36)*targetPos);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setLift((-26)*targetPos);
-    Robot.lift.setElevator((-36)*targetPos);
 
-    
-
-    
+    // lift -26    
     // double power = Math.abs(Robot.m_oi.stick.getY())>.05? Robot.m_oi.stick.getY(): 0;
     // Robot.lift.setDrive(power);
   }
@@ -45,7 +44,7 @@ public class Raise extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true

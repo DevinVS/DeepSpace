@@ -16,7 +16,7 @@ public class Intake extends ConditionalCommand {
    * Add your docs here.
    */
   public Intake() {
-    super(new BallIntakeG());
+    super(new BallIntakeG(), new HatchHeight());
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

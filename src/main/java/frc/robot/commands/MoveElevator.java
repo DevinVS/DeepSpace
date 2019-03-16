@@ -26,12 +26,14 @@ public class MoveElevator extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    targetPos = (targetPos > 150)? 150: targetPos;
+    Robot.lift.setElevator(targetPos);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.println("Executing MoveElevator Command");
+    // System.out.println("Executing MoveElevator Command");
 
     // 27 = lowest ball
     //56 = middle ball
@@ -41,9 +43,8 @@ public class MoveElevator extends Command {
     // 40 = middle hatch
     // 70 = tallest hatch
 
-    targetPos = (targetPos > 150)? 150: targetPos;
-    Robot.lift.setElevator(targetPos);
-    System.out.println("Elevator Posotion " + Robot.lift.getElevatorPosition());
+    
+    // System.out.println("Elevator Posotion " + Robot.lift.getElevatorPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()

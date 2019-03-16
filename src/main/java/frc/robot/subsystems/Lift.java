@@ -40,7 +40,8 @@ public class Lift extends Subsystem {
     liftDrive = new WPI_TalonSRX(RobotMap.backDriveTalonPort);
 
     liftSpark = new CANSparkMax(RobotMap.liftSparkPort, CANSparkMaxLowLevel.MotorType.kBrushless);
-    liftSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    liftSpark.restoreFactoryDefaults();
+    liftSpark.setIdleMode(CANSparkMax.IdleMode.kCoast);
     liftSpark.setInverted(true);
     liftEncoder = liftSpark.getEncoder();
     liftPID = liftSpark.getPIDController();
@@ -57,7 +58,8 @@ public class Lift extends Subsystem {
     liftPID.setSmartMotionMinOutputVelocity(0, 0);
 
     elevatorSpark = new CANSparkMax(RobotMap.elevatorSparkPort, CANSparkMaxLowLevel.MotorType.kBrushless);
-    elevatorSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    elevatorSpark.restoreFactoryDefaults();
+    elevatorSpark.setIdleMode(CANSparkMax.IdleMode.kCoast);
     elevatorSpark.setInverted(true);
     elevatorEncoder = elevatorSpark.getEncoder();
     elevatorPID = elevatorSpark.getPIDController();
@@ -105,7 +107,11 @@ public class Lift extends Subsystem {
   public double getLiftPosition(){return liftEncoder.getPosition();}
 
   public void zero(){
-    elevatorPID.setReference(0, ControlType.kCurrent);
+    // elevatorPID.setReference(0, ControlType.kDutyCycle);
+    // liftPID.setReference(0, ControlType.kDutyCycle);
+    elevatorSpark.set(0);
+    liftSpark.set(0);
+    
   }
 
 

@@ -9,11 +9,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class PlaceHatchG extends CommandGroup {
+public class twoClimbG extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public PlaceHatchG(double desiredPos) {
+  public twoClimbG() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -31,11 +31,25 @@ public class PlaceHatchG extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-    addSequential(new MoveElevator(desiredPos));
-    addSequential(new Push(.4));
-    addSequential(new MoveElevator(desiredPos-5.5));
-    addSequential(new Wait(.35));
-    addSequential(new Pull(0));
-    addSequential(new MoveElevator(0));
+    addSequential(new Raise(.75), 3);
+    // addSequential(new Wait(3));
+    // addSequential(new Raise(2));
+    // addSequential(new Wait(3));
+    addSequential(new LiftDrive(4, -1));
+    addSequential(new MoveElevator(7));
+    addSequential(new ActivateArms("down"));
+    addParallel(new LiftDrive(3.5, -1));
+    addSequential(new Move(3.5, .35));
+    addSequential(new Wait(1));
+    addParallel(new Move(1, .1));
+    addSequential(new MoveLift(2.5));
+    addSequential(new Wait(1));
+
+
+
+
+
+
+
   }
 }
