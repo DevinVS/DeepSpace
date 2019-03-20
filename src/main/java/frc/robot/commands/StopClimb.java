@@ -32,7 +32,7 @@ public class StopClimb extends CommandGroup {
     // arm.
 
     addSequential(new Move(0,0));
-    addSequential(new Raise(0));
+    addSequential(new Raise(0,0));
     
 
   }

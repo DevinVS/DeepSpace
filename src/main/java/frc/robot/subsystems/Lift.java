@@ -103,8 +103,13 @@ public class Lift extends Subsystem {
     return nums;
   }
 
-  public double getElevatorPosition(){return elevatorEncoder.getPosition();}
-  public double getLiftPosition(){return liftEncoder.getPosition();}
+  public double getElevatorPosition(){
+    return elevatorEncoder.getPosition();
+  }
+  
+  public double getLiftPosition(){
+      return liftEncoder.getPosition();
+  }
 
   public void zero(){
     // elevatorPID.setReference(0, ControlType.kDutyCycle);
