@@ -34,7 +34,7 @@ public class HatchIntakeG extends CommandGroup {
     addSequential(new Push(.5));
     addSequential(new MoveElevator(18));
     addSequential(new Pull(.5));
-    addSequential(new MoveElevator(0));
+    addSequential(new MoveElevator(1));
 
   }
 }
