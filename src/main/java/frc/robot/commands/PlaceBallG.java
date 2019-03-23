@@ -33,8 +33,10 @@ public class PlaceBallG extends CommandGroup {
 
     addSequential(new MoveElevator(desiredPos));
     addSequential(new InhaleExhale("give"));
-    addSequential(new Wait(2));
+    addSequential(new Wait(1));
+    // addSequential(new Push(1));
     addSequential(new InhaleExhale("nada"));
+    // addSequential(new Pull(0));
     addSequential(new MoveElevator(0)); 
 
   }

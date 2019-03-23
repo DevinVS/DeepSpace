@@ -9,24 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class ClimbG extends CommandGroup {
+public class HighCenter extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ClimbG() {
-    
-    addSequential(new Raise(-36, -26),3);
-    addSequential(new Raise(-36, -26),3);
-    addSequential(new LiftDrive(4, -1));
-    addSequential(new MoveElevator(7));
-    addSequential(new ActivateArms("down"));
-    addParallel(new LiftDrive(1.5, -1));
-    addSequential(new Move(1.5, .35));
-    addSequential(new Wait(1));
-    addParallel(new Move(1, .1));
-    addParallel(new MoveLift(2.5));
-    addSequential(new LiftDrive(1, 1));
+  public HighCenter() {
+ 
+    addSequential(new MoveLift(-2));
+    addSequential(new LiftDrive(2, -1));
+    addSequential(new MoveLift(1));
 
-  
   }
 }

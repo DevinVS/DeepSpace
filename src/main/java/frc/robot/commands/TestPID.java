@@ -35,9 +35,10 @@ public class TestPID extends Command {
   @Override
   protected void execute() {
     System.out.println("running pid test");
-    // Robot.drivetrain.set(ControlMode.PercentOutput, targetPos, targetPos);
-    Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity, Constants.kMaxVelocity);
-    SmartDashboard.putNumber("error", Constants.kMaxVelocity - Math.abs(Robot.drivetrain.getVelocity()[0]));
+    Robot.drivetrain.set(ControlMode.PercentOutput, targetPos, targetPos);
+    // Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity, Constants.kMaxVelocity);
+    SmartDashboard.putNumber("Lerror", Constants.kMaxVelocity - Math.abs(Robot.drivetrain.getVelocity()[0]));
+    SmartDashboard.putNumber("Rerror", Constants.kMaxVelocity - Math.abs(Robot.drivetrain.getVelocity()[1]));
   }
 
   // Make this return true when this Command no longer needs to run execute()

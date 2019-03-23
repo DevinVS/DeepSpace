@@ -3,7 +3,7 @@ package frc.robot;
 
 public class Constants{
     
-    private static boolean Weld = false;
+    private static boolean Weld = true;
     // Recursion is when Weld = true
     public static int encoderTicksToAxleRevs = 4096;
 
@@ -53,8 +53,8 @@ public class Constants{
     public static double elevatorkI = 1e-6; //1e-6
     public static double elevatorkD = 0;
 
-    public static double elevatorkMaxVelocity = 3000/2; //3000
-    public static double elevatorkMaxAccel = 3000/2; //3000
+    public static double elevatorkMaxVelocity = 4800; //3000/2 to climb
+    public static double elevatorkMaxAccel = 4800; //3000
 
     public static double liftMaxVelocity = 3000/2; //2785
     public static double liftMaxAccel = 3000/2; //2785
@@ -72,10 +72,10 @@ public class Constants{
              lDistance_Iz = 100;
              lDistance_PeakOut = .5;
 
-             lVelocity_kP = 0;
+             lVelocity_kP = 102.3/3000;
              lVelocity_kI = 0;
              lVelocity_kD = 0;
-             lVelocity_kF = 0.1;
+             lVelocity_kF = 1023/kMaxVelocity;
              lVelocity_Iz = 300;
              lVelocity_PeakOut = .5;
 
@@ -86,10 +86,10 @@ public class Constants{
              rDistance_Iz = 100;
              rDistance_PeakOut = .5;
 
-             rVelocity_kP = 0;
+             rVelocity_kP = 102.3/600;
              rVelocity_kI = 0;
              rVelocity_kD = 0;
-             rVelocity_kF = 0.1;
+             rVelocity_kF = 1023/kMaxVelocity;
              rVelocity_Iz = 300;
              rVelocity_PeakOut = .5;
 

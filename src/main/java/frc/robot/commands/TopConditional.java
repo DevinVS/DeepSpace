@@ -15,7 +15,7 @@ public class TopConditional extends ConditionalCommand {
    * Add your docs here.
    */
   public TopConditional() {
-    super(new PlaceBallG(85), new PlaceHatchG(70));
+    super(new PlaceBallG(140), new PlaceHatchG(112));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

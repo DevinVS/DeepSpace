@@ -9,7 +9,10 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.CameraServerJNI;
@@ -63,25 +66,30 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
     //compressor.setClosedLoopControl(true);
     compressor.start();
+    // lift.resetEncoders();
     //m_chooser.setDefaultOption("Default Auto", new DriveCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     //SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("TestRun", new realtest(5));
     SmartDashboard.putNumber("MyValue", 5);
+
+    
+
+
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-      camera.setResolution(640, 480);
+      camera.setResolution(320, 240);
       
-      // CvSink cvSink = CameraServer.getInstance().getVideo();
-      // CvSource outputStream = CameraServer.getInstance().putVideo("Video", 640, 480);
+      CvSink cvSink = CameraServer.getInstance().getVideo();
+      CvSource outputStream = CameraServer.getInstance().putVideo("Video", 320, 240);
       
-      // Mat source = new Mat();
-      
-      // while(!Thread.interrupted()) {
-      //     cvSink.grabFrame(source);
-      //     //Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-      //     outputStream.putFrame(source);
-      // }
+      Mat source = new Mat(320,240, CvType.CV_8UC3);
+
+      while(!Thread.interrupted()) {
+          cvSink.grabFrame(source);
+          Imgproc.line(source, new Point(280, 0), new Point(280, 240), new Scalar(0,255,0), 2);
+          outputStream.putFrame(source);
+      }
   }).start();
 
   }
@@ -113,10 +121,13 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     drivetrain.set(ControlMode.PercentOutput, 0, 0);
+    
+    
 
-    lift.setElevator(0);
-    lift.setLift(0);
-    lift.setDrive(0);
+ 
+    
+    
+
   }
 
   @Override
@@ -139,6 +150,10 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
+
+    lift.setElevator(0);
+    lift.setLift(1);
+    lift.setDrive(0);
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -164,6 +179,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
+    lift.setElevator(0);
+    lift.setLift(1);
+    lift.setDrive(0);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -196,7 +215,7 @@ public class Robot extends TimedRobot {
      SmartDashboard.putNumber("Leftside Velocity ", leftside);
      SmartDashboard.putNumber("Rightside Velocity ", rightside);
      SmartDashboard.putNumber("Leftside Current ", cLeftside);
-     SmartDashboard.putNumber("Righside Current ", cRightside );
+     SmartDashboard.putNumber("Righside Current ", cRightside);
 
     //Scheduler.getInstance().run();
     Scheduler.getInstance().run();

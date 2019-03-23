@@ -7,42 +7,27 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class Wait extends TimedCommand {
+public class Zero extends InstantCommand {
   /**
    * Add your docs here.
    */
-  private double timeout;
-  public Wait(double timeout) {
-    super(timeout);
-    this.timeout = timeout;
+  public Zero() {
+    super();
+    requires(Robot.lift);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
-  // Called just before this Command runs the first time
+  // Called once when the command executes
   @Override
   protected void initialize() {
-    System.out.println(String.format("Executing Wait %2f", timeout));
+    Robot.lift.resetEncoders();
   }
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
-
-  // Called once after timeout
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
 }

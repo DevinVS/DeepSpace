@@ -34,7 +34,7 @@ public class BallIntakeG extends CommandGroup {
     addSequential(new Pull(.25));
     addSequential(new SetIntakeMode("in"));
     addSequential(new InhaleExhale("take"));
-    addSequential(new Wait(.5));
+    addSequential(new Wait(.25));
     addSequential(new Push(.25));
     
   }

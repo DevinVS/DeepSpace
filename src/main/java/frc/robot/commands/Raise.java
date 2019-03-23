@@ -14,11 +14,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Raise extends Command {
-  private double targetPos;
-  public Raise(double targetPos) {
+  private double eTargetPos;
+  private double lTargetPos;
+
+  public Raise(double eTargetPos, double lTargetPos ) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.targetPos = targetPos;
+    this.eTargetPos = eTargetPos;
+    this.lTargetPos = lTargetPos;
     requires(Robot.lift);
     
   }
@@ -27,17 +30,21 @@ public class Raise extends Command {
   @Override
   protected void initialize() {
     Robot.compressor.stop();
+    // System.out.println(String.format("Executing Raise %2f", eTargetPos));
+    // Robot.lift.setLift((-26)*targetPos);
+    // Robot.lift.setElevator((-36)*targetPos);
+
+    Robot.lift.setLift(lTargetPos);
+    Robot.lift.setElevator(eTargetPos);
+
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.lift.setLift((-28)*targetPos);
-    Robot.lift.setElevator((-21.5)*targetPos);
 
-    
-
-    
+    // lift -26    
     // double power = Math.abs(Robot.m_oi.stick.getY())>.05? Robot.m_oi.stick.getY(): 0;
     // Robot.lift.setDrive(power);
   }
@@ -45,7 +52,15 @@ public class Raise extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    // double ePosition = Robot.lift.getElevatorPosition();
+    // double lPosition = Robot.lift.getElevatorPosition();
+
+    // if((ePosition > (eTargetPos -1)) & (ePosition < (eTargetPos +1))){
+
+    // }
+
+
+   return false;
   }
 
   // Called once after isFinished returns true
