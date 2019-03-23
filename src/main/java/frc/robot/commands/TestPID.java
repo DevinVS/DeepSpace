@@ -7,15 +7,17 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.Robot;
-import frc.robot.vision.Pixy2USBJNI;
-import frc.robot.OI;
-import frc.robot.Constants;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class JoystickDrive extends Command {
-  public JoystickDrive() {
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
+import frc.robot.Robot;
+
+public class TestPID extends Command {
+
+  double targetPos = 1;
+  public TestPID() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.drivetrain);
@@ -24,31 +26,27 @@ public class JoystickDrive extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.drivetrain.zero();
     Robot.drivetrain.setPIDSlot(1);
-    
+    //Robot.drivetrain.getConstants();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // System.out.println("Executing JoystickDrive Command");
-
-    double joyX = OI.stick.getX();
-    double joyY = OI.stick.getY();
-    
-
-    Robot.drivetrain.arcadeDrive(joyX, -joyY, true);
-
-    /*if(Robot.pixy2SpiJNI.ballExists()){
-      System.out.println("Ball Found");
-    }*/
-
-
+    System.out.println("running pid test");
+    Robot.drivetrain.set(ControlMode.PercentOutput, targetPos, targetPos);
+    // Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity, Constants.kMaxVelocity);
+    SmartDashboard.putNumber("Lerror", Constants.kMaxVelocity - Math.abs(Robot.drivetrain.getVelocity()[0]));
+    SmartDashboard.putNumber("Rerror", Constants.kMaxVelocity - Math.abs(Robot.drivetrain.getVelocity()[1]));
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    int[] vels = Robot.drivetrain.getVelocity();
+    SmartDashboard.putNumber("Left Velocity", vels[0]);
+    SmartDashboard.putNumber("Right Velocity", vels[1]);
     return false;
   }
 
@@ -62,4 +60,5 @@ public class JoystickDrive extends Command {
   @Override
   protected void interrupted() {
   }
+
 }

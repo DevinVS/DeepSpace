@@ -15,9 +15,9 @@ import frc.robot.vision.Block;
 import frc.robot.Constants;
 
 public class FollowBall extends Command {
+  
+  
   public FollowBall() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Robot.drivetrain);
   }
 
@@ -29,22 +29,23 @@ public class FollowBall extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Executing FollowBall Command");
     double pos;
     double rightPower =0, leftPower = 0;
+    double offset = 104;
     
     if((pos = getClosestBallPos())<Constants.screenWidth){
       if(pos<=0){
-        leftPower= 1+(pos/(Constants.screenWidth/2));
+        leftPower= 1+(pos/(offset));
         rightPower=1;
       }else{
         leftPower=1;
-        rightPower= 1-(pos/(Constants.screenWidth/2));
+        rightPower= 1-(pos/(offset));
       }
     }
-    System.out.println(rightPower + " " + leftPower);
-    double  multiplier = -.5;
-    Robot.drivetrain.leftMasterTalon.set(ControlMode.Velocity, Constants.kMaxVelocity * leftPower * multiplier);
-    Robot.drivetrain.rightMasterTalon.set(ControlMode.Velocity, Constants.kMaxVelocity * rightPower * multiplier);
+
+    double  multiplier = -.25;
+    Robot.drivetrain.set(ControlMode.Velocity, Constants.kMaxVelocity * leftPower * multiplier, Constants.kMaxVelocity * rightPower * multiplier);
 
     try{
       Thread.sleep(100);

@@ -7,54 +7,40 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.Robot;
-import frc.robot.vision.Pixy2USBJNI;
-import frc.robot.OI;
-import frc.robot.Constants;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class JoystickDrive extends Command {
-  public JoystickDrive() {
+import edu.wpi.first.wpilibj.command.TimedCommand;
+import frc.robot.Robot;
+
+/**
+ * Add your docs here.
+ */
+public class realtest extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public realtest(double timeout) {
+    super(timeout);
+    requires(Robot.drivetrain);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.drivetrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.setPIDSlot(1);
-    
+    Robot.drivetrain.set(ControlMode.PercentOutput, -1, -1);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // System.out.println("Executing JoystickDrive Command");
-
-    double joyX = OI.stick.getX();
-    double joyY = OI.stick.getY();
-    
-
-    Robot.drivetrain.arcadeDrive(joyX, -joyY, true);
-
-    /*if(Robot.pixy2SpiJNI.ballExists()){
-      System.out.println("Ball Found");
-    }*/
-
-
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
+  // Called once after timeout
   @Override
   protected void end() {
+    Robot.drivetrain.set(ControlMode.PercentOutput, 0, 0);
   }
 
   // Called when another command which requires one or more of the same

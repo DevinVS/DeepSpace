@@ -10,47 +10,38 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
-import frc.robot.Constants;
 
-public class Move extends Command {
 
-  private int targetDistance;
-
-  public Move(int distance) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class Move extends TimedCommand {
+  private double power;
+  public Move(double timeout, double power) {
+    super(timeout);
     requires(Robot.drivetrain);
-    this.targetDistance = distance;
+    Robot.drivetrain.zero();
+    this.power = power;
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.zero();
+    Robot.drivetrain.set(ControlMode.PercentOutput, power, power);
+    System.out.println("Executing Move Command");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Robot.drivetrain.move("pos", targetDistance);
-    //Robot.drivetrain.move("pow", .5);
-    //Robot.drivetrain.move("vel", 60000);
+    
 
-    Robot.drivetrain.setPIDSlot(0);
-    Robot.drivetrain.set(ControlMode.MotionMagic, targetDistance);
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return Constants.kAllowableClosedLoopError > Math.abs(targetDistance - Robot.drivetrain.getPosition()[0]);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.drivetrain.set(ControlMode.PercentOutput, 0);
+    Robot.drivetrain.set(ControlMode.PercentOutput, 0, 0);
   }
 
   // Called when another command which requires one or more of the same

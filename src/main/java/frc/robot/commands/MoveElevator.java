@@ -8,48 +8,50 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.vision.Pixy2USBJNI;
-import frc.robot.OI;
-import frc.robot.Constants;
 
-public class JoystickDrive extends Command {
-  public JoystickDrive() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.drivetrain);
+public class MoveElevator extends Command {
+  double targetPos;
+  public MoveElevator(double targetPos) {
+    requires(Robot.lift);
+    this.targetPos = targetPos;
+
+
+
   }
+
+
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.setPIDSlot(1);
-    
+    targetPos = (targetPos > 150)? 150: targetPos;
+    Robot.lift.setElevator(targetPos);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // System.out.println("Executing JoystickDrive Command");
+    // System.out.println("Executing MoveElevator Command");
 
-    double joyX = OI.stick.getX();
-    double joyY = OI.stick.getY();
+    // 27 = lowest ball
+    //56 = middle ball
+    // 85 = tallest ball
+
+    // 10 = lowest hatch
+    // 40 = middle hatch
+    // 70 = tallest hatch
+
     
-
-    Robot.drivetrain.arcadeDrive(joyX, -joyY, true);
-
-    /*if(Robot.pixy2SpiJNI.ballExists()){
-      System.out.println("Ball Found");
-    }*/
-
-
+    // System.out.println("Elevator Posotion " + Robot.lift.getElevatorPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Math.abs(Robot.lift.getElevatorPosition() - targetPos) < 1;
+    //had to chaange is finished to 1 from .1 
   }
 
   // Called once after isFinished returns true

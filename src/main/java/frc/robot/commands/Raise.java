@@ -7,49 +7,60 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.Robot;
-import frc.robot.vision.Pixy2USBJNI;
-import frc.robot.OI;
-import frc.robot.Constants;
 
-public class JoystickDrive extends Command {
-  public JoystickDrive() {
+
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class Raise extends Command {
+  private double eTargetPos;
+  private double lTargetPos;
+
+  public Raise(double eTargetPos, double lTargetPos ) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.drivetrain);
+    this.eTargetPos = eTargetPos;
+    this.lTargetPos = lTargetPos;
+    requires(Robot.lift);
+    
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.drivetrain.setPIDSlot(1);
-    
+    Robot.compressor.stop();
+    // System.out.println(String.format("Executing Raise %2f", eTargetPos));
+    // Robot.lift.setLift((-26)*targetPos);
+    // Robot.lift.setElevator((-36)*targetPos);
+
+    Robot.lift.setLift(lTargetPos);
+    Robot.lift.setElevator(eTargetPos);
+
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // System.out.println("Executing JoystickDrive Command");
 
-    double joyX = OI.stick.getX();
-    double joyY = OI.stick.getY();
-    
-
-    Robot.drivetrain.arcadeDrive(joyX, -joyY, true);
-
-    /*if(Robot.pixy2SpiJNI.ballExists()){
-      System.out.println("Ball Found");
-    }*/
-
-
+    // lift -26    
+    // double power = Math.abs(Robot.m_oi.stick.getY())>.05? Robot.m_oi.stick.getY(): 0;
+    // Robot.lift.setDrive(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    // double ePosition = Robot.lift.getElevatorPosition();
+    // double lPosition = Robot.lift.getElevatorPosition();
+
+    // if((ePosition > (eTargetPos -1)) & (ePosition < (eTargetPos +1))){
+
+    // }
+
+
+   return false;
   }
 
   // Called once after isFinished returns true

@@ -1,6 +1,8 @@
 package frc.robot.vision;
 
-public class Block{
+import java.util.Iterator;
+
+public class Block {
     public int sig;
     public int x;
     public int y;

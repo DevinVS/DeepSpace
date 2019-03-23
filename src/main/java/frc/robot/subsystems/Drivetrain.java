@@ -9,12 +9,15 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.commands.JoystickDrive;
 
 /**
@@ -23,12 +26,14 @@ import frc.robot.commands.JoystickDrive;
 public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public WPI_TalonSRX leftMasterTalon;
+  private WPI_TalonSRX leftMasterTalon;
   private WPI_TalonSRX leftSlaveTalon;
-  public WPI_TalonSRX rightMasterTalon;
+  private WPI_TalonSRX rightMasterTalon;
   private WPI_TalonSRX rightSlaveTalon;
-  public DifferentialDrive drive;
-  private double quickStopAccumulator;
+
+  private static DoubleSolenoid shiftSolenoid;
+
+  private double lkP, lkI, lkD, rkP, rkI, rkD;
 
   public Drivetrain(){
     leftMasterTalon = new WPI_TalonSRX(RobotMap.leftMasterTalonPort);
@@ -36,14 +41,29 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon = new WPI_TalonSRX(RobotMap.rightMasterTalonPort);
     rightSlaveTalon = new WPI_TalonSRX(RobotMap.rightSlaveTalonPort);
 
+    // leftMasterTalon.configFactoryDefault();
+    // leftSlaveTalon.configFactoryDefault();
+    // rightMasterTalon.configFactoryDefault();
+    // rightSlaveTalon.configFactoryDefault();
+
     leftSlaveTalon.follow(leftMasterTalon);
     rightSlaveTalon.follow(rightMasterTalon);
 
     leftMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
     rightMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.kTimeoutMs);
 
-    rightMasterTalon.setInverted(true);
-    rightSlaveTalon.setInverted(true);
+    leftMasterTalon.setInverted(true);
+    leftSlaveTalon.setInverted(true);
+
+    shiftSolenoid = new DoubleSolenoid(RobotMap.shiftSolenoidInPort, RobotMap.shiftSolenoidOutPort);
+
+    lkP = Constants.lVelocity_kP;
+    lkI = Constants.lVelocity_kI;
+    lkD = Constants.lVelocity_kD;
+
+    rkP = Constants.lVelocity_kP;
+    rkI = Constants.lVelocity_kI;
+    rkD = Constants.lVelocity_kD;
 
     //Slot 0 = Distance PID
     //Slot 1 = Velocity PID
@@ -53,23 +73,47 @@ public class Drivetrain extends Subsystem {
     leftMasterTalon.config_kD(0, Constants.lDistance_kD, Constants.kTimeoutMs);
 
     leftMasterTalon.config_kF(1, Constants.lVelocity_kF, Constants.kTimeoutMs);
-    leftMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
-    leftMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
-    leftMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
+    leftMasterTalon.config_kP(1, lkP, Constants.kTimeoutMs);
+    leftMasterTalon.config_kI(1, lkI, Constants.kTimeoutMs);
+    leftMasterTalon.config_kD(1, lkD, Constants.kTimeoutMs);
 
-    rightMasterTalon.config_kF(0, Constants.lDistance_kF, Constants.kTimeoutMs);
-    rightMasterTalon.config_kP(0, Constants.lDistance_kP, Constants.kTimeoutMs);
-    rightMasterTalon.config_kI(0, Constants.lDistance_kI, Constants.kTimeoutMs);
-    rightMasterTalon.config_kD(0, Constants.lDistance_kD, Constants.kTimeoutMs);
+    rightMasterTalon.config_kF(0, Constants.rDistance_kF, Constants.kTimeoutMs);
+    rightMasterTalon.config_kP(0, Constants.rDistance_kP, Constants.kTimeoutMs);
+    rightMasterTalon.config_kI(0, Constants.rDistance_kI, Constants.kTimeoutMs);
+    rightMasterTalon.config_kD(0, Constants.rDistance_kD, Constants.kTimeoutMs);
+
 
     rightMasterTalon.config_kF(1, Constants.lVelocity_kF, Constants.kTimeoutMs);
-    rightMasterTalon.config_kP(1, Constants.lVelocity_kP, Constants.kTimeoutMs);
-    rightMasterTalon.config_kI(1, Constants.lVelocity_kI, Constants.kTimeoutMs);
-    rightMasterTalon.config_kD(1, Constants.lVelocity_kD, Constants.kTimeoutMs);
+    rightMasterTalon.config_kP(1, rkP, Constants.kTimeoutMs);
+    rightMasterTalon.config_kI(1, rkI, Constants.kTimeoutMs);
+    rightMasterTalon.config_kD(1, rkD, Constants.kTimeoutMs);
+
+
+
+    leftMasterTalon.configMotionAcceleration(6385);
+    leftMasterTalon.configMotionCruiseVelocity(6385);
+
+    leftMasterTalon.configMotionAcceleration(6835);
+    leftMasterTalon.configMotionCruiseVelocity(6835);
+
+    // leftMasterTalon.setNeutralMode(NeutralMode.Coast);
+    // rightMasterTalon.setNeutralMode(NeutralMode.Coast);
+    // leftSlaveTalon.setNeutralMode(NeutralMode.Coast);
+    // rightSlaveTalon.setNeutralMode(NeutralMode.Coast);
 
     leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
     rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
-    //drive = new DifferentialDrive(leftMasterTalon, rightMasterTalon);
+
+    // if(Robot.debug){
+    //   SmartDashboard.putNumber("lP", lkP);
+    //   SmartDashboard.putNumber("lI", lkI);
+    //   SmartDashboard.putNumber("lD", lkD);
+
+    //   SmartDashboard.putNumber("rP", rkP);
+    //   SmartDashboard.putNumber("rI", rkI);
+    //   SmartDashboard.putNumber("rD", rkD);
+    // }
+
   }
 
   @Override
@@ -83,19 +127,19 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon.setSelectedSensorPosition(0);
   }
 
-  public void set(ControlMode type, double magnitude){
+  public void set(ControlMode type, double leftMagnitude, double rightMagnitude){
     switch(type){
       case PercentOutput:
-        leftMasterTalon.set(ControlMode.PercentOutput, magnitude);
-        rightMasterTalon.set(ControlMode.PercentOutput, magnitude);
+        leftMasterTalon.set(ControlMode.PercentOutput, leftMagnitude);
+        rightMasterTalon.set(ControlMode.PercentOutput, rightMagnitude);
         break;
       case Velocity:
-        leftMasterTalon.set(ControlMode.Velocity, magnitude);
-        rightMasterTalon.set(ControlMode.Velocity, magnitude);
+        leftMasterTalon.set(ControlMode.Velocity, leftMagnitude);
+        rightMasterTalon.set(ControlMode.Velocity, rightMagnitude);
         break;
       case MotionMagic:
-        leftMasterTalon.set(ControlMode.MotionMagic, magnitude);
-        rightMasterTalon.set(ControlMode.MotionMagic, magnitude);
+        leftMasterTalon.set(ControlMode.MotionMagic, leftMagnitude);
+        rightMasterTalon.set(ControlMode.MotionMagic, rightMagnitude);
         break;
       default:
         break;
@@ -113,8 +157,13 @@ public class Drivetrain extends Subsystem {
   }
 
   public int[] getVelocity(){
-    int[] velocities = {leftMasterTalon.getSelectedSensorPosition(), rightMasterTalon.getSelectedSensorPosition()};
+    int[] velocities = {leftMasterTalon.getSelectedSensorVelocity(), rightMasterTalon.getSelectedSensorVelocity()};
     return velocities;
+  }
+
+  public double[] getCurrent(){
+    double[] currents = {leftMasterTalon.getOutputCurrent(), rightMasterTalon.getOutputCurrent()};
+    return currents;
   }
 
   public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
@@ -158,8 +207,13 @@ public class Drivetrain extends Subsystem {
       }
     }
 
-    leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
-    rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
+    if(Math.signum(leftMotorOutput) == -Math.signum(rightMotorOutput)){
+      leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
+      rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
+    }else{
+      leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.6);
+      rightMasterTalon.set(ControlMode.PercentOutput, limit(-rightMotorOutput) * 0.6);
+    }
 
   }
 
@@ -178,67 +232,6 @@ public class Drivetrain extends Subsystem {
     rightMasterTalon.selectProfileSlot(slot, 0);
   }
 
-  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
-    xSpeed = limit(xSpeed);
-    
-
-    zRotation = limit(zRotation);
-
-    double angularPower;
-    boolean overPower;
-
-    if (isQuickTurn) {
-      if (Math.abs(xSpeed) < 0.2) {
-        quickStopAccumulator = (1 - .1) * quickStopAccumulator
-            + .1 * limit(zRotation) * 2;
-      }
-      overPower = true;
-      angularPower = zRotation;
-    } else {
-      overPower = false;
-      angularPower = Math.abs(xSpeed) * zRotation - quickStopAccumulator;
-
-      if (quickStopAccumulator > 1) {
-        quickStopAccumulator -= 1;
-      } else if (quickStopAccumulator < -1) {
-        quickStopAccumulator += 1;
-      } else {
-        quickStopAccumulator = 0.0;
-      }
-    }
-
-    double leftMotorOutput = xSpeed + angularPower;
-    double rightMotorOutput = xSpeed - angularPower;
-
-    // If rotation is overpowered, reduce both outputs to within acceptable range
-    if (overPower) {
-      if (leftMotorOutput > 1.0) {
-        rightMotorOutput -= leftMotorOutput - 1.0;
-        leftMotorOutput = 1.0;
-      } else if (rightMotorOutput > 1.0) {
-        leftMotorOutput -= rightMotorOutput - 1.0;
-        rightMotorOutput = 1.0;
-      } else if (leftMotorOutput < -1.0) {
-        rightMotorOutput -= leftMotorOutput + 1.0;
-        leftMotorOutput = -1.0;
-      } else if (rightMotorOutput < -1.0) {
-        leftMotorOutput -= rightMotorOutput + 1.0;
-        rightMotorOutput = -1.0;
-      }
-    }
-
-    // Normalize the wheel speeds
-    double maxMagnitude = Math.max(Math.abs(leftMotorOutput), Math.abs(rightMotorOutput));
-    if (maxMagnitude > 1.0) {
-      leftMotorOutput /= maxMagnitude;
-      rightMotorOutput /= maxMagnitude;
-    }
-
-    leftMasterTalon.set(ControlMode.Velocity, leftMotorOutput * Constants.kMaxVelocity);
-    rightMasterTalon.set(ControlMode.Velocity, rightMotorOutput * Constants.kMaxVelocity * -1);
-
-  }
-
   protected double applyDeadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {
       if (value > 0.0) {
@@ -250,4 +243,30 @@ public class Drivetrain extends Subsystem {
       return 0.0;
     }
   }
+
+  public void getConstants(){
+    if(Robot.debug){
+      double lP,lI,lD, rP, rI, rD;
+
+      lP = SmartDashboard.getNumber("lp", 0);
+      lI = SmartDashboard.getNumber("li", 0);
+      lD = SmartDashboard.getNumber("ld", 0);
+
+      rP = SmartDashboard.getNumber("rp", 0);
+      rI = SmartDashboard.getNumber("ri", 0);
+      rD = SmartDashboard.getNumber("rd", 0);
+
+      if(lP != lkP){lkP = lP; leftMasterTalon.config_kP(1, lkP);}
+      if(lI != lkI){lkI = lI; leftMasterTalon.config_kI(1, lkI);}
+      if(lD != lkD){lkD = lD; leftMasterTalon.config_kD(1, lkD);}
+
+      if(rP != rkP){rkP = rP; rightMasterTalon.config_kP(1, rkP);}
+      if(rI != rkI){rkI = rI; rightMasterTalon.config_kI(1, rkI);}
+      if(rD != rkD){rkD = rD; rightMasterTalon.config_kD(1, rkD);}
+
+    }
+  }
+
+public void turn(double angle) {
+}
 }

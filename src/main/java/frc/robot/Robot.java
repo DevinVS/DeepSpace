@@ -7,14 +7,32 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CameraServerJNI;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.realtest;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.IO;
+import frc.robot.subsystems.Lift;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.vision.Block;
-import frc.robot.vision.Pixy2SpiJNI;
+import frc.robot.vision.Pixy2USBJNI;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -23,13 +41,19 @@ import frc.robot.vision.Pixy2SpiJNI;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static boolean debug = true;
   public static RobotMap robotMap = new RobotMap();
+  public static Lift lift = new Lift();
   public static OI m_oi;
-  public static Pixy2SpiJNI pixy2SpiJNI = new Pixy2SpiJNI();
+  public static Pixy2USBJNI pixy2SpiJNI = new Pixy2USBJNI();
   public static Drivetrain drivetrain = new Drivetrain();
+  public static IO io = new IO();
+  public static Compressor compressor = new Compressor(0);
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+   
 
   /**
    * This function is run when the robot is first started up and should be
@@ -40,9 +64,34 @@ public class Robot extends TimedRobot {
     Thread pixy2thread = new Thread(pixy2SpiJNI);
     pixy2thread.start();
     m_oi = new OI();
+    //compressor.setClosedLoopControl(true);
+    compressor.start();
+    // lift.resetEncoders();
     //m_chooser.setDefaultOption("Default Auto", new DriveCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     //SmartDashboard.putData("Auto mode", m_chooser);
+    SmartDashboard.putData("TestRun", new realtest(5));
+    SmartDashboard.putNumber("MyValue", 5);
+
+    
+
+
+    new Thread(() -> {
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+      camera.setResolution(320, 240);
+      
+      CvSink cvSink = CameraServer.getInstance().getVideo();
+      CvSource outputStream = CameraServer.getInstance().putVideo("Video", 320, 240);
+      
+      Mat source = new Mat(320,240, CvType.CV_8UC3);
+
+      while(!Thread.interrupted()) {
+          cvSink.grabFrame(source);
+          Imgproc.line(source, new Point(280, 0), new Point(280, 240), new Scalar(0,255,0), 2);
+          outputStream.putFrame(source);
+      }
+  }).start();
+
   }
 
   /**
@@ -55,12 +104,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Block[] blocks = pixy2SpiJNI.blocksBuffer.poll();
-    if(blocks != null){
-      for(Block b : blocks){
-        // System.out.println(b.toString());
-      }
-    }
+    double[] currents = lift.getAmps();
+    SmartDashboard.putNumber("Elevator Current", currents[0]);
+    SmartDashboard.putNumber("Lift Current", currents[1]);
+    SmartDashboard.putNumber("Elevator Position", Robot.lift.getElevatorPosition());
+    SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());
+    
+    
   }
 
   /**
@@ -70,11 +120,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    drivetrain.set(ControlMode.PercentOutput, 0, 0);
+    
+    
+
+ 
+    
+    
+
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    lift.zero();
   }
 
   /**
@@ -91,6 +150,10 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
+
+    lift.setElevator(0);
+    lift.setLift(1);
+    lift.setDrive(0);
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -116,6 +179,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
+    lift.setElevator(0);
+    lift.setLift(1);
+    lift.setDrive(0);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -131,6 +198,25 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
+     int[] velocities = Robot.drivetrain.getVelocity();
+     int leftside = velocities[0];
+     int rightside = velocities[1];
+
+     int[] positions = Robot.drivetrain.getPosition();
+     int pLeftside = positions[0];
+     int pRightside = positions[1];
+
+     double[] currents = Robot.drivetrain.getCurrent();
+     double cLeftside = currents[0];
+     double cRightside = currents[1];
+    
+     SmartDashboard.putNumber("Leftside Position ", pLeftside);
+     SmartDashboard.putNumber("Rightside Position ", pRightside);
+     SmartDashboard.putNumber("Leftside Velocity ", leftside);
+     SmartDashboard.putNumber("Rightside Velocity ", rightside);
+     SmartDashboard.putNumber("Leftside Current ", cLeftside);
+     SmartDashboard.putNumber("Righside Current ", cRightside);
+
     //Scheduler.getInstance().run();
     Scheduler.getInstance().run();
   }
@@ -141,4 +227,6 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
+
 }

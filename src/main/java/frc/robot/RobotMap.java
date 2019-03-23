@@ -20,6 +20,31 @@ public class RobotMap {
   // Master Talons are the motors closest to the back
   public static int leftMasterTalonPort = 1;
   public static int leftSlaveTalonPort = 2;
+
   public static int rightMasterTalonPort = 3;
   public static int rightSlaveTalonPort = 4;
+
+  public static int leftIntakeTalonPort = 5;
+  public static int rightIntakeTalonPort = 6;
+
+  public static int intakeSolenoidInPort = 7;
+  public static int intakeSolenoidOutport = 5;
+
+  public static int shiftSolenoidInPort = 4;
+  public static int shiftSolenoidOutPort = 6;
+
+  public static int placeSolenoidInPort = 0;
+  public static int placeSolenoidOutPort = 1;
+
+  public static int brakeSolenoidInPort = 2;
+  public static int brakeSolenoidOutPort = 3;
+  
+  public static int backDriveTalonPort = 7;
+  public static int endEffectorVictorPort = 10;
+  
+  public static int elevatorSparkPort = 8;
+  public static int liftSparkPort = 9;
+
+   
+
 }

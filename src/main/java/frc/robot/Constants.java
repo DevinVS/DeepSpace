@@ -1,17 +1,23 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Constants{
     
     private static boolean Weld = true;
+    // Recursion is when Weld = true
     public static int encoderTicksToAxleRevs = 4096;
+
+    public static int kNeoMaxVelocity = 5600;
 
     public static int kTimeoutMs = 20;
     public static int screenWidth = 300;
     public static int screenHeight = 200;
-    public static double kMaxVelocity;
+    public static double kMaxVelocity = 25000;
+    // kMaxVelocity = 22000
     public static int kAllowableClosedLoopError;
+
+    public static double centerBallHeight = 4.5; //in inches
+    public static double centerHatchHeight = 13; //in inches
 
     public static double lDistance_kP;
     public static double lDistance_kI;
@@ -20,13 +26,6 @@ public class Constants{
     public static double lDistance_Iz;
     public static double lDistance_PeakOut;
 
-    public static double lTurning_kP; 
-    public static double lTurning_kI;
-    public static double lTurning_kD;
-    public static double lTurning_kF;
-    public static double lTurning_Iz;
-    public static double lTurning_PeakOut; 
-
     public static double lVelocity_kP;
     public static double lVelocity_kI;
     public static double lVelocity_kD;
@@ -34,12 +33,6 @@ public class Constants{
     public static double lVelocity_Iz;
     public static double lVelocity_PeakOut;
 
-    public static double lMotProf_kP;
-    public static double lMotProf_kI;
-    public static double lMotProf_kD;
-    public static double lMotProf_kF;
-    public static double lMotProf_Iz;
-    public static double lMotProf_PeakOut;
 
     public static double rDistance_kP;
     public static double rDistance_kI;
@@ -48,13 +41,6 @@ public class Constants{
     public static double rDistance_Iz;
     public static double rDistance_PeakOut;
 
-    public static double rTurning_kP; 
-    public static double rTurning_kI;
-    public static double rTurning_kD;
-    public static double rTurning_kF;
-    public static double rTurning_Iz;
-    public static double rTurning_PeakOut; 
-
     public static double rVelocity_kP;
     public static double rVelocity_kI;
     public static double rVelocity_kD;
@@ -62,16 +48,18 @@ public class Constants{
     public static double rVelocity_Iz;
     public static double rVelocity_PeakOut;
 
-    public static double rMotProf_kP;
-    public static double rMotProf_kI;
-    public static double rMotProf_kD;
-    public static double rMotProf_kF;
-    public static double rMotProf_Iz;
-    public static double rMotProf_PeakOut;
+    public static double elevatorkF = 0.00015;//.00015
+    public static double elevatorkP = 5e-5; //5e-5
+    public static double elevatorkI = 1e-6; //1e-6
+    public static double elevatorkD = 0;
+
+    public static double elevatorkMaxVelocity = 4800; //3000/2 to climb
+    public static double elevatorkMaxAccel = 4800; //3000
+
+    public static double liftMaxVelocity = 3000/2; //2785
+    public static double liftMaxAccel = 3000/2; //2785
 
     static{
-
-        kMaxVelocity = 12360;
         
         if(Weld){
 
@@ -80,59 +68,31 @@ public class Constants{
              lDistance_kP = 0.1;
              lDistance_kI = 0;
              lDistance_kD = 0;
-             lDistance_kF = 0;
+             lDistance_kF = 0.1;
              lDistance_Iz = 100;
              lDistance_PeakOut = .5;
 
-             lTurning_kP = 2;
-             lTurning_kI = 0;
-             lTurning_kD = 4;
-             lTurning_kF = 0;
-             lTurning_Iz = 200;
-             lTurning_PeakOut = 1; 
-
-             lVelocity_kP = 0;
+             lVelocity_kP = 102.3/3000;
              lVelocity_kI = 0;
              lVelocity_kD = 0;
-             lVelocity_kF = .1;
-             //lVelocity_Iz = 300;
-             //lVelocity_PeakOut = .5;
+             lVelocity_kF = 1023/kMaxVelocity;
+             lVelocity_Iz = 300;
+             lVelocity_PeakOut = .5;
 
-             lMotProf_kP = 1;
-             lMotProf_kI = 0;
-             lMotProf_kD = 0;
-             lMotProf_kF = 1023/6800;
-             lMotProf_Iz = 400;
-             lMotProf_PeakOut = 1;
-
-
-             rDistance_kP = 0.1;
-             rDistance_kI = 0;
+             rDistance_kP = 0.07;
+             rDistance_kI = 0.001;
              rDistance_kD = 0;
-             rDistance_kF = 0;
+             rDistance_kF = 0.1;
              rDistance_Iz = 100;
              rDistance_PeakOut = .5;
 
-             rTurning_kP = 2;
-             rTurning_kI = 0;
-             rTurning_kD = 4;
-             rTurning_kF = 0;
-             rTurning_Iz = 200;
-             rTurning_PeakOut = 1; 
-
-             rVelocity_kP = .1;
+             rVelocity_kP = 102.3/600;
              rVelocity_kI = 0;
-             rVelocity_kD = 20;
-             rVelocity_kF = 1023/6800;
+             rVelocity_kD = 0;
+             rVelocity_kF = 1023/kMaxVelocity;
              rVelocity_Iz = 300;
              rVelocity_PeakOut = .5;
 
-             rMotProf_kP = 1;
-             rMotProf_kI = 0;
-             rMotProf_kD = 0;
-             rMotProf_kF = 1023/6800;
-             rMotProf_Iz = 400;
-             rMotProf_PeakOut = 1;
         }
         else{
 
@@ -145,27 +105,6 @@ public class Constants{
              lDistance_Iz = 100;
              lDistance_PeakOut = .5;
 
-             lTurning_kP = 2;
-             lTurning_kI = 0;
-             lTurning_kD = 4;
-             lTurning_kF = 0;
-             lTurning_Iz = 200;
-             lTurning_PeakOut = 1; 
-
-             lVelocity_kP = .1;
-             lVelocity_kI = 0;
-             lVelocity_kD = 20;
-             lVelocity_kF = 1023/6800;
-             lVelocity_Iz = 300;
-             lVelocity_PeakOut = .5;
-
-             lMotProf_kP = 1;
-             lMotProf_kI = 0;
-             lMotProf_kD = 0;
-             lMotProf_kF = 1023/6800;
-             lMotProf_Iz = 400;
-             lMotProf_PeakOut = 1;
-             
 
              rDistance_kP = 0.1;
              rDistance_kI = 0;
@@ -174,26 +113,22 @@ public class Constants{
              rDistance_Iz = 100;
              rDistance_PeakOut = .5;
 
-             rTurning_kP = 2;
-             rTurning_kI = 0;
-             rTurning_kD = 4;
-             rTurning_kF = 0;
-             rTurning_Iz = 200;
-             rTurning_PeakOut = 1; 
 
-             rVelocity_kP = .1;
+             lVelocity_kP = 1.75*102.3/1600;
+             lVelocity_kI = 0;
+             lVelocity_kD = 0;
+             lVelocity_kF = 1023/kMaxVelocity;
+             lVelocity_Iz = 300;
+             lVelocity_PeakOut = .5;
+
+
+             rVelocity_kP = 1.75*102.3/1600;
              rVelocity_kI = 0;
-             rVelocity_kD = 20;
-             rVelocity_kF = 1023/6800;
+             rVelocity_kD = 0;
+             rVelocity_kF = 1023/kMaxVelocity;
              rVelocity_Iz = 300;
              rVelocity_PeakOut = .5;
 
-             rMotProf_kP = 1;
-             rMotProf_kI = 0;
-             rMotProf_kD = 0;
-             rMotProf_kF = 1023/6800;
-             rMotProf_Iz = 400;
-             rMotProf_PeakOut = 1;
 
         }
 
