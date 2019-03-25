@@ -30,7 +30,7 @@ public class AlignG extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    addSequential(new Align());
+    addSequential(new Align(3.0));
     // addSequential(new MovePID(3));
 }
 }

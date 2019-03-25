@@ -84,7 +84,7 @@ public class OI {
     trigger.whenPressed(new Intake());
     trigger.whenReleased(new NeutralIntake() );
     
-    button2.whileHeld(new Align());
+    button2.whileHeld(new Align(3.0));
 
     button8.whenPressed(new InstantCommand(){
         @Override
