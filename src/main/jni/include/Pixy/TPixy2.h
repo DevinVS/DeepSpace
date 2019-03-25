@@ -20,7 +20,7 @@
 #define _TPIXY2_H
 
 // uncomment to turn on debug prints to console
-#define PIXY_DEBUG
+// #define PIXY_DEBUG
 
 #define PIXY_DEFAULT_ARGVAL                  0x80000000
 #define PIXY_BUFFERSIZE                      0x104
@@ -59,6 +59,8 @@
 #include "Pixy2Line.h"
 #include "Pixy2Video.h"
 
+#include <frc/SPI.h>
+
 #include <string.h>
 
 struct Version
@@ -67,6 +69,7 @@ struct Version
   {
     char buf[64];
     printf("hardware ver: 0x%x firmware ver: %d.%d.%d %s\n", hardware, firmwareMajor, firmwareMinor, firmwareBuild, firmwareType);
+    // Serial.println(buf);
   }
   
   uint16_t hardware;
@@ -80,7 +83,9 @@ struct Version
 template <class LinkType> class TPixy2
 {
 public:
+  TPixy2(frc::SPI::Port);
   TPixy2();
+  TPixy2(TPixy2&& rhs);
   ~TPixy2(); 
 
   int8_t init(uint32_t arg=PIXY_DEFAULT_ARGVAL);
@@ -125,7 +130,7 @@ private:
 };
 
 
-template <class LinkType> TPixy2<LinkType>::TPixy2() : ccc(this), line(this), video(this)
+template <class LinkType> TPixy2<LinkType>::TPixy2(frc::SPI::Port port) : m_link(port), ccc(this), line(this), video(this)
 {
   // allocate buffer space for send/receive
   m_buf = (uint8_t *)malloc(PIXY_BUFFERSIZE);
@@ -133,6 +138,20 @@ template <class LinkType> TPixy2<LinkType>::TPixy2() : ccc(this), line(this), vi
   m_bufPayload = m_buf + PIXY_SEND_HEADER_SIZE;
   frameWidth = frameHeight = 0;
   version = NULL;
+}
+
+template <class LinkType> TPixy2<LinkType>::TPixy2() : TPixy2(frc::SPI::Port::kOnboardCS0)
+{
+  // Delegated constructor
+}
+
+template <class LinkType> TPixy2<LinkType>::TPixy2(TPixy2&& rhs)
+  : m_link(std::move(rhs.m_link)),
+    ccc(std::move(rhs.ccc)),
+    line(std::move(rhs.line)),
+    video(std::move(rhs.video))
+{
+  // move constructor
 }
 
 template <class LinkType> TPixy2<LinkType>::~TPixy2()
@@ -203,7 +222,7 @@ template <class LinkType> int16_t TPixy2<LinkType>::getSync()
       if (j>=4)
       {
 #ifdef PIXY_DEBUG
-        printf("[ERROR] No response\n");
+        printf("error: no response\n");
 #endif		  
         return PIXY_RESULT_ERROR;
       }

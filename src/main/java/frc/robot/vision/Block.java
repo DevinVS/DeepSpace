@@ -1,7 +1,5 @@
 package frc.robot.vision;
 
-import java.util.Iterator;
-
 public class Block {
     public int sig;
     public int x;
@@ -19,8 +17,8 @@ public class Block {
         this.height = height;
         this.index = index;
         this.age = age;
-
     }
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -32,6 +30,5 @@ public class Block {
         sb.append(" index: " + index);
         sb.append(" age: " + age);
         return sb.toString();
-
     }
 }
