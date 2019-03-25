@@ -71,6 +71,7 @@ public class Align extends TimedCommand {
   private static double getBlocksPos() {
     getBlocks();
     if (target1 == null || target2 == null) {
+      System.out.println("INFO: could not find target1 or target2");
       return pixyOffset;
     } else {
       return (target1.x + target2.x) * 0.5;
@@ -81,9 +82,8 @@ public class Align extends TimedCommand {
     Block[] blocks = Robot.pixy2SpiJNI.blocksBuffer.poll();
     //Hashtable<Integer, Block> centeredBlocks = new Hashtable<Integer, Block>();
     TreeMap<Integer, Block> centeredBlocks = new TreeMap<Integer, Block>();
-    if (blocks !=null && blocks.length>0) {
-      for (Block b: blocks){
-
+    if (blocks!=null && blocks.length>0) {
+      for (Block b: blocks) {
         if (b.sig == 2) {
           int pixyOffsetError = b.x-pixyOffset;
           if (centeredBlocks.size()>=2 && Math.abs(pixyOffsetError) < Math.abs(centeredBlocks.lastKey())) {
@@ -98,12 +98,15 @@ public class Align extends TimedCommand {
       if (centeredBlocks.size() == 2) {
         target1 = centeredBlocks.pollFirstEntry().getValue();
         target2 = centeredBlocks.pollFirstEntry().getValue();
-        System.out.println(String.format("INFO: Align found targets: x1: %03d x2: %03d", target1.x, target2.x));
+        System.out.println(String.format("INFO: Align found target1.x: %03d target2.x: %03d", target1.x, target2.x));
       }
+    } else {
+      target1 = null;
+      target2 = null;
+    }
   }
-    
-  }
-  private static double limit(double num){
+
+  private static double limit(double num) {
     if (num>1) {
       return 1;
     } else if (num<-1) {
