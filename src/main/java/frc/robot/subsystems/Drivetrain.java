@@ -207,12 +207,20 @@ public class Drivetrain extends Subsystem {
       }
     }
 
-    if(Math.signum(leftMotorOutput) == -Math.signum(rightMotorOutput)){
-      leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
-      rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
-    }else{
+    // if(Math.signum(leftMotorOutput)  == -Math.signum(rightMotorOutput)){
+    //   leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
+    //   rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
+    // }else{
+    //   if()
+    //   leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.55);
+    //   rightMasterTalon.set(ControlMode.PercentOutput, limit(-rightMotorOutput) * 0.55);
+    // }
+    if(Math.abs(xSpeed) > Math.abs(zRotation)){
       leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.55);
       rightMasterTalon.set(ControlMode.PercentOutput, limit(-rightMotorOutput) * 0.55);
+    }else{
+      leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
+      rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * Constants.kMaxVelocity);
     }
 
   }

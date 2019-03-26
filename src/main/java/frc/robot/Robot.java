@@ -103,7 +103,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Elevator Current", currents[0]);
     SmartDashboard.putNumber("Lift Current", currents[1]);
     SmartDashboard.putNumber("Elevator Position", Robot.lift.getElevatorPosition());
-    SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());    
+    SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());
+    double[] temps = lift.getTemps();
+    SmartDashboard.putNumber("Lift Temperature", temps[0]);
+    SmartDashboard.putNumber("Elevator Temperature", temps[1]);
+    SmartDashboard.putBoolean("Piston Pos", !io.getPistonPos());
   }
 
   /**

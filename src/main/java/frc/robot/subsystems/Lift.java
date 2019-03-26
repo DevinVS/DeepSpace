@@ -43,6 +43,7 @@ public class Lift extends Subsystem {
     liftSpark.restoreFactoryDefaults();
     liftSpark.setIdleMode(CANSparkMax.IdleMode.kCoast);
     liftSpark.setInverted(true);
+    liftSpark.setSmartCurrentLimit(40);
     liftEncoder = liftSpark.getEncoder();
     liftPID = liftSpark.getPIDController();
     liftEncoder = liftSpark.getEncoder();
@@ -61,6 +62,7 @@ public class Lift extends Subsystem {
     elevatorSpark.restoreFactoryDefaults();
     elevatorSpark.setIdleMode(CANSparkMax.IdleMode.kCoast);
     elevatorSpark.setInverted(true);
+    elevatorSpark.setSmartCurrentLimit(60);
     elevatorEncoder = elevatorSpark.getEncoder();
     elevatorPID = elevatorSpark.getPIDController();
 
@@ -76,7 +78,6 @@ public class Lift extends Subsystem {
 
     SmartDashboard.putNumber("MyValue", 0);
     liftEncoder.setPosition(0);
-
 
   }
 
@@ -142,6 +143,12 @@ public class Lift extends Subsystem {
     elevatorEncoder.setPosition(0);
     liftEncoder.setPosition(0);
   }
-  //ONLY USE FOR RESETING ENCODERS
+  
+  public double[] getTemps(){
+    double liftTemp = liftSpark.getMotorTemperature();
+    double elvTemp = elevatorSpark.getMotorTemperature();
+
+    return new double[]{liftTemp, elvTemp};
+  }
 
 }

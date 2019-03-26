@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -98,6 +99,10 @@ public class IO extends Subsystem {
 
   public void Toggle(int toggle){
     this.mode = toggle;
+  }
+
+  public boolean getPistonPos(){
+    return PlacingSolenoid.get() == Value.kForward;
   }
 
 }
