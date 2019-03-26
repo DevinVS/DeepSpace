@@ -142,6 +142,6 @@ public class Lift extends Subsystem {
     elevatorEncoder.setPosition(0);
     liftEncoder.setPosition(0);
   }
-
+  //ONLY USE FOR RESETING ENCODERS
 
 }
