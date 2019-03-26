@@ -143,6 +143,12 @@ public class Lift extends Subsystem {
     elevatorEncoder.setPosition(0);
     liftEncoder.setPosition(0);
   }
-  //ONLY USE FOR RESETING ENCODERS
+  
+  public double[] getTemps(){
+    double liftTemp = liftSpark.getMotorTemperature();
+    double elvTemp = elevatorSpark.getMotorTemperature();
+
+    return new double[]{liftTemp, elvTemp};
+  }
 
 }
