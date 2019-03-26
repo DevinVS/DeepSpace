@@ -3,7 +3,7 @@ package frc.robot;
 
 public class Constants{
     
-    private static boolean Weld = true;
+    private static boolean Weld = false;
     // Recursion is when Weld = true
     public static int encoderTicksToAxleRevs = 4096;
 

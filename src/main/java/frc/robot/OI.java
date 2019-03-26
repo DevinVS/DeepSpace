@@ -93,7 +93,6 @@ public class OI {
         }
     });
 
-
     pad1.whenPressed(new SetObjectMode("hatch"));
     pad1.whenReleased(new SetObjectMode("ball"));
     pad2.whenPressed(new TopConditional());
@@ -101,18 +100,9 @@ public class OI {
     pad4.whenPressed(new LowConditional());
     pad5.whenPressed(new ClimbG());
     pad6.whenPressed(new twoClimbG());
-    pad7.whenPressed(new MoveElevator(0));
+    pad7.whenPressed(new MoveElevator(1));
     pad8.whenPressed(new HighCenter());
     // pad9.whenPressed(new Zero());
-   
-    
-    
-    
-
-    
-    
-    
-    
 
   }
 }

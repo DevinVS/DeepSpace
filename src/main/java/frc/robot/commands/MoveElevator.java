@@ -16,16 +16,12 @@ public class MoveElevator extends Command {
   public MoveElevator(double targetPos) {
     requires(Robot.lift);
     this.targetPos = targetPos;
-
-
-
   }
-
-
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Started Moving Elevator");
     targetPos = (targetPos > 150)? 150: targetPos;
     Robot.lift.setElevator(targetPos);
   }
@@ -43,7 +39,6 @@ public class MoveElevator extends Command {
     // 40 = middle hatch
     // 70 = tallest hatch
 
-    
     // System.out.println("Elevator Posotion " + Robot.lift.getElevatorPosition());
   }
 

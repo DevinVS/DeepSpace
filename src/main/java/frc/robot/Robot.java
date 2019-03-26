@@ -108,9 +108,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Elevator Current", currents[0]);
     SmartDashboard.putNumber("Lift Current", currents[1]);
     SmartDashboard.putNumber("Elevator Position", Robot.lift.getElevatorPosition());
-    SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());
-    
-    
+    SmartDashboard.putNumber("Lift Position", Robot.lift.getLiftPosition());    
   }
 
   /**
@@ -121,13 +119,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     drivetrain.set(ControlMode.PercentOutput, 0, 0);
-    
-    
-
- 
-    
-    
-
   }
 
   @Override
@@ -151,7 +142,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
 
-    lift.setElevator(0);
+    lift.setElevator(1);
     lift.setLift(1);
     lift.setDrive(0);
 

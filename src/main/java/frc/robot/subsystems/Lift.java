@@ -84,6 +84,7 @@ public class Lift extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     //setDefaultCommand(new MoveElevator(10));
+    // setDefaultCommand(new MoveElevator(1));
   }
 
   public void setElevator(double targetPos){

@@ -101,8 +101,8 @@ public class Drivetrain extends Subsystem {
     // leftSlaveTalon.setNeutralMode(NeutralMode.Coast);
     // rightSlaveTalon.setNeutralMode(NeutralMode.Coast);
 
-    leftMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
-    rightMasterTalon.configClosedloopRamp(.5, Constants.kTimeoutMs);
+    leftMasterTalon.configClosedloopRamp(1, Constants.kTimeoutMs);
+    rightMasterTalon.configClosedloopRamp(1, Constants.kTimeoutMs);
 
     // if(Robot.debug){
     //   SmartDashboard.putNumber("lP", lkP);
@@ -211,8 +211,8 @@ public class Drivetrain extends Subsystem {
       leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
       rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
     }else{
-      leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.6);
-      rightMasterTalon.set(ControlMode.PercentOutput, limit(-rightMotorOutput) * 0.6);
+      leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.55);
+      rightMasterTalon.set(ControlMode.PercentOutput, limit(-rightMotorOutput) * 0.55);
     }
 
   }
