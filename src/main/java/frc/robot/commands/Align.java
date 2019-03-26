@@ -30,29 +30,34 @@ public class Align extends TimedCommand {
   }
 
   private static double kP = 0.005;
-  private static Block target1;
-  private static Block target2;
-  private static int pixyOffset = 79; // was at 75
-  private static double error;
+  private static Block leftTarget1;
+  private static Block leftTarget2;
+  private static Block rightTarget1;
+  private static Block rightTarget2;
+  private static int leftPixyOffset = 79; // was at 75
+  private static int rightPixyOffset = 79; // was at 75
+  private static double leftError;
+  private static double rightError;
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double blocksPos = getBlocksPos();
-    error = blocksPos - pixyOffset;
-    double rOut = limit(kP * -error);
-    double lOut = limit(kP * error);
-    Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
+    double[] blocksPos = getBlocksPos();
+    leftError = blocksPos[0] - leftPixyOffset;
+    rightError = blocksPos[1] - rightPixyOffset;
+    // TODO: How to triangulate and move motors?
+    // double rOut = limit(kP * -leftError);
+    // double lOut = limit(kP * leftError);
+    // Robot.drivetrain.set(ControlMode.PercentOutput, lOut, rOut);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    System.out.println(String.format("INFO: Align error: %.01f", error));
-    if (isTimedOut()) {
-      System.out.println("INFO: Align timed out");
-    }
-    return Math.abs(error) < 2 || isTimedOut();
+    System.out.println(String.format("INFO: left error: %d, right error: %d", leftError, rightError));
+    // return error < 2;
+    // TODO: How to determine if this Align is now finished?
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -68,42 +73,67 @@ public class Align extends TimedCommand {
   protected void interrupted() {
   }
 
-  private static double getBlocksPos() {
+
+//    private static void getBlocks() {
+//     Block[] blocks = Robot.pixy2SpiJNI.blocksBuffer.poll();
+//     //Hashtable<Integer, Block> centeredBlocks = new Hashtable<Integer, Block>();
+//     TreeMap<Integer, Block> centeredBlocks = new TreeMap<Integer, Block>();
+//     if (blocks!=null && blocks.length>0) {
+//       for (Block b: blocks) {
+//         if (b.sig == 2) {
+//           int pixyOffsetError = b.x-pixyOffset;
+//           if (centeredBlocks.size()>=2 && Math.abs(pixyOffsetError) < Math.abs(centeredBlocks.lastKey())) {
+//             centeredBlocks.pollLastEntry();
+//             centeredBlocks.put(pixyOffsetError, b);
+//           } else {
+//             centeredBlocks.put(pixyOffsetError, b);
+//           }
+//         }
+//       }
+
+//       if (centeredBlocks.size() == 2) {
+//         target1 = centeredBlocks.pollFirstEntry().getValue();
+//         target2 = centeredBlocks.pollFirstEntry().getValue();
+//         System.out.println(String.format("INFO: Align found target1.x: %03d target2.x: %03d", target1.x, target2.x));
+//       }
+//     } else {
+//       target1 = null;
+//       target2 = null;
+//     }
+
+  private static double[] getBlocksPos(){
     getBlocks();
-    if (target1 == null || target2 == null) {
-      System.out.println("INFO: could not find target1 or target2");
-      return pixyOffset;
+    if(leftTarget1 == null || leftTarget2 == null || rightTarget1 == null || rightTarget2 == null  ) {
+      return new double[]{leftPixyOffset, rightPixyOffset};
     } else {
-      return (target1.x + target2.x) * 0.5;
+      return new double[]{(leftTarget1.x + leftTarget2.x) * 0.5, (rightTarget1.x + rightTarget2.x) * 0.5};
     }
   }
 
-  private static void getBlocks() {
-    Block[] blocks = Robot.pixy2SpiJNI.blocksBuffer.poll();
+  private static void getBlocks(){
+    Block[][] blocks = Robot.pixy2SpiJNI.blocksBuffer.poll();
     //Hashtable<Integer, Block> centeredBlocks = new Hashtable<Integer, Block>();
     TreeMap<Integer, Block> centeredBlocks = new TreeMap<Integer, Block>();
-    if (blocks!=null && blocks.length>0) {
-      for (Block b: blocks) {
-        if (b.sig == 2) {
-          int pixyOffsetError = b.x-pixyOffset;
-          if (centeredBlocks.size()>=2 && Math.abs(pixyOffsetError) < Math.abs(centeredBlocks.lastKey())) {
-            centeredBlocks.pollLastEntry();
-            centeredBlocks.put(pixyOffsetError, b);
-          } else {
-            centeredBlocks.put(pixyOffsetError, b);
-          }
-        }
-      }
+// TODO: Reimplement getBlocks to generate four targets instead of just two?
+    // if(blocks !=null && blocks.length>0) {
+    //   for(Block b: blocks){
 
-      if (centeredBlocks.size() == 2) {
-        target1 = centeredBlocks.pollFirstEntry().getValue();
-        target2 = centeredBlocks.pollFirstEntry().getValue();
-        System.out.println(String.format("INFO: Align found target1.x: %03d target2.x: %03d", target1.x, target2.x));
-      }
-    } else {
-      target1 = null;
-      target2 = null;
-    }
+    //     if(b.sig == 2){ 
+    //       if(centeredBlocks.size()>=2 && b.x-pixyOffset < centeredBlocks.lastKey()){
+    //         centeredBlocks.pollLastEntry();
+    //         centeredBlocks.put(b.x-pixyOffset, b);
+    //       }else{
+    //         centeredBlocks.put(b.x-pixyOffset, b);
+    //       }
+    //     }
+    //   }
+
+    //   if(centeredBlocks.size() ==2) {
+    //     target1 = centeredBlocks.pollFirstEntry().getValue();
+    //     target2 = centeredBlocks.pollFirstEntry().getValue();
+    //     System.out.println("found targets");
+    //   }
+    // }
   }
 
   private static double limit(double num) {

@@ -16,8 +16,6 @@
 // (TPixy2).  TPixy takes a communication link as a template parameter so that 
 // all communication modes (SPI, I2C and UART) can share the same code.  
 //
-#include <iostream>
-#include <string>
 
 #ifndef _PIXY2CCC_H
 #define _PIXY2CCC_H
@@ -43,6 +41,8 @@
 
 #define CCC_SIG_ALL                  0xff // all bits or'ed together
 
+#include "util.h"
+
 struct Block 
 {
   // print block structure!
@@ -67,11 +67,11 @@ struct Block
     }     
     else // regular block.  Note, angle is always zero, so no need to print
       sprintf(buf, "sig: %d x: %d y: %d width: %d height: %d index: %d age: %d", m_signature, m_x, m_y, m_width, m_height, m_index, m_age);   
-
+    // printf(buf);
     std::cout << buf << std::endl;
   }
-  
-  std::string str() {
+
+  std::string str(){
     int i, j;
     char buf[128], sig[6], d;
     bool flag;  
@@ -91,10 +91,10 @@ struct Block
     }     
     else // regular block.  Note, angle is always zero, so no need to print
       sprintf(buf, "sig: %d x: %d y: %d width: %d height: %d index: %d age: %d", m_signature, m_x, m_y, m_width, m_height, m_index, m_age);   
-
+    // printf(buf);
     return buf;
   }
-
+  
   uint16_t m_signature;
   uint16_t m_x;
   uint16_t m_y;
