@@ -55,7 +55,11 @@ public class OI {
   public static JoystickButton button10 = new JoystickButton(stick, 10);
   public static JoystickButton button11 = new JoystickButton(stick, 11);
 
-  
+  public static ComboButton climb2 = new ComboButton(pad6, button6);
+  public static ComboButton climb3 = new ComboButton(pad5, button6);
+
+  public static ComboButton test = new ComboButton(pad2, button6);
+
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
@@ -95,11 +99,11 @@ public class OI {
 
     pad1.whenPressed(new SetObjectMode("hatch"));
     pad1.whenReleased(new SetObjectMode("ball"));
-    pad2.whenPressed(new TopConditional());
+    test.whenPressed(new TopConditional());
     pad3.whenPressed(new MiddleConditional());
     pad4.whenPressed(new LowConditional());
-    pad5.whenPressed(new ClimbG());
-    pad6.whenPressed(new twoClimbG());
+    climb3.whenPressed(new ClimbG());
+    climb2.whenPressed(new twoClimbG());
     pad7.whenPressed(new MoveElevator(1));
     pad8.whenPressed(new HighCenter());
     // pad9.whenPressed(new Zero());
