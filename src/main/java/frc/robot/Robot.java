@@ -32,7 +32,7 @@ import frc.robot.subsystems.IO;
 import frc.robot.subsystems.Lift;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.vision.Block;
-import frc.robot.vision.Pixy2USBJNI;
+import frc.robot.vision.Pixy2SpiJNI;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
   public static RobotMap robotMap = new RobotMap();
   public static Lift lift = new Lift();
   public static OI m_oi;
-  public static Pixy2USBJNI pixy2SpiJNI = new Pixy2USBJNI();
+  public static Pixy2SpiJNI pixy2SpiJNI = new Pixy2SpiJNI();
   public static Drivetrain drivetrain = new Drivetrain();
   public static IO io = new IO();
   public static Compressor compressor = new Compressor(0);
@@ -61,8 +61,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    Thread pixy2thread = new Thread(pixy2SpiJNI);
-    pixy2thread.start();
     m_oi = new OI();
     //compressor.setClosedLoopControl(true);
     compressor.start();
@@ -72,9 +70,6 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("TestRun", new realtest(5));
     SmartDashboard.putNumber("MyValue", 5);
-
-    
-
 
     new Thread(() -> {
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
