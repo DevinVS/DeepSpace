@@ -7,16 +7,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.ConditionalCommand;
 import frc.robot.Robot;
 
-public class LowConditional extends ConditionalCommand {
+public class TopRaiseConditional extends ConditionalCommand {
   /**
    * Add your docs here.
    */
-  public LowConditional() {
-    super(new PlaceBallG(43.2), new PlaceHatchG(16));
+  public TopRaiseConditional() {
+    super(new MoveElevator(140), new MoveElevator(112));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

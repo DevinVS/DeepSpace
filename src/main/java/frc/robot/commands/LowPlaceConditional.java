@@ -10,12 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.ConditionalCommand;
 import frc.robot.Robot;
 
-public class TopConditional extends ConditionalCommand {
+public class LowPlaceConditional extends ConditionalCommand {
   /**
    * Add your docs here.
+   * No
    */
-  public TopConditional() {
-    super(new PlaceBallG(140), new PlaceHatchG(112));
+  public LowPlaceConditional() {
+    super(new PlaceBallG(43.2), new PlaceHatchG(16));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

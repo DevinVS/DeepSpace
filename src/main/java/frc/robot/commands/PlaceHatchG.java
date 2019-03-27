@@ -31,7 +31,7 @@ public class PlaceHatchG extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-    addSequential(new MoveElevator(desiredPos));
+    //addSequential(new MoveElevator(desiredPos));
     addSequential(new Push(.4));
     addSequential(new MoveElevator(desiredPos-5.5));
     addSequential(new Wait(.35));

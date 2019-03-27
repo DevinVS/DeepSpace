@@ -88,7 +88,7 @@ public class OI {
     trigger.whenPressed(new Intake());
     trigger.whenReleased(new NeutralIntake() );
     
-    button2.whileHeld(new Align(3.0));
+    // button2.whileHeld(new Align(3.0));
 
     button8.whenPressed(new InstantCommand(){
         @Override
@@ -99,9 +99,12 @@ public class OI {
 
     pad1.whenPressed(new SetObjectMode("hatch"));
     pad1.whenReleased(new SetObjectMode("ball"));
-    test.whenPressed(new TopConditional());
-    pad3.whenPressed(new MiddleConditional());
-    pad4.whenPressed(new LowConditional());
+    pad2.whileHeld(new TopRaiseConditional());
+    pad2.whenReleased(new TopPlaceConditional());
+    pad3.whileHeld(new MiddleRaiseConditional());
+    pad3.whenReleased(new MiddlePlaceConditional());
+    pad4.whileHeld(new LowRaiseConditional());
+    pad4.whenReleased(new LowPlaceConditional());
     climb3.whenPressed(new ClimbG());
     climb2.whenPressed(new twoClimbG());
     pad7.whenPressed(new MoveElevator(1));

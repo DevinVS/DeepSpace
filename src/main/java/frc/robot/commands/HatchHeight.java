@@ -27,7 +27,7 @@ public class HatchHeight extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.lift.setElevator(6.5);
+    Robot.lift.setElevator(7.5);
   }
 
 }
