@@ -168,7 +168,7 @@ public class Drivetrain extends Subsystem {
 
   public void arcadeDrive(double xSpeed, double zRotation, boolean squareInputs) {
 
-    double m_deadband = 0.02;
+    double m_deadband = 0.1;
     xSpeed = limit(xSpeed);
     xSpeed = applyDeadband(xSpeed, m_deadband);
 
@@ -217,10 +217,10 @@ public class Drivetrain extends Subsystem {
     // }
     if(Math.abs(xSpeed) > Math.abs(zRotation)){
       leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.55);
-      rightMasterTalon.set(ControlMode.PercentOutput, limit(-rightMotorOutput) * 0.55);
+      rightMasterTalon.set(ControlMode.PercentOutput, limit(rightMotorOutput) * -0.55);
     }else{
       leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
-      rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * Constants.kMaxVelocity);
+      rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
     }
 
   }
