@@ -217,16 +217,16 @@ public class Drivetrain extends Subsystem {
     // }
     if(!Robot.m_oi.button11.get()) {
       if(Math.abs(xSpeed) > Math.abs(zRotation)){
-        leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.65);
-        rightMasterTalon.set(ControlMode.PercentOutput, limit(rightMotorOutput) * -0.65);
+        leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.5);
+        rightMasterTalon.set(ControlMode.PercentOutput, limit(rightMotorOutput) * -0.5);
       }else{
         leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * Constants.kMaxVelocity);
         rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * -Constants.kMaxVelocity);
       }
     }else{
       if(Math.abs(xSpeed) > Math.abs(zRotation)){
-        leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.65);
-        rightMasterTalon.set(ControlMode.PercentOutput, limit(rightMotorOutput) * -0.65);
+        leftMasterTalon.set(ControlMode.PercentOutput, limit(leftMotorOutput) * 0.5);
+        rightMasterTalon.set(ControlMode.PercentOutput, limit(rightMotorOutput) * -0.5);
       }else{
         leftMasterTalon.set(ControlMode.Velocity, limit(leftMotorOutput) * -Constants.kMaxVelocity);
         rightMasterTalon.set(ControlMode.Velocity, limit(rightMotorOutput) * Constants.kMaxVelocity);

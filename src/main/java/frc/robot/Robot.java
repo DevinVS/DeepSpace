@@ -20,10 +20,15 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.realtest;
@@ -49,10 +54,11 @@ public class Robot extends TimedRobot {
   public static Drivetrain drivetrain = new Drivetrain();
   public static IO io = new IO();
   public static Compressor compressor = new Compressor(0);
+  public static Timer timer = new Timer();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-
+  NetworkTableEntry entry;
    
 
   /**
@@ -70,22 +76,28 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("TestRun", new realtest(5));
     SmartDashboard.putNumber("MyValue", 5);
+    NetworkTableInstance inst= NetworkTableInstance.getDefault();
+    NetworkTable table = inst.getTable("datatable");
+    entry= table.getEntry("easteregg");
 
-    new Thread(() -> {
-      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-      camera.setResolution(320, 240);
-      
-      CvSink cvSink = CameraServer.getInstance().getVideo();
-      CvSource outputStream = CameraServer.getInstance().putVideo("Video", 320, 240);
-      
-      Mat source = new Mat(320,240, CvType.CV_8UC3);
 
-      while(!Thread.interrupted()) {
-          cvSink.grabFrame(source);
-          Imgproc.line(source, new Point(280, 0), new Point(280, 240), new Scalar(0,255,0), 2);
-          outputStream.putFrame(source);
-      }
-  }).start();
+    timer.start();
+
+  //   new Thread(() -> {
+  //     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+  //     camera.setResolution(320, 240);
+      
+  //     CvSink cvSink = CameraServer.getInstance().getVideo();
+  //     CvSource outputStream = CameraServer.getInstance().putVideo("Video", 320, 240);
+      
+  //     Mat source = new Mat(320,240, CvType.CV_8UC3);
+
+  //     while(!Thread.interrupted()) {
+  //         cvSink.grabFrame(source);
+  //         Imgproc.line(source, new Point(280, 0), new Point(280, 240), new Scalar(0,255,0), 2);
+  //         outputStream.putFrame(source);
+  //     }
+  // }).start();
 
   }
 
@@ -97,6 +109,7 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before
    * LiveWindow and SmartDashboard integrated updating.
    */
+  private boolean hasFired = false;
   @Override
   public void robotPeriodic() {
     double[] currents = lift.getAmps();
@@ -108,7 +121,23 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Lift Temperature", temps[0]);
     SmartDashboard.putNumber("Elevator Temperature", temps[1]);
     SmartDashboard.putBoolean("Piston Pos", !io.getPistonPos());
+  
+    if(DriverStation.getInstance().getMatchTime() < 5 && !hasFired){
+      entry.setBoolean(true);
+      hasFired = true;
+    }
+    
+    if(timer.get()>5){
+      System.out.println("Lift Temperature " + temps[0]);
+      System.out.println("ELevator Temperature " + temps[1]);
+      timer.reset();
+    }
+
   }
+
+  
+
+
 
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -142,7 +171,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_chooser.getSelected();
 
     lift.setElevator(1);
-    lift.setLift(1);
+    lift.setLift(.5);
     lift.setDrive(0);
 
     /*
@@ -171,7 +200,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
 
     lift.setElevator(0);
-    lift.setLift(1);
+    lift.setLift(.5);
     lift.setDrive(0);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to

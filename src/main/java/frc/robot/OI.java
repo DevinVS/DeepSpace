@@ -30,6 +30,7 @@ public class OI {
   // Button button = new JoystickButton(stick, buttonNumber);
 
   public static Joystick stick = new Joystick(0);
+  
   public static Joystick gamepad = new Joystick(1);
 
   public static JoystickButton pad1 = new JoystickButton(gamepad, 1);
@@ -96,6 +97,8 @@ public class OI {
           Robot.lift.resetEncoders();
         }
     });
+
+    button11.whileHeld(new DefenseMode());
 
     pad1.whenPressed(new SetObjectMode("hatch"));
     pad1.whenReleased(new SetObjectMode("ball"));

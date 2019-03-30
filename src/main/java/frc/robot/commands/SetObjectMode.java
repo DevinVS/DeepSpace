@@ -38,6 +38,8 @@ public class SetObjectMode extends InstantCommand {
         break;
       case "hatch":
         Robot.io.Place("take");
+        Robot.io.setPosition("up");
+        Robot.io.setPower(0);
         Robot.io.Toggle(1);
         break;
     }

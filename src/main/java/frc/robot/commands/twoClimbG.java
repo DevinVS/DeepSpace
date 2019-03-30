@@ -20,15 +20,15 @@ public class twoClimbG extends CommandGroup {
     // addSequential(new Wait(3));
     // addSequential(new Raise(2));
     // addSequential(new Wait(3));
-    addSequential(new LiftDrive(4, -1));
+    addSequential(new LiftDrive(1.75, 1));
     addSequential(new MoveElevator(7));
     addSequential(new ActivateArms("down"));
-    addParallel(new LiftDrive(3.5, -1));
-    addSequential(new Move(3.5, .3));
+    addParallel(new LiftDrive(1, 1));
+    addSequential(new Move(1, .35));
     addSequential(new Wait(1));
     addParallel(new Move(1, .1));
     addParallel(new MoveLift(2.5));
-    addSequential(new LiftDrive(1, 1));
+    // addSequential(new LiftDrive(1, 1));
     // addSequential(new Wait(1));
 
 

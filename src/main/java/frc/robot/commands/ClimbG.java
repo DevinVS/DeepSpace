@@ -16,16 +16,16 @@ public class ClimbG extends CommandGroup {
   public ClimbG() {
     
     addSequential(new Raise(-36, -26),3);
-    addSequential(new Raise(-36, -26),3);
-    addSequential(new LiftDrive(4, -1));
+    addSequential(new Raise(-72, -52),3);
+    addSequential(new LiftDrive(1.75, 1));
     addSequential(new MoveElevator(7));
     addSequential(new ActivateArms("down"));
-    addParallel(new LiftDrive(1.5, -1));
-    addSequential(new Move(1.5, .35));
+    addParallel(new LiftDrive(1, 1));
+    addSequential(new Move(1, .35));
     addSequential(new Wait(1));
     addParallel(new Move(1, .1));
     addParallel(new MoveLift(2.5));
-    addSequential(new LiftDrive(1, 1));
+    // addSequential(new LiftDrive(1, 1));
 
   
   }

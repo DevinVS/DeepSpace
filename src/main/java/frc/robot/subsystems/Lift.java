@@ -43,7 +43,7 @@ public class Lift extends Subsystem {
     liftSpark.restoreFactoryDefaults();
     liftSpark.setIdleMode(CANSparkMax.IdleMode.kCoast);
     liftSpark.setInverted(true);
-    liftSpark.setSmartCurrentLimit(40);
+    liftSpark.setSmartCurrentLimit(70);
     liftEncoder = liftSpark.getEncoder();
     liftPID = liftSpark.getPIDController();
     liftEncoder = liftSpark.getEncoder();

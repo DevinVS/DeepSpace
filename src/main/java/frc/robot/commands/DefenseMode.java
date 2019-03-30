@@ -7,19 +7,12 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class Wait extends TimedCommand {
-  /**
-   * Add your docs here.
-   */
-  private double timeout;
-  public Wait(double timeout) {
-    super(timeout);
-    this.timeout = timeout;
+public class DefenseMode extends Command {
+  public DefenseMode() {
+    requires(Robot.io);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -27,7 +20,11 @@ public class Wait extends TimedCommand {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println(String.format("Executing Wait %2f", timeout));
+    Robot.io.GiveOrTake("nada");
+    Robot.io.Place("take");
+    Robot.io.setPosition("up");
+    Robot.io.setPower(0);
+
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,17 +32,20 @@ public class Wait extends TimedCommand {
   protected void execute() {
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return true;
+  }
+
+  // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("End on Wait");
-    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    System.out.println("interrupted on Wait");
   }
 }
