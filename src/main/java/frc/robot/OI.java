@@ -114,5 +114,7 @@ public class OI {
     pad8.whenPressed(new HighCenter());
     // pad9.whenPressed(new Zero());
 
+    button3.whileHeld(new TestTheLift());
+
   }
 }
