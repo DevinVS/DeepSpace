@@ -32,7 +32,7 @@ public class HatchIntakeG extends CommandGroup {
     // arm.
 
     addSequential(new Push(.5));
-    addSequential(new MoveElevator(18));
+    addSequential(new MoveElevator(32.4));
     addSequential(new Pull(.5));
     addSequential(new MoveElevator(1));
 

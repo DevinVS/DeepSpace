@@ -77,10 +77,10 @@ public class Pixy2SpiJNI {
          int visionStrIndex = 0;
          for (String visionStr : visionStuffs) {
             if (visionStr.equals("")) {
-               System.out.println(String.format("INFO: blocks string was empty: %d", visionStrIndex));
+               // System.out.println(String.format("INFO: blocks string was empty: %d", visionStrIndex));
                return;
             }
-            System.out.println(visionStr);
+            // System.out.println(visionStr);
             visionStrIndex++;
          }
 

@@ -15,7 +15,7 @@ public class TopRaiseConditional extends ConditionalCommand {
    * Add your docs here.
    */
   public TopRaiseConditional() {
-    super(new MoveElevator(140), new MoveElevator(112));
+    super(new MoveElevator(252), new MoveElevator(210));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

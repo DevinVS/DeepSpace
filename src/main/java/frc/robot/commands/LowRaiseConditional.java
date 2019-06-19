@@ -16,7 +16,7 @@ public class LowRaiseConditional extends ConditionalCommand {
    * Add your docs here.
    */
   public LowRaiseConditional() {
-    super(new MoveElevator(43.2), new MoveElevator(16));
+    super(new MoveElevator(69.12), new MoveElevator(30));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

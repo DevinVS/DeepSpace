@@ -22,7 +22,7 @@ public class MoveElevator extends Command {
   @Override
   protected void initialize() {
     System.out.println("Started Moving Elevator");
-    targetPos = (targetPos > 150)? 150: targetPos;
+   // targetPos = (targetPos > 150)? 150: targetPos;
     Robot.lift.setElevator(targetPos);
   }
 

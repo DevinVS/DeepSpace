@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -68,7 +69,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    //compressor.setClosedLoopControl(true);
     compressor.start();
     // lift.resetEncoders();
     //m_chooser.setDefaultOption("Default Auto", new DriveCommand());
@@ -83,22 +83,12 @@ public class Robot extends TimedRobot {
 
     timer.start();
 
-  //   new Thread(() -> {
-  //     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-  //     camera.setResolution(320, 240);
-      
-  //     CvSink cvSink = CameraServer.getInstance().getVideo();
-  //     CvSource outputStream = CameraServer.getInstance().putVideo("Video", 320, 240);
-      
-  //     Mat source = new Mat(320,240, CvType.CV_8UC3);
-
-  //     while(!Thread.interrupted()) {
-  //         cvSink.grabFrame(source);
-  //         Imgproc.line(source, new Point(280, 0), new Point(280, 240), new Scalar(0,255,0), 2);
-  //         outputStream.putFrame(source);
-  //     }
-  // }).start();
-
+    SmartDashboard.putData("Lift/Elev Reset Enc", new InstantCommand("Start") {
+      @Override
+      protected void initialize() {
+        Robot.lift.resetEncoders();
+      }
+    });
   }
 
   /**
@@ -171,7 +161,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_chooser.getSelected();
 
     lift.setElevator(1);
-    lift.setLift(.5);
+    lift.setLift(-2);
     lift.setDrive(0);
 
     /*
@@ -200,7 +190,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
 
     lift.setElevator(0);
-    lift.setLift(.5);
+    lift.setLift(-2);
     lift.setDrive(0);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to

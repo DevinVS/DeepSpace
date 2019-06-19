@@ -102,8 +102,8 @@ public class OI {
 
     pad1.whenPressed(new SetObjectMode("hatch"));
     pad1.whenReleased(new SetObjectMode("ball"));
-    pad2.whileHeld(new TopRaiseConditional());
-    pad2.whenReleased(new TopPlaceConditional());
+    pad2.whileHeld(new MoveElevator(210));
+    pad2.whenReleased(new PlaceHatchG(210));
     pad3.whileHeld(new MiddleRaiseConditional());
     pad3.whenReleased(new MiddlePlaceConditional());
     pad4.whileHeld(new LowRaiseConditional());
@@ -115,6 +115,8 @@ public class OI {
     // pad9.whenPressed(new Zero());
 
     button3.whileHeld(new TestTheLift());
+    button8.whenPressed(new FollowBall());
+    button9.whileHeld(new Align(20));
 
   }
 }

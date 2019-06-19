@@ -16,7 +16,7 @@ public class twoClimbG extends CommandGroup {
   public twoClimbG() {
 
 
-    addSequential(new Raise(-27, -19.5), 3);
+    addSequential(new Raise(-27,  +33.6375), 3);
     // addSequential(new Wait(3));
     // addSequential(new Raise(2));
     // addSequential(new Wait(3));
@@ -27,7 +27,7 @@ public class twoClimbG extends CommandGroup {
     addSequential(new Move(1, .35));
     addSequential(new Wait(1));
     addParallel(new Move(1, .1));
-    addParallel(new MoveLift(2.5));
+    addParallel(new MoveLift(-2.5));
     // addSequential(new LiftDrive(1, 1));
     // addSequential(new Wait(1));
 

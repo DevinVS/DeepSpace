@@ -32,7 +32,7 @@ public class FollowBall extends Command {
     System.out.println("Executing FollowBall Command");
     double pos;
     double rightPower =0, leftPower = 0;
-    double offset = 104;
+    double offset = 74;
     
     if((pos = getClosestBallPos())<Constants.screenWidth){
       if(pos<=0){
@@ -74,16 +74,17 @@ public class FollowBall extends Command {
   private double getClosestBallPos(){
     int closestPos = 99999;
     Block[][] blocksArray = Robot.pixy2SpiJNI.blocksBuffer.poll();
+    Block[] blocks = blocksArray[1];
 
     // TODO: How to calculate the closest ball now?
-    // if((blocks!= null) && blocks.length > 0){
-    //   for(Block b: blocks){
-    //     if(b.sig ==1 && (b.x - Constants.screenWidth) < closestPos){
-    //       closestPos = b.x - Constants.screenWidth/2;
-    //       System.out.println(closestPos);
-    //     }
-    //   }
-    // }
+    if((blocks!= null) && blocks.length > 0){
+      for(Block b: blocks){
+        if(b.sig ==1 && (b.x - Constants.screenWidth) < closestPos){
+          closestPos = b.x - Constants.screenWidth/2;
+          System.out.println(closestPos);
+        }
+      }
+    }
 
     return closestPos;
   }

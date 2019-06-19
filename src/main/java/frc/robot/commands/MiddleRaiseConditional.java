@@ -16,7 +16,7 @@ public class MiddleRaiseConditional extends ConditionalCommand {
    * Add your docs here.
    */
   public MiddleRaiseConditional() {
-    super(new MoveElevator(89.6), new MoveElevator(64));
+    super(new MoveElevator(161.28), new MoveElevator(120));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

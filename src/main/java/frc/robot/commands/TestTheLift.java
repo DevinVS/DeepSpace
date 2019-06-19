@@ -29,6 +29,7 @@ public class TestTheLift extends Command {
   protected void execute() {
     double joyX = OI.stick.getX();
     Robot.lift.setLiftSpeed(joyX);
+    System.out.println("Executing TestTheLift "+joyX);
   }
 
   // Make this return true when this Command no longer needs to run execute()

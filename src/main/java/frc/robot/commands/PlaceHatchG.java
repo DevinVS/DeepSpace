@@ -33,7 +33,7 @@ public class PlaceHatchG extends CommandGroup {
 
     //addSequential(new MoveElevator(desiredPos));
     addSequential(new Push(.4));
-    addSequential(new MoveElevator(desiredPos-5.5));
+    addSequential(new MoveElevator(desiredPos-10));
     addSequential(new Wait(.35));
     addSequential(new Pull(0));
     addSequential(new MoveElevator(1));

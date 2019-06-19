@@ -41,7 +41,7 @@ public class Lift extends Subsystem {
 
     liftSpark = new CANSparkMax(RobotMap.liftSparkPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     liftSpark.restoreFactoryDefaults();
-    liftSpark.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    liftSpark.setIdleMode(CANSparkMax.IdleMode.kBrake);
     liftSpark.setInverted(true);
     liftSpark.setSmartCurrentLimit(70);
     liftEncoder = liftSpark.getEncoder();
@@ -97,7 +97,7 @@ public class Lift extends Subsystem {
   }
 
   public void setLiftSpeed(double speed) {
-    liftDrive.set(speed);
+    liftSpark.set(speed);
   }
 
   public void setDrive(double magnitude){

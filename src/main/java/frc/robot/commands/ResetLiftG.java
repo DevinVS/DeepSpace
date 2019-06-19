@@ -8,26 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-public class ClimbG extends CommandGroup {
+public class ResetLiftG extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public ClimbG() {
+  public ResetLiftG() {
+    // Add Commands here:
+    // e.g. addSequential(new Command1());
+    // addSequential(new Command2());
+    // these will run in order.
     
-    addSequential(new Raise(-36, 44.85),3);
-    addSequential(new Raise(-72, 89.7
-    ),3);
-    addSequential(new LiftDrive(1.75, 1));
-    addSequential(new MoveElevator(7));
-    addSequential(new ActivateArms("down"));
-    addParallel(new LiftDrive(1, 1));
-    addSequential(new Move(1, .35));
-    addSequential(new Wait(1));
-    addParallel(new Move(1, .1));
-    addParallel(new MoveLift(2.5));
-    // addSequential(new LiftDrive(1, 1));
 
-  
   }
 }
